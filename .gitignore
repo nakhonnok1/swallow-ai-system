@@ -1,0 +1,200 @@
+# 🔒 SECURITY FIRST - ไฟล์ที่ห้าม commit เด็ดขาด
+
+# ===== CRITICAL SECURITY - ห้าม COMMIT เด็ดขาด =====
+# RTSP Camera Credentials & URLs
+rtsp://*
+*camera_url*
+*camera_ip*
+*camera_password*
+*ainok*
+
+# Configuration Files with Credentials
+config.json
+camera_config.json
+live_stream_config.json
+entrance_config.json
+*.env
+.env*
+secrets.txt
+passwords.txt
+credentials.*
+settings.json
+
+# ===== PYTHON & DEVELOPMENT =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+instance/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# ===== LOGS & RUNTIME DATA =====
+*.log
+*.out
+error.log
+app.log
+performance.log
+live_stream.log
+ultimate_ai_master.log
+ultimate_integrated_system.log
+swallow_ai_integration.log
+
+# ===== DATABASES & DATA FILES =====
+*.sqlite
+*.db
+*.sqlite3
+ai_agent_memory.db
+swallow_smart_stats.db
+object_detection_alerts.db
+ultimate_integrated_results.db
+ultimate_self_learning_ai.db
+final_master_swallow_ai.db
+
+# ===== TEMPORARY & CACHE FILES =====
+*.tmp
+*.temp
+*.cache
+*.bak
+*~
+.DS_Store
+Thumbs.db
+
+# ===== MEDIA & BINARY FILES =====
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.png
+*.jpg
+*.jpeg
+*.gif
+test_video.mp4
+
+# ===== AI MODEL FILES (Large Files) =====
+*.pt
+*.pth
+*.onnx
+*.h5
+*.pkl
+*.model
+yolov8n.pt
+
+# ===== IDE & EDITOR FILES =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== SYSTEM FILES =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== BACKUP FILES =====
+backups/
+backup_*
+*.backup
+
+# ===== JSON ANALYSIS & RESULTS =====
+analysis_*.json
+*_results.json
+genetic_results.json
+ai_test_results.json
+latest_ai_test_result.json
+
+# ===== REPORTS (may contain sensitive data) =====
+*_REPORT.md
+*_STATUS.md
+*_SUMMARY.md
+DEVELOPMENT_*.md
+INTEGRATION_*.md
+FINAL_*.md
+RESTORATION_*.md
+CLEANUP_*.md
+anomaly_alerts.db
+final_master_swallow_ai.db
+
+# 🤖 AI MODELS - โมเดล AI ขนาดใหญ่
+*.pt
+*.pth
+*.onnx
+*.h5
+*.pkl
+*.model
+yolov8n.pt
+*.tflite
+
+# 🎥 VIDEO & MEDIA - ไฟล์สื่อขนาดใหญ่
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
+*.webm
+test_video.mp4
+
+# 🖼️ IMAGES - รูปภาพที่อาจมีข้อมูลละเอียด
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+screenshot_*.png
+Entrance*.png
+*.PNG
+
+# 📈 ANALYSIS & REPORTS - รายงานที่อาจมีข้อมูลละเอียด
+analysis_*.json
+*_analysis_report.md
+performance_*.json
+latest_ai_test_result.json
+ai_test_results.json
+genetic_results.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# 📁 BACKUP FOLDERS - โฟลเดอร์สำรอง
+backups/
+backup/
+temp/
+tmp/
+cache/
+
+# 🔧 RUNTIME FILES
+*.pid
+*.sock
+*.bak
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Images (anomaly detection)
+anomaly_images/
