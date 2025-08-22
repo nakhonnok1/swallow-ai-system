@@ -89,6 +89,28 @@ except Exception as e:
         def get_response(self, message, context=None):
                 return "AI Agent ไม่พร้อมใช้งาน"
 
+# Ultra Intelligent Intruder Detection System
+try:
+    from intelligent_intruder_integration import IntelligentIntruderIntegration, create_integration_system  # type: ignore
+    INTRUDER_DETECTION_AVAILABLE = True
+except Exception as e:
+    INTRUDER_DETECTION_AVAILABLE = False
+    print(f"Warning: Intelligent Intruder Detection not available: {e}")
+    
+    # Fallback stub for missing Intruder Detection
+    class IntelligentIntruderIntegration:  # fallback stub
+        def __init__(self, app=None):
+            self.available = False
+        def setup_flask_integration(self, app):
+            pass
+        def add_camera_stream(self, camera_id, camera_url, location="Unknown"):
+            return False
+        def get_system_health(self):
+            return {'status': 'not_available', 'message': 'Intruder detection system not available'}
+    
+    def create_integration_system(app=None):
+        return IntelligentIntruderIntegration(app)
+
 # Config (หาก config.py มีโครงแปลก ให้ใช้ค่า default ในไฟล์นี้ไว้ก่อน)
 try:
     from config import Config as AppConfig  # type: ignore
@@ -342,6 +364,7 @@ class AIDetector:
         self.object_detector: Optional[AdvancedObjectDetector] = None
         self.ultra_safe_detector: Optional[UltraSafeDetector] = None
         self.ai_chatbot: Optional[EnhancedUltraSmartAIAgent] = None
+        self.intruder_integration: Optional[IntelligentIntruderIntegration] = None
         
         # Main AI System (V5 Ultimate Precision)
         self.v5_detector = None
@@ -392,11 +415,51 @@ class AIDetector:
         except Exception as e:
             logger.warning(f'AI Agent init failed: {e}')
             self.ai_chatbot = None
+        
+        # ลองโหลด Intelligent Intruder Detection System
+        try:
+            if INTRUDER_DETECTION_AVAILABLE:
+                # สร้าง app placeholder เพื่อ integrate ภายหลัง
+                self.intruder_integration = create_integration_system()
+                logger.info('✅ Intelligent Intruder Detection System loaded successfully')
+                
+                # เพิ่ม notification callback
+                self.intruder_integration.add_notification_callback(self._handle_intruder_alert)
+            else:
+                logger.warning('⚠️ Intelligent Intruder Detection System not available')
+                self.intruder_integration = None
+                
+        except Exception as e:
+            logger.warning(f'Intruder Detection System init failed: {e}')
+            self.intruder_integration = None
+    
+    def _handle_intruder_alert(self, notification):
+        """จัดการการแจ้งเตือนสิ่งแปลกปลอม"""
+        try:
+            logger.warning(f"🚨 INTRUDER ALERT: {notification['detection']['object_type']} detected at camera {notification['camera_id']}")
+            
+            # ส่งไปยัง AI Chatbot เพื่อเรียนรู้
+            if self.ai_chatbot:
+                alert_message = f"พบสิ่งแปลกปลอม: {notification['detection']['object_type']} ระดับความเสี่ยง: {notification['detection']['threat_level']}"
+                self.ai_chatbot.get_response(alert_message, context={'type': 'intruder_alert', 'data': notification})
+                
+        except Exception as e:
+            logger.error(f"Error handling intruder alert: {e}")
+    
+    def setup_flask_integration(self, app):
+        """ตั้งค่าการเชื่อมต่อกับ Flask App"""
+        if self.intruder_integration:
+            self.intruder_integration.setup_flask_integration(app)
+            logger.info('✅ Intruder Detection Flask integration setup completed')
 
 # -------- Instances --------
 bird_counter = BirdCounter()
 real_camera = RealCameraManager(VIDEO_SOURCE)
 ai_detector = AIDetector()
+
+# Setup Flask integration for Intruder Detection
+ai_detector.setup_flask_integration(app)
+
 OBJECT_DETECTION_AVAILABLE = (ai_detector.object_detector is not None or 
                               ai_detector.ultra_safe_detector is not None)
 
