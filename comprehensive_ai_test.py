@@ -29,12 +29,12 @@ class ComprehensiveAIChatbotTester:
         
     def test_direct_agent(self):
         """ทดสอบ AI Agent โดยตรง"""
-        print("🔧 ทดสอบ Ultra Smart AI Agent โดยตรง...")
+        print("🔧 ทดสอบ Enhanced Ultra Smart AI Agent โดยตรง...")
         try:
             sys.path.append('.')
-            from ultra_smart_ai_agent import UltraSmartAIAgent
+            from enhanced_ultra_smart_ai_agent import EnhancedUltraSmartAIAgent
             
-            agent = UltraSmartAIAgent()
+            agent = EnhancedUltraSmartAIAgent()
             
             # ทดสอบการตอบสนอง
             test_messages = [
