@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 🚀 ULTIMATE INTEGRATED SWALLOW AI SYSTEM V5 - เชื่อมต่อครบทุกระบบ

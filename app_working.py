@@ -22,6 +22,7 @@ import datetime as dt
 import numpy as np
 from typing import List, Dict, Any, Optional
 
+from flask import Flask
 from flask import Flask, jsonify, render_template, Response, request
 from jinja2 import TemplateNotFound
 
@@ -73,23 +74,20 @@ except Exception as e:
         def detect_birds(self, frame) -> List[Dict[str, Any]]:
             return []
 
-# Ultra Smart AI Agent (New Generation Chatbot)
+# Enhanced Ultra Smart AI Agent (New Generation Chatbot)
 try:
-    from ultra_smart_ai_agent import UltraSmartAIAgent  # type: ignore
-    SMART_AI_CHATBOT_AVAILABLE = True
+    from enhanced_ultra_smart_ai_agent import EnhancedUltraSmartAIAgent  # type: ignore
+    ENHANCED_AI_CHATBOT_AVAILABLE = True
 except Exception as e:
-    SMART_AI_CHATBOT_AVAILABLE = False
-    print(f"Warning: Ultra Smart AI Agent not available: {e}")
-    class UltraSmartAIAgent:  # fallback stub
+    ENHANCED_AI_CHATBOT_AVAILABLE = False
+    print(f"Warning: Enhanced Ultra Smart AI Agent not available: {e}")
+    
+    # Fallback stub for missing AI Agent
+    class EnhancedUltraSmartAIAgent:  # fallback stub
         def __init__(self):
             self.available = False
         def get_response(self, message, context=None):
-            return "Ultra Smart AI Agent ไม่พร้อมใช้งาน"
-        class UltraSmartAIChatbot:  # fallback stub
-            def __init__(self):
-                pass
-            def get_response(self, message: str, context: Dict[str, Any] = None) -> str:
-                return "AI Chatbot ไม่พร้อมใช้งาน"
+                return "AI Agent ไม่พร้อมใช้งาน"
 
 # Config (หาก config.py มีโครงแปลก ให้ใช้ค่า default ในไฟล์นี้ไว้ก่อน)
 try:
@@ -343,7 +341,7 @@ class AIDetector:
         self.detection_enabled = True  # V5 motion-based flag (placeholder)
         self.object_detector: Optional[AdvancedObjectDetector] = None
         self.ultra_safe_detector: Optional[UltraSafeDetector] = None
-        self.ai_chatbot: Optional[UltraSmartAIAgent] = None
+        self.ai_chatbot: Optional[EnhancedUltraSmartAIAgent] = None
         
         # Main AI System (V5 Ultimate Precision)
         self.v5_detector = None
@@ -378,17 +376,21 @@ class AIDetector:
             logger.warning(f'AdvancedObjectDetector init failed: {e}')
             self.object_detector = None
             
-        # ลองโหลด AI Chatbot
+        # ลองโหลด Enhanced AI Chatbot
         try:
-            if SMART_AI_CHATBOT_AVAILABLE:
-                from ultra_smart_ai_agent import UltraSmartAIAgent
-                self.ai_chatbot = UltraSmartAIAgent()
-                logger.info('✅ Ultra Smart AI Agent loaded successfully')
-                # เชื่อมต่อ chatbot กับ ultra safe detector
-                if self.ultra_safe_detector:
-                    self.ultra_safe_detector.connect_agents(ai_chatbot=self.ai_chatbot)
+            if ENHANCED_AI_CHATBOT_AVAILABLE:
+                from enhanced_ultra_smart_ai_agent import EnhancedUltraSmartAIAgent
+                self.ai_chatbot = EnhancedUltraSmartAIAgent()
+                logger.info('✅ Enhanced Ultra Smart AI Agent loaded successfully')
+            else:
+                logger.warning('⚠️ Enhanced Ultra Smart AI Agent not available')
+                self.ai_chatbot = None
+                
+            # เชื่อมต่อ chatbot กับ ultra safe detector
+            if self.ultra_safe_detector and self.ai_chatbot:
+                self.ultra_safe_detector.connect_agents(ai_chatbot=self.ai_chatbot)
         except Exception as e:
-            logger.warning(f'Ultra Smart AI Agent init failed: {e}')
+            logger.warning(f'AI Agent init failed: {e}')
             self.ai_chatbot = None
 
 # -------- Instances --------
@@ -680,9 +682,28 @@ def dashboard():
             <h1>🪶 Swallow AI Dashboard</h1>
             <p>Template index.html ไม่พบ</p>
             <div style="margin: 20px 0;">
-                <a href="/video_feed" style="padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">ดูสตรีมวิดีโอ</a>
+                <a href="/ai-chat" style="padding: 10px; background: #9b59b6; color: white; text-decoration: none; border-radius: 5px;">🤖 AI Agent Chat</a>
+                <a href="/video_feed" style="margin-left: 10px; padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">ดูสตรีมวิดีโอ</a>
                 <a href="/api/system-health" style="margin-left: 10px; padding: 10px; background: #28a745; color: white; text-decoration: none; border-radius: 5px;">สถานะระบบ</a>
             </div>
+        </body></html>
+        '''
+
+@app.route('/ai-chat')
+@app.route('/ai-agent')
+@app.route('/chat')
+def ai_agent_chat():
+    """🤖 AI Agent Chat Interface - ระบบแชทสำหรับ AI Agent อัจฉริยะ"""
+    try:
+        return render_template('ai_agent_chat.html')
+    except TemplateNotFound:
+        return '''
+        <html><head><title>AI Agent Chat</title></head>
+        <body style="font-family: Arial; padding: 20px; text-align: center;">
+            <h1>🤖 AI Agent Chat</h1>
+            <p style="color: red;">Template ai_agent_chat.html ไม่พบ</p>
+            <p>กรุณาตรวจสอบไฟล์ใน templates/ai_agent_chat.html</p>
+            <a href="/" style="padding: 10px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">กลับหน้าหลัก</a>
         </body></html>
         '''
 
@@ -962,7 +983,7 @@ def api_system_health():
 
 # -------- Ultra Smart AI Agent API --------
 @app.route('/api/ai-agent/chat', methods=['POST'])
-def ai_agent_chat():
+def api_ai_agent_chat():
     """API สำหรับสนทนากับ Ultra Smart AI Agent"""
     try:
         if not ai_detector.ai_chatbot:

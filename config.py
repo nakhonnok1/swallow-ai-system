@@ -1,6 +1,7 @@
 
 
-# config.py - Modern, Robust Configuration for Swallow AI System
+# Configuration file
+# Configuration file
 import os
 import json
 from typing import Dict, Any, Optional
