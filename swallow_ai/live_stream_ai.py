@@ -547,7 +547,7 @@ def main():
     # ตัวเลือกแหล่งสตรีม
     STREAM_SOURCES = {
         '0': 0,  # กล้องเว็บแคม
-        'rtsp': 'rtsp://admin:password@192.168.1.100:554/stream',  # กล้อง IP
+        'rtsp': 'rtsp://ainok1:ainok123@192.168.1.100:554/stream1',  # กล้อง IP
         'file': 'training_videos/mixed_behavior/mixed_001.mp4.mp4'  # ไฟล์วิดีโอ
     }
     

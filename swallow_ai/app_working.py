@@ -64,8 +64,9 @@ except Exception as e:
 # -------- AI System Integrations --------
 # Main AI System
 try:
-    from ultimate_perfect_ai_MASTER import V5_UltimatePrecisionSwallowAI, EnhancedMasterBirdDetector
+    from ultimate_perfect_ai_MASTER import UltimateSwallowAIAgent
     MAIN_AI_AVAILABLE = True
+    print("✅ Ultimate Swallow AI Agent loaded successfully")
 except Exception as e:
     MAIN_AI_AVAILABLE = False
     print(f"Warning: Main AI system not available: {e}")
@@ -102,7 +103,7 @@ except Exception as e:
 # Intelligent Intruder Detection
 try:
     from intelligent_intruder_integration import IntelligentIntruderIntegration, create_integration_system
-    INTRUDER_DETECTION_AVAILABLE = True
+    INTRUDER_DETECTION_AVAILABLE = True  # เปิดใช้งานแล้ว
 except Exception as e:
     INTRUDER_DETECTION_AVAILABLE = False
     print(f"Warning: Intelligent Intruder Detection not available: {e}")
@@ -295,29 +296,47 @@ class CameraManager:
         self.max_errors = 10
         
     def connect(self) -> bool:
-        """Connect to camera with retry logic"""
+        """Connect to camera with enhanced retry logic"""
         try:
             if self.cap:
                 self.cap.release()
                 
+            logger.info(f"Attempting to connect to camera: {self.video_source}")
             self.cap = cv2.VideoCapture(self.video_source)
             
+            # Set buffer size to reduce latency
+            self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+            
             if self.cap.isOpened():
-                # Set camera properties
-                self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, camera_props['resolution'][0])
-                self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, camera_props['resolution'][1])
-                self.cap.set(cv2.CAP_PROP_FPS, camera_props['fps'])
+                # เพิ่มการตั้งค่ากล้องที่ละเอียดขึ้น
+                logger.info("🔧 Setting enhanced camera properties...")
                 
-                # Test read
-                ret, test_frame = self.cap.read()
-                if ret and test_frame is not None:
-                    self.is_connected = True
-                    self.error_count = 0
-                    logger.info(f"Camera connected successfully: {self.video_source}")
-                    return True
+                # ตั้งค่าความละเอียดและ FPS ที่เหมาะสม
+                self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+                self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+                self.cap.set(cv2.CAP_PROP_FPS, 30)
+                
+                # ตรวจสอบค่าที่ตั้งจริง
+                actual_width = int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+                actual_height = int(self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+                actual_fps = self.cap.get(cv2.CAP_PROP_FPS)
+                
+                logger.info(f"📹 Camera specs - {actual_width}x{actual_height} @ {actual_fps}fps")
+                
+                # Multiple test reads to ensure stable connection
+                for attempt in range(3):
+                    ret, test_frame = self.cap.read()
+                    if ret and test_frame is not None and test_frame.shape[0] > 0 and test_frame.shape[1] > 0:
+                        self.is_connected = True
+                        self.error_count = 0
+                        logger.info(f"✅ Camera connected successfully: {self.video_source}")
+                        logger.info(f"🎯 Frame ready for AI processing: {test_frame.shape}")
+                        return True
+                    logger.warning(f"Camera test read attempt {attempt + 1}/3 failed")
+                    time.sleep(0.5)
                     
             self.is_connected = False
-            logger.error(f"Failed to connect to camera: {self.video_source}")
+            logger.error(f"❌ Failed to connect to camera: {self.video_source}")
             return False
             
         except Exception as e:
@@ -348,6 +367,10 @@ class CameraManager:
             logger.error(f"Frame read error: {e}")
             return self.last_frame
 
+    def get_frame(self) -> Optional[np.ndarray]:
+        """Get current frame (alias for read_frame)"""
+        return self.read_frame()
+
     def release(self):
         """Release camera resources"""
         try:
@@ -370,16 +393,20 @@ class AIDetector:
         # Initialize available detectors
         self._initialize_detectors()
         
-        # Setup intruder detection if available
+        # Setup intruder detection if available (แก้ไขให้ไม่ hang)
+        global INTRUDER_DETECTION_AVAILABLE
         if INTRUDER_DETECTION_AVAILABLE:
             try:
+                logger.info("🔧 Initializing Intruder Detection System...")
                 self.intruder_system = create_integration_system()
-                logger.info("Intruder detection system initialized")
+                logger.info("✅ Enhanced Intruder Detection System initialized successfully")
             except Exception as e:
                 logger.error(f"Failed to initialize intruder detection: {e}")
                 self.intruder_system = None
+                INTRUDER_DETECTION_AVAILABLE = False  # ปิดการใช้งานถ้าล้มเหลว
         else:
             self.intruder_system = None
+            logger.info("Intruder detection not available")
             
         # Setup AI chatbot if available
         if ENHANCED_AI_CHATBOT_AVAILABLE:
@@ -394,17 +421,28 @@ class AIDetector:
 
     def _initialize_detectors(self):
         """Initialize all available AI detectors"""
-        # Ultra Safe Detector (primary)
+        # Ultimate Swallow AI Agent (priority)
+        if MAIN_AI_AVAILABLE:
+            try:
+                self.detectors['ultimate_ai'] = UltimateSwallowAIAgent()
+                self.current_detector = 'ultimate_ai'
+                self.detection_enabled = True
+                logger.info("Ultimate Swallow AI Agent initialized successfully")
+            except Exception as e:
+                logger.error(f"Ultimate Swallow AI Agent initialization failed: {e}")
+        
+        # Ultra Safe Detector (secondary)
         if ULTRA_SAFE_DETECTOR_AVAILABLE:
             try:
                 self.detectors['ultra_safe'] = UltraSafeDetector()
-                self.current_detector = 'ultra_safe'
-                self.detection_enabled = True
+                if not self.current_detector:
+                    self.current_detector = 'ultra_safe'
+                    self.detection_enabled = True
                 logger.info("Ultra Safe Detector initialized")
             except Exception as e:
                 logger.error(f"Ultra Safe Detector initialization failed: {e}")
         
-        # Advanced Object Detector (secondary)
+        # Advanced Object Detector (tertiary)
         if ADVANCED_DETECTOR_AVAILABLE:
             try:
                 self.detectors['advanced'] = AdvancedObjectDetector()
@@ -437,7 +475,21 @@ class AIDetector:
                 return []
                 
             # Use appropriate detection method for bird detection
-            if self.current_detector == 'ultra_safe':
+            if self.current_detector == 'ultimate_ai':
+                # Use the comprehensive detection from UltimateSwallowAIAgent
+                results = detector.detect_birds_realtime(frame)
+                bird_detections = []
+                for det in results:
+                    if isinstance(det, dict):
+                        bird_detections.append({
+                            'bbox': det.get('bbox', [0, 0, 0, 0]),
+                            'confidence': det.get('confidence', 0.0),
+                            'class': det.get('class', 'bird'),
+                            'type': 'bird_detection'
+                        })
+                return bird_detections
+                
+            elif self.current_detector == 'ultra_safe':
                 _, detections, stats = detector.detect_birds_realtime(
                     frame, camera_props, frame_quality(frame)
                 )
@@ -473,6 +525,40 @@ class AIDetector:
         except Exception as e:
             logger.error(f"Bird detection error: {e}")
             return []
+    
+    def get_ai_statistics(self) -> Dict[str, Any]:
+        """Get comprehensive statistics from Ultimate AI Agent"""
+        if self.current_detector == 'ultimate_ai' and 'ultimate_ai' in self.detectors:
+            try:
+                agent = self.detectors['ultimate_ai']
+                return agent.get_comprehensive_statistics()
+            except Exception as e:
+                logger.error(f"Failed to get AI statistics: {e}")
+                return {}
+        return {}
+    
+    def get_ai_status(self) -> Dict[str, Any]:
+        """Get AI system status"""
+        status = {
+            'current_detector': self.current_detector,
+            'detection_enabled': self.detection_enabled,
+            'available_detectors': list(self.detectors.keys()),
+            'ultimate_ai_available': 'ultimate_ai' in self.detectors
+        }
+        
+        if self.current_detector == 'ultimate_ai' and 'ultimate_ai' in self.detectors:
+            try:
+                agent = self.detectors['ultimate_ai']
+                status['ai_agent_status'] = {
+                    'brain_active': hasattr(agent, 'ai_brain') and agent.ai_brain is not None,
+                    'memory_active': hasattr(agent, 'memory_system') and agent.memory_system is not None,
+                    'learning_active': hasattr(agent, 'learning_system') and agent.learning_system is not None,
+                    'tracking_active': hasattr(agent, 'tracker') and agent.tracker is not None
+                }
+            except Exception as e:
+                logger.error(f"Failed to get AI agent status: {e}")
+                
+        return status
 
     def detect_intruders(self, frame: np.ndarray) -> List[Dict[str, Any]]:
         """Detect intruders/objects specifically - returns results for RED bounding boxes"""
@@ -480,8 +566,15 @@ class AIDetector:
             return []
             
         try:
+            # Define camera properties for intruder detection
+            camera_props = {
+                'camera_type': 'ip_camera',
+                'resolution': '640x480',
+                'location': 'main_entrance'
+            }
+            
             intruder_detections = self.intruder_system.detector.detect_objects(
-                frame, camera_id="main_camera", camera_props=camera_props
+                frame, camera_id="main_camera"
             )
             
             # Convert intruder detections to standard format
@@ -490,9 +583,9 @@ class AIDetector:
                 formatted_detections.append({
                     'bbox': detection.bbox,
                     'confidence': detection.confidence,
-                    'class': detection.object_type,
-                    'threat_level': detection.threat_level.value,
-                    'priority': detection.priority.value,
+                    'class': detection.object_type,  # ใช้ object_type ตามที่กำหนดในระบบ
+                    'threat_level': detection.threat_level if hasattr(detection, 'threat_level') else 'medium',
+                    'priority': detection.priority if hasattr(detection, 'priority') else 'normal',
                     'type': 'intruder_detection'
                 })
             
@@ -541,16 +634,40 @@ class AIDetector:
         }
 
     def setup_flask_integration(self, app):
-        """Setup Flask integration for intruder detection"""
+        """Setup Flask integration for intruder detection (แก้ไขไม่ให้ hang)"""
         if self.intruder_system:
             try:
+                logger.info("🔧 Setting up Flask integration...")
                 self.intruder_system.setup_flask_integration(app)
-                self.intruder_system.add_camera_stream(
-                    'main_camera', VIDEO_SOURCE, 'main_entrance'
-                )
-                logger.info("Flask integration setup completed")
+                logger.info("✅ Flask integration setup completed")
+                
+                # เพิ่ม camera stream แบบไม่ blocking
+                try:
+                    logger.info("🔧 Adding camera stream (non-blocking)...")
+                    # ใช้ timeout เพื่อป้องกันการ hang
+                    import threading
+                    import time
+                    
+                    def add_camera_async():
+                        try:
+                            self.intruder_system.add_camera_stream(
+                                'main_camera', VIDEO_SOURCE, 'main_entrance'
+                            )
+                            logger.info("✅ Camera stream added successfully")
+                        except Exception as e:
+                            logger.warning(f"Camera stream setup failed: {e}")
+                    
+                    # เรียกแบบ async เพื่อไม่ให้ blocking
+                    camera_thread = threading.Thread(target=add_camera_async, daemon=True)
+                    camera_thread.start()
+                    
+                except Exception as e:
+                    logger.warning(f"Camera stream setup skipped: {e}")
+                    
             except Exception as e:
                 logger.error(f"Flask integration setup failed: {e}")
+        else:
+            logger.info("No intruder system available for Flask integration")
                 
     def _handle_intruder_alert(self, notification):
         """Handle intruder detection alerts"""
@@ -583,73 +700,92 @@ if ENHANCED_API_AVAILABLE:
 
 # -------- Video Processing --------
 def video_processing_thread():
-    """Main video processing thread with DUAL AI detection systems"""
+    """Main video processing thread with DUAL AI detection systems + Camera Enhancement"""
     global current_frame
     
-    # Connect to camera
-    if not camera_manager.connect():
-        logger.error("Failed to connect to camera in video processing thread")
+    # เริ่มใช้กล้องที่เชื่อมต่อแล้ว - ไม่ต้อง connect ใหม่
+    logger.info("🎬 Video processing thread started - using connected camera")
+    
+    # ตัวแปรสำหรับการเพิ่มประสิทธิภาพ
+    frame_count = 0
     
     while video_feed_active:
         try:
             frame = camera_manager.read_frame()
             if frame is None:
+                logger.warning("⚠️ No frame received from camera - retrying...")
                 time.sleep(0.1)
                 continue
             
-            # Process frame with DUAL AI detection
-            processed_frame = frame.copy()
-            total_detections = 0
-            bird_count = 0
-            intruder_count = 0
+            frame_count += 1
             
-            # ============ BIRD AI DETECTION (BLUE BOXES) ============
-            try:
-                bird_detections = ai_detector.detect_birds(frame)
-                for detection in bird_detections:
-                    bbox = detection.get('bbox', [0, 0, 0, 0])
-                    confidence = detection.get('confidence', 0.0)
-                    class_name = detection.get('class', 'bird')
-                    
-                    # Draw BLUE bounding box for birds
-                    x, y, w, h = map(int, bbox)
-                    color = (255, 0, 0)  # Blue in BGR format
-                    cv2.rectangle(processed_frame, (x, y), (x + w, y + h), color, 3)
-                    
-                    # Draw bird label with blue background
-                    label = f"🐦 Bird: {confidence:.2f}"
-                    label_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)[0]
-                    cv2.rectangle(processed_frame, (x, y - 25), (x + label_size[0], y), color, -1)
-                    cv2.putText(processed_frame, label, (x, y - 8), 
-                               cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
-                    bird_count += 1
-                    
-            except Exception as e:
-                logger.error(f"Bird detection error: {e}")
+            # ใช้ความสามารถของกล้อง - Frame Enhancement
+            if frame.shape[0] > 0 and frame.shape[1] > 0:
+                # เพิ่มคุณภาพ frame สำหรับ AI processing
+                enhanced_frame = cv2.convertScaleAbs(frame, alpha=1.1, beta=10)
+                
+                # Process frame with DUAL AI detection
+                processed_frame = enhanced_frame.copy()
+                total_detections = 0
+                bird_count = 0
+                intruder_count = 0
+                
+                # แสดงข้อมูลกล้องบน frame (ใช้ความสามารถของกล้อง)
+                if frame_count % 30 == 0:  # ทุก 30 frames
+                    logger.info(f"📹 Processing frame {frame_count} - Camera feed active")
+                
+                # ============ BIRD AI DETECTION (BLUE BOXES) ============
+                try:
+                    bird_detections = ai_detector.detect_birds(enhanced_frame)
+                    if bird_detections and len(bird_detections) > 0:
+                        for detection in bird_detections:
+                            bbox = detection.get('bbox', [0, 0, 0, 0])
+                            confidence = detection.get('confidence', 0.0)
+                            class_name = detection.get('class', 'bird')
+                            
+                            # Validate bbox
+                            if len(bbox) >= 4 and bbox[2] > 0 and bbox[3] > 0:
+                                # Draw BLUE bounding box for birds
+                                x, y, w, h = map(int, bbox)
+                                color = (255, 0, 0)  # Blue in BGR format
+                                cv2.rectangle(processed_frame, (x, y), (x + w, y + h), color, 3)
+                                
+                                # Draw bird label with blue background
+                                label = f"🐦 Bird: {confidence:.2f}"
+                                label_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)[0]
+                                cv2.rectangle(processed_frame, (x, y - 25), (x + label_size[0], y), color, -1)
+                                cv2.putText(processed_frame, label, (x, y - 8), 
+                                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+                                bird_count += 1
+                except Exception as e:
+                    logger.error(f"Bird detection error: {e}")
             
             # ============ INTRUDER AI DETECTION (RED BOXES) ============
             try:
                 intruder_detections = ai_detector.detect_intruders(frame)
-                for detection in intruder_detections:
-                    bbox = detection.get('bbox', [0, 0, 0, 0])
-                    confidence = detection.get('confidence', 0.0)
-                    class_name = detection.get('class', 'object')
-                    threat_level = detection.get('threat_level', 'unknown')
-                    
-                    # Draw RED bounding box for intruders/objects
-                    x, y, w, h = map(int, bbox)
-                    color = (0, 0, 255)  # Red in BGR format
-                    thickness = 4 if threat_level in ['high', 'critical'] else 2
-                    cv2.rectangle(processed_frame, (x, y), (x + w, y + h), color, thickness)
-                    
-                    # Draw intruder label with red background
-                    threat_emoji = "🚨" if threat_level in ['high', 'critical'] else "⚠️"
-                    label = f"{threat_emoji} {class_name}: {confidence:.2f}"
-                    label_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)[0]
-                    cv2.rectangle(processed_frame, (x, y - 25), (x + label_size[0], y), color, -1)
-                    cv2.putText(processed_frame, label, (x, y - 8), 
-                               cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
-                    intruder_count += 1
+                if intruder_detections and len(intruder_detections) > 0:
+                    for detection in intruder_detections:
+                        bbox = detection.get('bbox', [0, 0, 0, 0])
+                        confidence = detection.get('confidence', 0.0)
+                        class_name = detection.get('class', 'object')
+                        threat_level = detection.get('threat_level', 'unknown')
+                        
+                        # Validate bbox
+                        if len(bbox) >= 4 and bbox[2] > 0 and bbox[3] > 0:
+                            # Draw RED bounding box for intruders/objects
+                            x, y, w, h = map(int, bbox)
+                            color = (0, 0, 255)  # Red in BGR format
+                            thickness = 4 if threat_level in ['high', 'critical'] else 2
+                            cv2.rectangle(processed_frame, (x, y), (x + w, y + h), color, thickness)
+                            
+                            # Draw intruder label with red background
+                            threat_emoji = "🚨" if threat_level in ['high', 'critical'] else "⚠️"
+                            label = f"{threat_emoji} {class_name}: {confidence:.2f}"
+                            label_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)[0]
+                            cv2.rectangle(processed_frame, (x, y - 25), (x + label_size[0], y), color, -1)
+                            cv2.putText(processed_frame, label, (x, y - 8), 
+                                       cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+                            intruder_count += 1
                     
             except Exception as e:
                 logger.error(f"Intruder detection error: {e}")
@@ -695,14 +831,16 @@ def generate_video_feed():
                 if current_frame is not None:
                     frame = current_frame.copy()
                 else:
-                    # Create placeholder frame
+                    # ไม่มีกล้อง - แสดงข้อความข้อผิดพลาด
                     frame = np.zeros((480, 640, 3), dtype=np.uint8)
-                    cv2.putText(frame, "System Initializing...", (50, 200), 
-                               cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-                    cv2.putText(frame, "Enhanced Edition V8", (50, 240), 
-                               cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 255), 2)
-                    cv2.putText(frame, f"Uptime: {get_uptime()}", (50, 280), 
-                               cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 0), 2)
+                    cv2.putText(frame, "ERROR: No Camera Connected!", (50, 180), 
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
+                    cv2.putText(frame, "Please check camera connection", (50, 220), 
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+                    cv2.putText(frame, "RTSP: rtsp://ainok1:ainok123@", (50, 260), 
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 1)
+                    cv2.putText(frame, "192.168.1.100:554/stream1", (50, 280), 
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 1)
             
             # Encode frame as JPEG
             _, buffer = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 85])
@@ -936,6 +1074,66 @@ def update_object_detection_status():
 def api_object_detection_status():
     update_object_detection_status()
     return jsonify(object_detection_status)
+
+# ===== ULTIMATE AI AGENT API ENDPOINTS =====
+@app.route('/api/ultimate-ai/statistics')
+def api_ultimate_ai_statistics():
+    """Get comprehensive AI Agent statistics"""
+    try:
+        ai_stats = ai_detector.get_ai_statistics()
+        return jsonify({
+            'success': True,
+            'ai_statistics': ai_stats,
+            'timestamp': dt.datetime.now().isoformat()
+        })
+    except Exception as e:
+        logger.error(f'Ultimate AI statistics API error: {e}')
+        return jsonify({'success': False, 'error': str(e)})
+
+@app.route('/api/ultimate-ai/status')
+def api_ultimate_ai_status():
+    """Get Ultimate AI Agent system status"""
+    try:
+        ai_status = ai_detector.get_ai_status()
+        return jsonify({
+            'success': True,
+            'ai_status': ai_status,
+            'timestamp': dt.datetime.now().isoformat()
+        })
+    except Exception as e:
+        logger.error(f'Ultimate AI status API error: {e}')
+        return jsonify({'success': False, 'error': str(e)})
+
+@app.route('/api/ultimate-ai/realtime-detection', methods=['POST'])
+def api_ultimate_ai_realtime():
+    """Real-time bird detection using Ultimate AI Agent"""
+    try:
+        # Get current frame from camera
+        frame = camera_manager.get_frame()
+        if frame is None:
+            return jsonify({'success': False, 'error': 'No camera frame available'})
+        
+        # Perform detection using Ultimate AI Agent
+        if ai_detector.current_detector == 'ultimate_ai' and 'ultimate_ai' in ai_detector.detectors:
+            agent = ai_detector.detectors['ultimate_ai']
+            results = agent.detect_birds_realtime(frame)
+            
+            return jsonify({
+                'success': True,
+                'detections': results,
+                'detector_type': 'ultimate_ai',
+                'timestamp': dt.datetime.now().isoformat()
+            })
+        else:
+            return jsonify({
+                'success': False, 
+                'error': 'Ultimate AI Agent not available',
+                'current_detector': ai_detector.current_detector
+            })
+            
+    except Exception as e:
+        logger.error(f'Ultimate AI realtime detection API error: {e}')
+        return jsonify({'success': False, 'error': str(e)})
 
 @app.route('/api/cleanup-old-data')
 def api_cleanup_old_data():
@@ -1693,17 +1891,25 @@ def main():
     # Initialize basic detection database
     init_detection_database()
     
-    # Start video processing thread
-    logger.info("🎥 Starting video processing thread...")
-    video_thread = threading.Thread(target=video_processing_thread, daemon=True)
-    video_thread.start()
-    
-    # Connect to camera
+    # Connect to camera ก่อนเริ่ม video processing
     logger.info("📹 Connecting to camera...")
     if camera_manager.connect():
-        logger.info("✅ Camera connected successfully")
+        logger.info("✅ Camera connected and ready for AI processing")
+        
+        # เริ่ม video processing thread หลังจากกล้องเชื่อมต่อสำเร็จ
+        logger.info("🎥 Starting AI video processing thread...")
+        video_thread = threading.Thread(target=video_processing_thread, daemon=True)
+        video_thread.start()
+        logger.info("✅ AI video processing thread started successfully")
+        
     else:
-        logger.warning("⚠️ Camera connection failed - system will continue with placeholder frames")
+        logger.error("❌ Camera connection failed - ระบบต้องการกล้องจริงเท่านั้น!")
+        logger.error("🔧 กรุณาตรวจสอบ:")
+        logger.error("   - การเชื่อมต่อเครือข่าย")
+        logger.error("   - IP Address และ Port ของกล้อง")
+        logger.error("   - Username และ Password")
+        logger.error("   - RTSP URL: rtsp://ainok1:ainok123@192.168.1.100:554/stream1")
+        return  # หยุดการทำงานหากไม่มีกล้อง
     
     # Log system status
     logger.info(f"🤖 AI Detection: {'Enabled' if ai_detector.detection_enabled else 'Disabled'}")
@@ -1726,6 +1932,75 @@ def main():
         video_feed_active = False
         camera_manager.release()
         logger.info("🔄 System shutdown complete")
+
+def test_camera_connection(video_source: str) -> bool:
+    """ทดสอบการเชื่อมต่อกล้องอย่างละเอียด"""
+    logger.info("🔍 Testing camera connection...")
+    
+    try:
+        # ทดสอบ RTSP connection
+        cap = cv2.VideoCapture(video_source)
+        cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+        
+        if not cap.isOpened():
+            logger.error("❌ Cannot open video source")
+            return False
+            
+        # ทดสอบอ่าน frame หลายครั้ง
+        success_count = 0
+        for i in range(5):
+            ret, frame = cap.read()
+            if ret and frame is not None and frame.shape[0] > 0:
+                success_count += 1
+                logger.info(f"✅ Frame test {i+1}/5: Success - Size: {frame.shape}")
+            else:
+                logger.warning(f"⚠️ Frame test {i+1}/5: Failed")
+            time.sleep(0.2)
+        
+        cap.release()
+        
+        if success_count >= 3:
+            logger.info(f"✅ Camera test passed: {success_count}/5 frames")
+            return True
+        else:
+            logger.error(f"❌ Camera test failed: {success_count}/5 frames")
+            return False
+            
+    except Exception as e:
+        logger.error(f"❌ Camera test exception: {e}")
+        return False
+
+def enhance_camera_settings(cap: cv2.VideoCapture) -> None:
+    """เพิ่มประสิทธิภาพการตั้งค่ากล้อง"""
+    try:
+        # ลดความล่าช้า
+        cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+        
+        # ตั้งค่าความละเอียดสูงสุด
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+        
+        # ตั้งค่า FPS
+        cap.set(cv2.CAP_PROP_FPS, 30)
+        
+        # เพิ่มคุณภาพภาพ
+        cap.set(cv2.CAP_PROP_EXPOSURE, -6)  # Auto exposure
+        cap.set(cv2.CAP_PROP_GAIN, 0)       # Auto gain
+        cap.set(cv2.CAP_PROP_BRIGHTNESS, 0.5)
+        cap.set(cv2.CAP_PROP_CONTRAST, 0.5)
+        cap.set(cv2.CAP_PROP_SATURATION, 0.5)
+        
+        # ตรวจสอบการตั้งค่าที่ได้
+        actual_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+        actual_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        actual_fps = cap.get(cv2.CAP_PROP_FPS)
+        
+        logger.info(f"📹 Camera enhanced settings:")
+        logger.info(f"   Resolution: {actual_width}x{actual_height}")
+        logger.info(f"   FPS: {actual_fps}")
+        
+    except Exception as e:
+        logger.warning(f"⚠️ Could not enhance camera settings: {e}")
 
 if __name__ == '__main__':
     main()

@@ -89,7 +89,7 @@ if __name__ == "__main__":
         print("🧪 ทดสอบ Simple YOLO Detector...")
         
         # ทดสอบกับ RTSP
-        rtsp_url = "rtsp://ainok1:ainok123@192.168.1.101:554/stream1"
+        rtsp_url = "rtsp://ainok1:ainok123@192.168.1.100:554/stream1"
         cap = cv2.VideoCapture(rtsp_url)
         
         if cap.isOpened():
