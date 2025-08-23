@@ -33,6 +33,7 @@ import warnings
 import time
 import json
 import os
+import sys
 import threading
 import queue
 import math
@@ -41,7 +42,17 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from collections import deque, defaultdict
 from typing import List, Tuple, Dict, Optional, Any
-from scipy.optimize import linear_sum_assignment
+
+# Scientific computing imports (with fallbacks)
+try:
+    from scipy.optimize import linear_sum_assignment
+    SCIPY_AVAILABLE = True
+except ImportError:
+    SCIPY_AVAILABLE = False
+    print("⚠️ SciPy not available, using alternative algorithms")
+
+# Add current directory to path for local imports
+sys.path.append(os.path.dirname(__file__))
 
 # Suppress warnings for cleaner output
 warnings.filterwarnings('ignore')
@@ -452,6 +463,106 @@ class UltimateSwallowAIAgent:
             return json.dumps(data, ensure_ascii=False, indent=2)
         else:
             return data
+    
+    # ============================================================================
+    # INTEGRATION METHODS FOR APP_WORKING.PY
+    # ============================================================================
+    
+    def get_compatibility_interface(self):
+        """🔗 รับ interface สำหรับความเข้ากันได้กับระบบเดิม"""
+        return {
+            'detect_birds': self.detect_birds_realtime,
+            'get_statistics': self.get_bird_statistics,
+            'reset_counters': self.reset_counters,
+            'get_status': lambda: {'active': self.is_active, 'agent_id': self.agent_id},
+            'set_detection_enabled': lambda enabled: setattr(self, 'is_active', enabled),
+            'get_ai_statistics': self.get_detailed_analytics,
+            'get_ai_status': self.get_realtime_stats
+        }
+    
+    def integrate_with_flask_app(self, app_instance=None):
+        """🌐 เชื่อมต่อกับ Flask Application"""
+        try:
+            if app_instance:
+                # Import jsonify from flask
+                try:
+                    from flask import jsonify
+                except ImportError:
+                    logger.warning("Flask not available for integration")
+                    return False
+                
+                # Register AI Agent endpoints
+                @app_instance.route('/api/ai-agent/status')
+                def ai_agent_status():
+                    return jsonify(self.get_realtime_stats())
+                
+                @app_instance.route('/api/ai-agent/statistics')
+                def ai_agent_statistics():
+                    return jsonify(self.get_bird_statistics())
+                
+                @app_instance.route('/api/ai-agent/analytics')
+                def ai_agent_analytics():
+                    return jsonify(self.get_detailed_analytics())
+                
+                @app_instance.route('/api/ai-agent/reset', methods=['POST'])
+                def ai_agent_reset():
+                    self.reset_counters()
+                    return jsonify({'success': True, 'message': 'Counters reset'})
+                
+                logger.info("✅ AI Agent integrated with Flask app")
+                return True
+            else:
+                logger.warning("⚠️ No Flask app instance provided")
+                return False
+                
+        except Exception as e:
+            logger.error(f"Flask integration error: {e}")
+            return False
+    
+    def get_detection_results_formatted(self, frame):
+        """📋 รับผลลัพธ์ในรูปแบบที่ app_working.py ใช้"""
+        try:
+            results = self.process_frame_agent(frame)
+            if not results:
+                return []
+            
+            # Format for compatibility
+            formatted_detections = []
+            for detection in results.get('detections', []):
+                formatted_detections.append({
+                    'bbox': detection.get('bbox', [0, 0, 0, 0]),
+                    'center': detection.get('center', (0, 0)),
+                    'confidence': detection.get('confidence', 0.0),
+                    'class_name': detection.get('class', 'bird'),
+                    'track_id': detection.get('track_id', -1),
+                    'direction': detection.get('direction', 'unknown'),
+                    'timestamp': datetime.now().isoformat()
+                })
+            
+            return formatted_detections
+            
+        except Exception as e:
+            logger.error(f"Detection formatting error: {e}")
+            return []
+    
+    def update_from_external_data(self, external_stats):
+        """📊 อัปเดตจากข้อมูลภายนอก (สำหรับ sync กับระบบอื่น)"""
+        try:
+            if isinstance(external_stats, dict):
+                # Update birds count if provided
+                if 'birds_in' in external_stats:
+                    self.session_stats['birds_entered'] = external_stats['birds_in']
+                if 'birds_out' in external_stats:
+                    self.session_stats['birds_exited'] = external_stats['birds_out']
+                if 'birds_inside' in external_stats:
+                    self.session_stats['birds_inside'] = external_stats['birds_inside']
+                
+                logger.info("📊 อัปเดตข้อมูลจากระบบภายนอกสำเร็จ")
+                return True
+            
+        except Exception as e:
+            logger.error(f"External data update error: {e}")
+            return False
 
 
 class AIBrain:
@@ -532,21 +643,81 @@ class SmartBirdDetector:
         try:
             print("🤖 โหลด OpenCV AI Detector สำหรับนก...")
             # ใช้ OpenCV DNN แทน Ultralytics YOLO
-            import sys
-            import os
-            sys.path.append(os.path.dirname(__file__))
-            from opencv_yolo_detector import OpenCVYOLODetector
-            
-            opencv_ai = OpenCVYOLODetector()
-            if opencv_ai.available:
-                print("✅ OpenCV AI Bird Detector โหลดสำเร็จ")
-                return opencv_ai
-            else:
-                print("⚠️ OpenCV AI ไม่พร้อม")
-                return None
+            try:
+                from opencv_yolo_detector import OpenCVYOLODetector
+                opencv_ai = OpenCVYOLODetector()
+                
+                if hasattr(opencv_ai, 'available') and opencv_ai.available:
+                    print("✅ OpenCV AI Bird Detector โหลดสำเร็จ")
+                    return opencv_ai
+                else:
+                    print("⚠️ OpenCV AI ไม่พร้อม - ใช้ระบบสำรอง")
+                    return self._create_backup_detector()
+                    
+            except ImportError as e:
+                print(f"⚠️ ไม่พบ opencv_yolo_detector: {e}")
+                print("🔄 สร้างระบบตรวจจับสำรอง...")
+                return self._create_backup_detector()
                 
         except Exception as e:
             logger.error(f"ไม่สามารถโหลด OpenCV AI: {e}")
+            print(f"❌ Error loading detector: {e}")
+            return self._create_backup_detector()
+    
+    def _create_backup_detector(self):
+        """🔄 สร้างระบบตรวจจับสำรอง"""
+        try:
+            print("🔧 กำลังสร้างระบบตรวจจับสำรอง...")
+            
+            class BackupDetector:
+                def __init__(self):
+                    self.available = True
+                    self.confidence_threshold = 0.3
+                    
+                def detect_birds(self, frame):
+                    """ระบบตรวจจับสำรองโดยใช้ motion detection"""
+                    try:
+                        # Simple motion-based detection
+                        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                        
+                        # Create background subtractor if not exists
+                        if not hasattr(self, 'bg_subtractor'):
+                            self.bg_subtractor = cv2.createBackgroundSubtractorMOG2()
+                        
+                        # Apply background subtraction
+                        fg_mask = self.bg_subtractor.apply(frame)
+                        
+                        # Find contours
+                        contours, _ = cv2.findContours(fg_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                        
+                        detections = []
+                        for contour in contours:
+                            area = cv2.contourArea(contour)
+                            if 200 < area < 5000:  # Bird-like size
+                                x, y, w, h = cv2.boundingRect(contour)
+                                center_x = x + w // 2
+                                center_y = y + h // 2
+                                
+                                detections.append({
+                                    'bbox': [x, y, w, h],
+                                    'center': (center_x, center_y),
+                                    'confidence': 0.6,  # Fixed confidence for backup
+                                    'class': 'bird',
+                                    'source': 'backup_motion'
+                                })
+                        
+                        return detections
+                        
+                    except Exception as e:
+                        logger.error(f"Backup detector error: {e}")
+                        return []
+            
+            backup = BackupDetector()
+            print("✅ ระบบตรวจจับสำรองพร้อมใช้งาน")
+            return backup
+            
+        except Exception as e:
+            logger.error(f"Cannot create backup detector: {e}")
             return None
     
     def detect_primary(self, frame):
@@ -1029,6 +1200,45 @@ class AIMemorySystem:
             'tracking_count': len([b for b in behaviors if b.get('direction') not in ['entering', 'exiting']])
         }
         return summary
+    
+    def _is_significant_memory(self, memory_entry):
+        """🎯 ตรวจสอบความสำคัญของ Memory"""
+        # Memory is significant if there are detections or behaviors
+        return memory_entry['detection_count'] > 0
+    
+    def get_usage_stats(self):
+        """📊 รับสถิติการใช้ Memory"""
+        return {
+            'short_term_count': len(self.short_term_memory),
+            'long_term_count': len(self.long_term_memory),
+            'total_memories': self.memory_stats['total_memories'],
+            'usage_percent': (len(self.long_term_memory) / self.max_memory_size) * 100
+        }
+    
+    def cleanup_old_data(self):
+        """🧹 ทำความสะอาดข้อมูลเก่า"""
+        # Keep only recent memories in short-term
+        current_time = datetime.now()
+        cleaned_memories = []
+        
+        for memory in self.short_term_memory:
+            try:
+                memory_time = datetime.fromisoformat(memory['timestamp'])
+                if (current_time - memory_time).total_seconds() < 3600:  # Keep last hour
+                    cleaned_memories.append(memory)
+            except:
+                continue
+        
+        self.short_term_memory = deque(cleaned_memories, maxlen=100)
+        logger.info("🧹 ทำความสะอาด Memory เก่าแล้ว")
+    
+    def export_data(self):
+        """📤 ส่งออกข้อมูล Memory"""
+        return {
+            'short_term_memory': list(self.short_term_memory),
+            'memory_stats': self.memory_stats,
+            'export_timestamp': datetime.now().isoformat()
+        }
     
     def _is_significant_memory(self, memory_entry):
         """✨ ตรวจสอบความสำคัญของ Memory"""
@@ -1582,6 +1792,133 @@ def create_ai_agent(video_type="mixed", config_path=None):
     """🏭 Factory function สำหรับสร้าง AI Agent"""
     logger.info(f"🏭 สร้าง AI Agent ประเภท: {video_type}")
     return UltimateSwallowAIAgent(video_type, config_path)
+
+
+# ============================================================================
+# INTEGRATION HELPER FUNCTIONS FOR APP_WORKING.PY
+# ============================================================================
+
+def get_ai_agent_instance():
+    """🤖 รับ AI Agent instance สำหรับ app_working.py"""
+    if not hasattr(get_ai_agent_instance, '_instance'):
+        get_ai_agent_instance._instance = create_ai_agent("mixed")
+        get_ai_agent_instance._instance.start_agent()
+        logger.info("🤖 AI Agent instance created for app integration")
+    
+    return get_ai_agent_instance._instance
+
+
+def integrate_with_app_working():
+    """🔗 เชื่อมต่อกับ app_working.py"""
+    try:
+        # Get AI agent instance
+        ai_agent = get_ai_agent_instance()
+        
+        # Create compatibility wrapper
+        class AIDetectorWrapper:
+            def __init__(self, agent):
+                self.agent = agent
+                self.detection_enabled = True
+                self.last_detection_time = None
+                
+            def detect_birds(self, frame, **kwargs):
+                """🐦 ตรวจจับนกสำหรับ app_working.py"""
+                if not self.detection_enabled:
+                    return []
+                
+                try:
+                    formatted_results = self.agent.get_detection_results_formatted(frame)
+                    self.last_detection_time = datetime.now()
+                    return formatted_results
+                except Exception as e:
+                    logger.error(f"Detection wrapper error: {e}")
+                    return []
+            
+            def get_ai_statistics(self):
+                """📊 รับสถิติ AI"""
+                return self.agent.get_detailed_analytics()
+            
+            def get_ai_status(self):
+                """📋 รับสถานะ AI"""
+                stats = self.agent.get_realtime_stats()
+                return {
+                    'detection_enabled': self.detection_enabled,
+                    'agent_active': stats.get('agent_status') == 'active',
+                    'models_loaded': ['ultimate_ai_agent'],
+                    'last_detection': self.last_detection_time.isoformat() if self.last_detection_time else None,
+                    'performance': stats.get('performance', {}),
+                    'health': stats.get('health', {})
+                }
+            
+            def reset_counters(self):
+                """🔄 รีเซ็ตตัวนับ"""
+                self.agent.reset_counters()
+            
+            def get_statistics(self):
+                """📊 รับสถิติการนับนก"""
+                return self.agent.get_bird_statistics()
+        
+        # Create wrapper instance
+        ai_detector_wrapper = AIDetectorWrapper(ai_agent)
+        
+        logger.info("✅ AI Agent integrated with app_working.py successfully")
+        return ai_detector_wrapper
+        
+    except Exception as e:
+        logger.error(f"Integration with app_working.py failed: {e}")
+        return None
+
+
+def create_legacy_detector(video_type="mixed"):
+    """🔄 สร้าง Detector แบบ Legacy สำหรับความเข้ากันได้"""
+    try:
+        ai_agent = get_ai_agent_instance()
+        
+        class LegacyDetector:
+            def __init__(self, agent):
+                self.agent = agent
+                self.video_type = video_type
+                
+            def detect_birds(self, frame):
+                """ตรวจจับนกแบบ Legacy API"""
+                return self.agent.get_detection_results_formatted(frame)
+            
+            def detect_smart(self, frame, **kwargs):
+                """ตรวจจับนกแบบ Smart"""
+                return self.agent.get_detection_results_formatted(frame)
+            
+            def get_statistics(self):
+                """รับสถิติ"""
+                return self.agent.get_bird_statistics()
+        
+        return LegacyDetector(ai_agent)
+        
+    except Exception as e:
+        logger.error(f"Legacy detector creation failed: {e}")
+        return None
+
+
+def sync_with_external_counter(bird_counter):
+    """🔄 ซิงค์กับตัวนับภายนอก"""
+    try:
+        ai_agent = get_ai_agent_instance()
+        
+        # Get data from external counter
+        external_stats = {
+            'birds_in': getattr(bird_counter, 'birds_in', 0),
+            'birds_out': getattr(bird_counter, 'birds_out', 0),
+            'birds_inside': getattr(bird_counter, 'birds_inside', 0)
+        }
+        
+        # Update AI agent
+        ai_agent.update_from_external_data(external_stats)
+        
+        logger.info("🔄 Synced with external counter successfully")
+        return True
+        
+    except Exception as e:
+        logger.error(f"External counter sync failed: {e}")
+        return False
 
 
 def test_ai_agent():

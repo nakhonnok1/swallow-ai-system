@@ -3,15 +3,19 @@
 """
 🔬 Ultra Intelligent Intruder Detection System - Production Ready
 ระบบตรวจจับสิ่งแปลกปลอมที่เป็น AI Agent จริงๆ พร้อมใช้งาน 100%
+เชื่อมต่อกับ Ultimate AI System ทั้งหมด
 """
 
 import os
+import sys
 import cv2
 import numpy as np
 import json
 import time
 import sqlite3
 import threading
+import logging
+import warnings
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional, Tuple, TYPE_CHECKING
 import logging
@@ -180,52 +184,109 @@ class UltraIntelligentIntruderDetector:
             return []
     
     def _initialize_models(self):
-        """เริ่มต้น AI Models"""
+        """เริ่มต้น AI Models - เชื่อมต่อกับ Ultimate AI System"""
         self.models = {}
         
-        # OpenCV AI Detector แทน YOLO ที่มี bug
+        # Ultimate AI Vision System Integration
         try:
-            print("🤖 โหลด OpenCV AI Detector...")
-            # ใช้ OpenCV DNN แทน Ultralytics YOLO
+            print("🚀 โหลด Ultimate AI Vision System...")
             import sys
             import os
             sys.path.append(os.path.dirname(__file__))
-            from opencv_yolo_detector import OpenCVYOLODetector
             
-            self.opencv_ai = OpenCVYOLODetector()
-            if self.opencv_ai.available:
-                print("✅ OpenCV AI Detector โหลดสำเร็จ")
-                self.models['yolo'] = self.opencv_ai
-            else:
-                print("⚠️ OpenCV AI ไม่พร้อม - ใช้ fallback")
+            # พยายามโหลด Ultimate AI Vision System ก่อน
+            try:
+                from opencv_yolo_detector import OpenCVYOLODetector
+                self.ultimate_ai_vision = OpenCVYOLODetector()
+                if self.ultimate_ai_vision.available:
+                    print("✅ Ultimate AI Vision System โหลดสำเร็จ")
+                    self.models['ultimate_ai'] = self.ultimate_ai_vision
+                    self.models['yolo'] = self.ultimate_ai_vision  # สำหรับ backward compatibility
+                else:
+                    print("⚠️ Ultimate AI Vision ไม่พร้อม")
+                    self.models['ultimate_ai'] = None
+                    self.models['yolo'] = None
+            except Exception as e:
+                print(f"⚠️ Ultimate AI Vision Error: {e}")
+                self.models['ultimate_ai'] = None
                 self.models['yolo'] = None
+            
+            # Fallback: ลอง Simple AI Detector
+            if self.models['ultimate_ai'] is None:
+                try:
+                    from simple_ai_detector import SimpleYOLODetector
+                    self.simple_ai = SimpleYOLODetector()
+                    print("✅ Simple AI Detector โหลดเป็น fallback")
+                    self.models['fallback_ai'] = self.simple_ai
+                except Exception as e:
+                    print(f"⚠️ Simple AI Detector Error: {e}")
+                    self.models['fallback_ai'] = None
                 
         except Exception as e:
-            print(f"⚠️ ไม่สามารถโหลด OpenCV AI: {e}")
+            print(f"❌ ไม่สามารถโหลด AI System ใดๆ: {e}")
+            self.models['ultimate_ai'] = None
             self.models['yolo'] = None
+            self.models['fallback_ai'] = None
         
         # MediaPipe (for person detection)
         if MEDIAPIPE_AVAILABLE:
             try:
+                import mediapipe as mp
                 self.models['mediapipe'] = mp.solutions.objectron
                 print("✅ MediaPipe Model โหลดสำเร็จ")
             except Exception as e:
                 print(f"❌ Error loading MediaPipe: {e}")
+        
+        # Enhanced Ultra Smart AI Agent Integration
+        try:
+            from enhanced_ultra_smart_ai_agent import EnhancedUltraSmartAIAgent
+            self.ai_chatbot = EnhancedUltraSmartAIAgent()
+            self.models['ai_chatbot'] = self.ai_chatbot
+            print("✅ Enhanced Ultra Smart AI Agent โหลดสำเร็จ")
+        except Exception as e:
+            print(f"⚠️ Enhanced AI Chatbot ไม่พร้อม: {e}")
+            self.models['ai_chatbot'] = None
+        
+        # Ultimate Swallow AI Agent Integration
+        try:
+            from ultimate_perfect_ai_MASTER import UltimateSwallowAIAgent
+            self.ultimate_swallow_ai = UltimateSwallowAIAgent(video_type="mixed")
+            self.models['ultimate_swallow_ai'] = self.ultimate_swallow_ai
+            print("✅ Ultimate Swallow AI Agent โหลดสำเร็จ")
+        except Exception as e:
+            print(f"⚠️ Ultimate Swallow AI ไม่พร้อม: {e}")
+            self.models['ultimate_swallow_ai'] = None
         
         # Backup detection system
         self.models['backup'] = True
         print("✅ Backup Detection System พร้อมใช้งาน")
     
     def _yolo_detection(self, frame: np.ndarray, camera_id: str, timestamp: str) -> List[IntruderDetection]:
-        """OpenCV AI-based detection (แทน YOLO ที่มี bug)"""
+        """Ultimate AI-based detection - ใช้ Ultimate AI Vision System"""
         detections = []
         
-        if self.models.get('yolo') is None:
+        # ลำดับความสำคัญ: Ultimate AI > Fallback AI > None
+        ai_detector = None
+        detector_name = "none"
+        
+        if self.models.get('ultimate_ai') is not None:
+            ai_detector = self.models['ultimate_ai']
+            detector_name = "Ultimate AI Vision"
+        elif self.models.get('fallback_ai') is not None:
+            ai_detector = self.models['fallback_ai']
+            detector_name = "Fallback AI"
+        elif self.models.get('yolo') is not None:
+            ai_detector = self.models['yolo']
+            detector_name = "OpenCV YOLO"
+        
+        if ai_detector is None:
+            print("⚠️ ไม่มี AI detector ที่พร้อมใช้งาน")
             return detections
             
         try:
-            # ใช้ OpenCV AI Detector
-            ai_detections = self.models['yolo'].detect_objects(frame, conf_threshold=self.confidence_threshold)
+            # ใช้ Ultimate AI Vision System
+            print(f"🔍 ใช้ {detector_name} สำหรับการตรวจจับ...")
+            ai_detections = ai_detector.detect_objects(frame, conf_threshold=self.confidence_threshold)
             
             for det in ai_detections:
                 class_name = det['class']
@@ -233,17 +294,22 @@ class UltraIntelligentIntruderDetector:
                 x, y, w, h = det['bbox']
                 center = det['center']
                 
-                # Map label alias
+                # Map label alias สำหรับสิ่งแปลกปลอม
+                original_class = class_name
                 for main_label, aliases in self.label_alias.items():
                     if class_name in aliases:
                         class_name = main_label
                         break
                 
-                # Determine threat level
-                threat_info = self.threat_objects.get(class_name, {
-                    'threat': ThreatLevel.LOW, 
-                    'priority': DetectionPriority.NORMAL
-                })
+                # ตรวจสอบว่าเป็นสิ่งแปลกปลอมหรือไม่
+                if class_name in self.threat_objects:
+                    threat_info = self.threat_objects[class_name]
+                else:
+                    # สำหรับวัตถุที่ไม่รู้จัก
+                    threat_info = {
+                        'threat': ThreatLevel.MEDIUM, 
+                        'priority': DetectionPriority.ELEVATED
+                    }
                 
                 detection = IntruderDetection(
                     object_type=class_name,
@@ -254,12 +320,17 @@ class UltraIntelligentIntruderDetector:
                     priority=threat_info['priority'],
                     timestamp=timestamp,
                     camera_id=camera_id,
-                    description=f"AI detected {class_name} with {confidence:.2%} confidence"
+                    description=f"{detector_name} detected {original_class} ({class_name}) with {confidence:.2%} confidence"
                 )
                 detections.append(detection)
                 
+                # Log การตรวจจับสิ่งแปลกปลอม
+                if threat_info['threat'] in [ThreatLevel.HIGH, ThreatLevel.CRITICAL]:
+                    print(f"🚨 INTRUDER ALERT: {class_name} detected with {confidence:.2%} confidence")
+                
         except Exception as e:
-            logger.error(f"OpenCV AI detection error: {e}")
+            logger.error(f"{detector_name} detection error: {e}")
+            print(f"❌ {detector_name} เกิดข้อผิดพลาด: {e}")
             
         return detections
     
@@ -346,6 +417,188 @@ class UltraIntelligentIntruderDetector:
                 (self.detection_stats['total_detections'] - self.detection_stats['false_positives']) / 
                 self.detection_stats['total_detections']
             )
+    
+    def analyze_with_ai_chatbot(self, detections: List[IntruderDetection], frame: np.ndarray) -> Dict[str, Any]:
+        """ใช้ AI Chatbot วิเคราะห์ผลการตรวจจับ"""
+        if self.models.get('ai_chatbot') is None:
+            return {'analysis': 'AI Chatbot ไม่พร้อมใช้งาน', 'recommendations': []}
+        
+        try:
+            # สร้างข้อมูลสำหรับ AI Chatbot
+            detection_summary = {
+                'total_detections': len(detections),
+                'threat_levels': {},
+                'object_types': {},
+                'confidence_scores': []
+            }
+            
+            for detection in detections:
+                # นับ threat levels
+                threat_level = detection.threat_level.value
+                detection_summary['threat_levels'][threat_level] = detection_summary['threat_levels'].get(threat_level, 0) + 1
+                
+                # นับ object types
+                obj_type = detection.object_type
+                detection_summary['object_types'][obj_type] = detection_summary['object_types'].get(obj_type, 0) + 1
+                
+                # เก็บ confidence scores
+                detection_summary['confidence_scores'].append(detection.confidence)
+            
+            # ถาม AI Chatbot เพื่อวิเคราะห์
+            analysis_query = f"วิเคราะห์การตรวจจับสิ่งแปลกปลอม: พบ {len(detections)} รายการ"
+            if detection_summary['threat_levels']:
+                threat_info = ", ".join([f"{k}: {v}" for k, v in detection_summary['threat_levels'].items()])
+                analysis_query += f" ระดับความเสี่ยง: {threat_info}"
+            
+            ai_response = self.models['ai_chatbot'].get_response(analysis_query, context=detection_summary)
+            
+            return {
+                'analysis': ai_response,
+                'summary': detection_summary,
+                'ai_available': True
+            }
+            
+        except Exception as e:
+            return {
+                'analysis': f'เกิดข้อผิดพลาดในการวิเคราะห์: {e}',
+                'summary': {},
+                'ai_available': False
+            }
+    
+    def integrate_with_bird_detection(self, frame: np.ndarray) -> Dict[str, Any]:
+        """เชื่อมต่อกับระบบตรวจจับนก Ultimate Swallow AI"""
+        if self.models.get('ultimate_swallow_ai') is None:
+            return {'bird_stats': 'Ultimate Swallow AI ไม่พร้อมใช้งาน'}
+        
+        try:
+            # ใช้ Ultimate Swallow AI วิเคราะห์เฟรม
+            bird_results = self.models['ultimate_swallow_ai'].process_frame_agent(frame)
+            
+            bird_analysis = {
+                'bird_detections': len(bird_results.get('detections', [])),
+                'bird_stats': self.models['ultimate_swallow_ai'].get_realtime_stats(),
+                'detailed_analytics': self.models['ultimate_swallow_ai'].get_detailed_analytics(),
+                'frame_analysis': bird_results
+            }
+            
+            return bird_analysis
+            
+        except Exception as e:
+            return {'bird_stats': f'เกิดข้อผิดพลาดในการวิเคราะห์นก: {e}'}
+    
+    def get_comprehensive_analysis(self, frame: np.ndarray, camera_id: str = "default") -> Dict[str, Any]:
+        """วิเคราะห์ครบถ้วนทั้งสิ่งแปลกปลอมและนก"""
+        results = {
+            'timestamp': datetime.now().isoformat(),
+            'camera_id': camera_id,
+            'intruder_detection': {},
+            'bird_detection': {},
+            'ai_analysis': {},
+            'recommendations': []
+        }
+        
+        try:
+            # 1. ตรวจจับสิ่งแปลกปลอม
+            intruder_detections = self.detect_objects(frame, camera_id)
+            results['intruder_detection'] = {
+                'detections': [asdict(d) for d in intruder_detections],
+                'count': len(intruder_detections),
+                'threat_summary': self._summarize_threats(intruder_detections)
+            }
+            
+            # 2. ตรวจจับนก (ถ้ามี Ultimate Swallow AI)
+            bird_analysis = self.integrate_with_bird_detection(frame)
+            results['bird_detection'] = bird_analysis
+            
+            # 3. วิเคราะห์ด้วย AI Chatbot
+            ai_analysis = self.analyze_with_ai_chatbot(intruder_detections, frame)
+            results['ai_analysis'] = ai_analysis
+            
+            # 4. สรุปและคำแนะนำ
+            recommendations = self._generate_recommendations(intruder_detections, bird_analysis)
+            results['recommendations'] = recommendations
+            
+        except Exception as e:
+            results['error'] = f'เกิดข้อผิดพลาดในการวิเคราะห์: {e}'
+        
+        return results
+    
+    def _summarize_threats(self, detections: List[IntruderDetection]) -> Dict[str, Any]:
+        """สรุปภัยคุกคาม"""
+        summary = {
+            'total': len(detections),
+            'by_threat_level': {},
+            'by_object_type': {},
+            'highest_threat': None,
+            'avg_confidence': 0.0
+        }
+        
+        if not detections:
+            return summary
+        
+        # นับตาม threat level
+        for detection in detections:
+            threat = detection.threat_level.value
+            summary['by_threat_level'][threat] = summary['by_threat_level'].get(threat, 0) + 1
+            
+            obj_type = detection.object_type
+            summary['by_object_type'][obj_type] = summary['by_object_type'].get(obj_type, 0) + 1
+        
+        # หา threat level สูงสุด
+        threat_priorities = {
+            ThreatLevel.CRITICAL: 4,
+            ThreatLevel.HIGH: 3,
+            ThreatLevel.MEDIUM: 2,
+            ThreatLevel.LOW: 1
+        }
+        
+        highest_priority = 0
+        for detection in detections:
+            priority = threat_priorities.get(detection.threat_level, 0)
+            if priority > highest_priority:
+                highest_priority = priority
+                summary['highest_threat'] = detection.threat_level.value
+        
+        # คำนวณ confidence เฉลี่ย
+        if detections:
+            summary['avg_confidence'] = sum(d.confidence for d in detections) / len(detections)
+        
+        return summary
+    
+    def _generate_recommendations(self, intruder_detections: List[IntruderDetection], bird_analysis: Dict) -> List[str]:
+        """สร้างคำแนะนำจากผลการวิเคราะห์"""
+        recommendations = []
+        
+        # คำแนะนำจากการตรวจจับสิ่งแปลกปลอม
+        if intruder_detections:
+            high_threat_count = sum(1 for d in intruder_detections if d.threat_level in [ThreatLevel.HIGH, ThreatLevel.CRITICAL])
+            
+            if high_threat_count > 0:
+                recommendations.append(f"🚨 พบภัยคุกคามระดับสูง {high_threat_count} รายการ - ควรตรวจสอบทันที")
+            
+            person_count = sum(1 for d in intruder_detections if d.object_type == 'person')
+            if person_count > 0:
+                recommendations.append(f"👤 พบบุคคล {person_count} คน - ควรตรวจสอบสิทธิ์การเข้าพื้นที่")
+            
+            predator_count = sum(1 for d in intruder_detections if d.object_type in ['snake', 'cat', 'dog', 'falcon', 'eagle', 'owl'])
+            if predator_count > 0:
+                recommendations.append(f"🐍 พบสัตว์นักล่า {predator_count} ตัว - อาจเป็นภัยต่อนกนางแอ่น")
+        
+        # คำแนะนำจากการตรวจจับนก
+        if 'bird_stats' in bird_analysis and isinstance(bird_analysis['bird_stats'], dict):
+            bird_stats = bird_analysis['bird_stats']
+            current_birds = bird_stats.get('current_count', 0)
+            
+            if current_birds > 0:
+                recommendations.append(f"🐦 มีนกในพื้นที่ {current_birds} ตัว - หลีกเลี่ยงการรบกวน")
+            
+            if intruder_detections and current_birds > 0:
+                recommendations.append("⚠️ มีทั้งสิ่งแปลกปลอมและนกในพื้นที่ - ควรเฝ้าระวังเป็นพิเศษ")
+        
+        if not recommendations:
+            recommendations.append("✅ ไม่พบภัยคุกคามในขณะนี้ - พื้นที่ปลอดภัย")
+        
+        return recommendations
 
 class IntelligentIntruderIntegration:
     """🔗 ระบบเชื่อมต่อ AI Intruder Detection กับแอพหลัก"""
@@ -535,6 +788,123 @@ class IntelligentIntruderIntegration:
                 return jsonify({'success': False, 'error': str(e)})
         
         print("✅ API Routes ลงทะเบียนเสร็จสิ้น")
+        
+        # Enhanced API Routes for AI Integration
+        @self.app.route('/api/intruder/comprehensive-analysis', methods=['POST'])
+        def api_comprehensive_analysis():
+            """API สำหรับการวิเคราะห์ครบถ้วน (รวมนกและสิ่งแปลกปลอม)"""
+            try:
+                if 'image' not in request.files:
+                    return jsonify({'success': False, 'error': 'No image provided'})
+                
+                file = request.files['image']
+                camera_id = request.form.get('camera_id', 'api_analysis')
+                
+                # Convert to OpenCV format
+                file_bytes = np.frombuffer(file.read(), np.uint8)
+                frame = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+                
+                if frame is None:
+                    return jsonify({'success': False, 'error': 'Invalid image format'})
+                
+                # Perform comprehensive analysis
+                analysis = self.detector.get_comprehensive_analysis(frame, camera_id)
+                
+                return jsonify({
+                    'success': True,
+                    'analysis': analysis
+                })
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/intruder/ai-analysis', methods=['POST'])
+        def api_ai_analysis():
+            """API สำหรับการวิเคราะห์ด้วย AI Chatbot"""
+            try:
+                data = request.get_json()
+                query = data.get('query', 'วิเคราะห์สถานการณ์ปัจจุบัน')
+                
+                if 'image' in request.files:
+                    file = request.files['image']
+                    file_bytes = np.frombuffer(file.read(), np.uint8)
+                    frame = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+                    
+                    if frame is not None:
+                        detections = self.detector.detect_objects(frame, 'ai_analysis')
+                        ai_analysis = self.detector.analyze_with_ai_chatbot(detections, frame)
+                        return jsonify({
+                            'success': True,
+                            'ai_analysis': ai_analysis
+                        })
+                
+                return jsonify({'success': False, 'error': 'No valid image provided'})
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/intruder/bird-integration', methods=['POST'])
+        def api_bird_integration():
+            """API สำหรับเชื่อมต่อกับระบบตรวจจับนก"""
+            try:
+                if 'image' not in request.files:
+                    return jsonify({'success': False, 'error': 'No image provided'})
+                
+                file = request.files['image']
+                file_bytes = np.frombuffer(file.read(), np.uint8)
+                frame = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+                
+                if frame is None:
+                    return jsonify({'success': False, 'error': 'Invalid image format'})
+                
+                # Perform bird analysis
+                bird_analysis = self.detector.integrate_with_bird_detection(frame)
+                
+                return jsonify({
+                    'success': True,
+                    'bird_analysis': bird_analysis
+                })
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        @self.app.route('/api/intruder/ai-models', methods=['GET'])
+        def api_ai_models_status():
+            """API สำหรับตรวจสอบสถานะ AI Models"""
+            try:
+                models_status = {}
+                for model_name, model_instance in self.detector.models.items():
+                    if model_instance is not None:
+                        if hasattr(model_instance, 'available'):
+                            models_status[model_name] = {
+                                'loaded': True,
+                                'available': model_instance.available,
+                                'type': type(model_instance).__name__
+                            }
+                        else:
+                            models_status[model_name] = {
+                                'loaded': True,
+                                'available': True,
+                                'type': type(model_instance).__name__
+                            }
+                    else:
+                        models_status[model_name] = {
+                            'loaded': False,
+                            'available': False,
+                            'type': None
+                        }
+                
+                return jsonify({
+                    'success': True,
+                    'models': models_status,
+                    'total_models': len(models_status),
+                    'active_models': len([m for m in models_status.values() if m['loaded']])
+                })
+                
+            except Exception as e:
+                return jsonify({'success': False, 'error': str(e)})
+        
+        print("✅ Enhanced AI Integration API Routes ลงทะเบียนเสร็จสิ้น")
     
     def add_camera_stream(self, camera_id: str, camera_url: str, location: str = "Unknown", username: str = None, password: str = None) -> bool:
         """เพิ่มกล้องเข้าระบบ (debug RTSP connection)"""
