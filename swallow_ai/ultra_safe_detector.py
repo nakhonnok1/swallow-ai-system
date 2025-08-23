@@ -8,6 +8,7 @@
 import cv2
 import numpy as np
 import time
+from datetime import datetime
 import json
 from pathlib import Path
 
@@ -176,6 +177,23 @@ class UltraSafeDetector:
         self.last_birds_in = 0
         self.last_birds_out = 0
         self.frame_count = 0
+
+    def get_stats(self):
+        """Get detection statistics for compatibility"""
+        return {
+            'today_total': self.last_birds_in + self.last_birds_out,
+            'total_alerts': self.last_birds_in + self.last_birds_out,
+            'today_by_type': [
+                {'type': 'bird', 'count': self.last_birds_in + self.last_birds_out}
+            ],
+            'last_updated': datetime.now().isoformat(),
+            'status': 'active'
+        }
+
+    def get_recent_alerts(self, limit: int = 20):
+        """Get recent alerts for compatibility"""
+        # Return empty list for now since this is motion detection
+        return []
         print("🛠️ Ultra Safe Detector: Counts reset")
 
 def test_ultra_safe_ai():

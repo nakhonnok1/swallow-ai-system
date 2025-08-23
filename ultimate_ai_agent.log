@@ -1,0 +1,983 @@
+2025-08-23 07:12:27,866 - UltimateSwallowAI - INFO - 🚀 เริ่มต้นระบบ Ultimate Swallow AI Agent V5
+2025-08-23 07:12:27,893 - UltimateSwallowAI - INFO - ✅ AI Agent SwallowAI_20250823_071227 พร้อมใช้งาน
+2025-08-23 07:12:27,893 - swallow_ai - INFO - Ultimate Swallow AI Agent initialized successfully
+2025-08-23 07:12:27,893 - swallow_ai - INFO - Ultra Safe Detector initialized
+2025-08-23 07:12:27,894 - swallow_ai - INFO - Advanced Object Detector initialized (using UltraSafeDetector)
+2025-08-23 07:12:27,918 - swallow_ai - INFO - Simple YOLO Detector initialized
+2025-08-23 07:12:27,918 - swallow_ai - INFO - 🔧 Initializing Intruder Detection System...
+2025-08-23 07:12:27,940 - swallow_ai - INFO - ✅ Enhanced Intruder Detection System initialized successfully
+2025-08-23 07:12:27,941 - swallow_ai - INFO - AI chatbot initialized
+2025-08-23 07:12:27,941 - swallow_ai - INFO - 🔧 Setting up Flask integration...
+2025-08-23 07:12:27,943 - swallow_ai - INFO - ✅ Flask integration setup completed
+2025-08-23 07:12:27,943 - swallow_ai - INFO - 🔧 Adding camera stream (non-blocking)...
+2025-08-23 07:12:27,947 - swallow_ai - INFO - Enhanced API routes setup completed
+2025-08-23 07:12:27,954 - swallow_ai - INFO - 🚀 Starting Ultimate AI Bird Tracking System - Enhanced Edition V8
+2025-08-23 07:12:27,954 - swallow_ai - INFO - Enhanced Database system ready
+2025-08-23 07:12:27,956 - swallow_ai - INFO - Basic detection database initialized successfully
+2025-08-23 07:12:27,956 - swallow_ai - INFO - 📹 Connecting to camera...
+2025-08-23 07:12:27,957 - swallow_ai - INFO - Attempting to connect to camera: rtsp://ainok1:ainok123@192.168.1.100:554/stream1
+2025-08-23 07:12:30,032 - swallow_ai - INFO - ✅ Camera stream added successfully
+2025-08-23 07:12:31,968 - swallow_ai - INFO - 🔧 Setting enhanced camera properties...
+2025-08-23 07:12:31,969 - swallow_ai - INFO - 📹 Camera specs - 1920x1080 @ 15.0fps
+2025-08-23 07:12:32,001 - swallow_ai - INFO - ✅ Camera connected successfully: rtsp://ainok1:ainok123@192.168.1.100:554/stream1
+2025-08-23 07:12:32,001 - swallow_ai - INFO - 🎯 Frame ready for AI processing: (1080, 1920, 3)
+2025-08-23 07:12:32,002 - swallow_ai - INFO - ✅ Camera connected and ready for AI processing
+2025-08-23 07:12:32,002 - swallow_ai - INFO - 🎥 Starting AI video processing thread...
+2025-08-23 07:12:32,004 - swallow_ai - INFO - 🎬 Video processing thread started - using connected camera
+2025-08-23 07:12:32,004 - swallow_ai - INFO - ✅ AI video processing thread started successfully
+2025-08-23 07:12:32,004 - swallow_ai - INFO - 🤖 AI Detection: Enabled
+2025-08-23 07:12:32,005 - swallow_ai - INFO - 🔧 Enhanced Database: Available
+2025-08-23 07:12:32,005 - swallow_ai - INFO - 🛡️ Intruder Detection: Available
+2025-08-23 07:12:32,005 - swallow_ai - INFO - 💬 AI Chatbot: Available
+2025-08-23 07:12:32,005 - swallow_ai - INFO - 🌐 Starting Flask web server...
+2025-08-23 07:12:32,005 - swallow_ai - INFO - 📍 Access the system at: http://127.0.0.1:5000
+2025-08-23 07:12:32,012 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.12.24:5000
+2025-08-23 07:12:32,013 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-23 07:12:32,282 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:32,525 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:32,771 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:33,007 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:33,243 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:33,469 - swallow_ai - INFO - 📹 Processing frame 30 - Camera feed active
+2025-08-23 07:12:33,487 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:33,730 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:33,982 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:34,220 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:34,519 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:34,876 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:35,190 - swallow_ai - INFO - 📹 Processing frame 60 - Camera feed active
+2025-08-23 07:12:35,208 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:35,525 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:35,877 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:36,203 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:36,555 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:36,988 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:37,208 - swallow_ai - INFO - 📹 Processing frame 90 - Camera feed active
+2025-08-23 07:12:37,224 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:37,525 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:37,872 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:38,210 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:38,531 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:38,874 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:39,179 - swallow_ai - INFO - 📹 Processing frame 120 - Camera feed active
+2025-08-23 07:12:39,196 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:39,522 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:39,878 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:40,215 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:40,539 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:40,878 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:41,176 - swallow_ai - INFO - 📹 Processing frame 150 - Camera feed active
+2025-08-23 07:12:41,192 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:41,522 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:41,886 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:42,207 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:42,525 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:42,871 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:43,179 - swallow_ai - INFO - 📹 Processing frame 180 - Camera feed active
+2025-08-23 07:12:43,195 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:43,521 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:43,879 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:44,215 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:44,542 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:44,870 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:45,182 - swallow_ai - INFO - 📹 Processing frame 210 - Camera feed active
+2025-08-23 07:12:45,198 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:45,531 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:45,872 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:46,212 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:46,525 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:47,085 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:47,372 - swallow_ai - INFO - 📹 Processing frame 240 - Camera feed active
+2025-08-23 07:12:47,391 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:47,627 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:47,875 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:48,201 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:48,517 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:48,878 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:49,182 - swallow_ai - INFO - 📹 Processing frame 270 - Camera feed active
+2025-08-23 07:12:49,197 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:49,529 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:49,872 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:50,204 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:50,520 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:50,872 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:51,183 - swallow_ai - INFO - 📹 Processing frame 300 - Camera feed active
+2025-08-23 07:12:51,199 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:51,526 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:51,878 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:52,211 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:52,535 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:52,869 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:53,182 - swallow_ai - INFO - 📹 Processing frame 330 - Camera feed active
+2025-08-23 07:12:53,198 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:53,522 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:53,876 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:54,210 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:54,538 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:54,880 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:55,184 - swallow_ai - INFO - 📹 Processing frame 360 - Camera feed active
+2025-08-23 07:12:55,201 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:55,529 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:55,874 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:56,210 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:56,512 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:56,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:57,182 - swallow_ai - INFO - 📹 Processing frame 390 - Camera feed active
+2025-08-23 07:12:57,200 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:57,518 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:57,877 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:58,209 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:58,522 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:58,878 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:59,182 - swallow_ai - INFO - 📹 Processing frame 420 - Camera feed active
+2025-08-23 07:12:59,199 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:59,515 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:12:59,876 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:00,204 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:00,533 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:00,877 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:01,176 - swallow_ai - INFO - 📹 Processing frame 450 - Camera feed active
+2025-08-23 07:13:01,192 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:01,520 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:01,874 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:02,204 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:02,529 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:02,880 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:03,180 - swallow_ai - INFO - 📹 Processing frame 480 - Camera feed active
+2025-08-23 07:13:03,197 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:03,523 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:03,876 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:04,207 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:04,568 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:04,874 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:05,180 - swallow_ai - INFO - 📹 Processing frame 510 - Camera feed active
+2025-08-23 07:13:05,196 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:05,520 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:05,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:06,209 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:06,530 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:06,871 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:07,190 - swallow_ai - INFO - 📹 Processing frame 540 - Camera feed active
+2025-08-23 07:13:07,208 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:07,579 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:07,923 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:08,206 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:08,521 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:08,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:09,182 - swallow_ai - INFO - 📹 Processing frame 570 - Camera feed active
+2025-08-23 07:13:09,198 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:09,514 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:09,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:10,204 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:10,548 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:10,885 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:11,176 - swallow_ai - INFO - 📹 Processing frame 600 - Camera feed active
+2025-08-23 07:13:11,193 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:11,515 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:11,869 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:12,203 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:12,545 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:12,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:13,180 - swallow_ai - INFO - 📹 Processing frame 630 - Camera feed active
+2025-08-23 07:13:13,197 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:13,519 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:13,875 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:14,218 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:14,558 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:14,900 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:15,176 - swallow_ai - INFO - 📹 Processing frame 660 - Camera feed active
+2025-08-23 07:13:15,193 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:15,519 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:15,875 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:16,209 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:16,540 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:16,870 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:17,177 - swallow_ai - INFO - 📹 Processing frame 690 - Camera feed active
+2025-08-23 07:13:17,192 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:17,517 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:17,869 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:18,200 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:18,580 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:18,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:19,181 - swallow_ai - INFO - 📹 Processing frame 720 - Camera feed active
+2025-08-23 07:13:19,197 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:19,521 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:19,874 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:20,203 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:20,526 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:20,875 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:21,189 - swallow_ai - INFO - 📹 Processing frame 750 - Camera feed active
+2025-08-23 07:13:21,207 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:21,517 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:21,870 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:22,211 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:22,549 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:22,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:23,176 - swallow_ai - INFO - 📹 Processing frame 780 - Camera feed active
+2025-08-23 07:13:23,193 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:23,519 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:23,876 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:24,201 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:24,518 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:24,874 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:25,179 - swallow_ai - INFO - 📹 Processing frame 810 - Camera feed active
+2025-08-23 07:13:25,196 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:25,532 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:25,866 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:26,205 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:26,542 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:26,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:27,174 - swallow_ai - INFO - 📹 Processing frame 840 - Camera feed active
+2025-08-23 07:13:27,191 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:27,514 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:27,870 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:28,202 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:28,536 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:28,876 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:29,176 - swallow_ai - INFO - 📹 Processing frame 870 - Camera feed active
+2025-08-23 07:13:29,194 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:29,517 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:29,869 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:30,207 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:30,540 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:30,881 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:31,189 - swallow_ai - INFO - 📹 Processing frame 900 - Camera feed active
+2025-08-23 07:13:31,212 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:31,517 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:31,886 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:32,205 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:32,538 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:32,875 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:33,180 - swallow_ai - INFO - 📹 Processing frame 930 - Camera feed active
+2025-08-23 07:13:33,197 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:33,520 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:33,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:34,204 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:34,540 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:34,868 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:35,178 - swallow_ai - INFO - 📹 Processing frame 960 - Camera feed active
+2025-08-23 07:13:35,195 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:35,518 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:35,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:36,201 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:36,513 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:36,867 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:37,182 - swallow_ai - INFO - 📹 Processing frame 990 - Camera feed active
+2025-08-23 07:13:37,199 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:37,517 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:37,880 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:38,203 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:38,525 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:38,871 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:39,175 - swallow_ai - INFO - 📹 Processing frame 1020 - Camera feed active
+2025-08-23 07:13:39,192 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:39,519 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:39,871 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:40,208 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:40,519 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:40,874 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:41,179 - swallow_ai - INFO - 📹 Processing frame 1050 - Camera feed active
+2025-08-23 07:13:41,196 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:41,528 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:41,868 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:42,207 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:42,533 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:42,869 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:43,174 - swallow_ai - INFO - 📹 Processing frame 1080 - Camera feed active
+2025-08-23 07:13:43,192 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:43,523 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:43,875 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:44,212 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:44,546 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:44,874 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:45,185 - swallow_ai - INFO - 📹 Processing frame 1110 - Camera feed active
+2025-08-23 07:13:45,203 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:45,521 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:45,876 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:46,213 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:46,518 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:46,872 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:47,173 - swallow_ai - INFO - 📹 Processing frame 1140 - Camera feed active
+2025-08-23 07:13:47,189 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:47,519 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:47,904 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:48,209 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:48,606 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:48,883 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:49,174 - swallow_ai - INFO - 📹 Processing frame 1170 - Camera feed active
+2025-08-23 07:13:49,192 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:49,525 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:49,875 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:50,204 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:50,511 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:50,870 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:51,177 - swallow_ai - INFO - 📹 Processing frame 1200 - Camera feed active
+2025-08-23 07:13:51,194 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:51,520 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:51,870 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:52,198 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:52,519 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:52,878 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:53,175 - swallow_ai - INFO - 📹 Processing frame 1230 - Camera feed active
+2025-08-23 07:13:53,192 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:53,511 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:53,874 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:54,204 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:54,534 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:54,875 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:55,180 - swallow_ai - INFO - 📹 Processing frame 1260 - Camera feed active
+2025-08-23 07:13:55,197 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:55,523 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:55,872 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:56,207 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:56,514 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:56,876 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:57,175 - swallow_ai - INFO - 📹 Processing frame 1290 - Camera feed active
+2025-08-23 07:13:57,193 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:57,520 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:57,875 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:58,203 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:58,521 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:58,882 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:59,185 - swallow_ai - INFO - 📹 Processing frame 1320 - Camera feed active
+2025-08-23 07:13:59,203 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:59,516 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:13:59,874 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:00,215 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:00,568 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:00,869 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:01,174 - swallow_ai - INFO - 📹 Processing frame 1350 - Camera feed active
+2025-08-23 07:14:01,192 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:01,517 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:01,872 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:02,198 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:02,512 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:02,878 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:03,176 - swallow_ai - INFO - 📹 Processing frame 1380 - Camera feed active
+2025-08-23 07:14:03,192 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:03,522 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:04,129 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:04,375 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:04,614 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:04,869 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:05,176 - swallow_ai - INFO - 📹 Processing frame 1410 - Camera feed active
+2025-08-23 07:14:05,193 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:05,519 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:05,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:06,203 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:06,523 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:06,873 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:06,961 - swallow_ai - INFO - Camera released
+2025-08-23 07:14:06,961 - swallow_ai - INFO - 🔄 System shutdown complete
+2025-08-23 07:14:50,498 - UltimateSwallowAI - INFO - 🚀 เริ่มต้นระบบ Ultimate Swallow AI Agent V5
+2025-08-23 07:14:50,525 - UltimateSwallowAI - INFO - ✅ AI Agent SwallowAI_20250823_071450 พร้อมใช้งาน
+2025-08-23 07:14:50,525 - swallow_ai - INFO - Ultimate Swallow AI Agent initialized successfully
+2025-08-23 07:14:50,525 - swallow_ai - INFO - Ultra Safe Detector initialized
+2025-08-23 07:14:50,525 - swallow_ai - INFO - Advanced Object Detector initialized (using UltraSafeDetector)
+2025-08-23 07:14:50,545 - swallow_ai - INFO - Simple YOLO Detector initialized
+2025-08-23 07:14:50,546 - swallow_ai - INFO - 🔧 Initializing Intruder Detection System...
+2025-08-23 07:14:50,569 - swallow_ai - INFO - ✅ Enhanced Intruder Detection System initialized successfully
+2025-08-23 07:14:50,570 - swallow_ai - INFO - AI chatbot initialized
+2025-08-23 07:14:50,571 - swallow_ai - INFO - 🔧 Setting up Flask integration...
+2025-08-23 07:14:50,571 - swallow_ai - INFO - ✅ Flask integration setup completed
+2025-08-23 07:14:50,572 - swallow_ai - INFO - 🔧 Adding camera stream (non-blocking)...
+2025-08-23 07:14:50,574 - swallow_ai - INFO - Enhanced API routes setup completed
+2025-08-23 07:14:50,580 - swallow_ai - INFO - 🚀 Starting Ultimate AI Bird Tracking System - Enhanced Edition V8
+2025-08-23 07:14:50,581 - swallow_ai - INFO - Enhanced Database system ready
+2025-08-23 07:14:50,583 - swallow_ai - INFO - Basic detection database initialized successfully
+2025-08-23 07:14:50,583 - swallow_ai - INFO - 📹 Connecting to camera...
+2025-08-23 07:14:50,583 - swallow_ai - INFO - Attempting to connect to camera: rtsp://ainok1:ainok123@192.168.1.100:554/stream1
+2025-08-23 07:14:52,607 - swallow_ai - INFO - ✅ Camera stream added successfully
+2025-08-23 07:14:54,568 - swallow_ai - INFO - 🔧 Setting enhanced camera properties...
+2025-08-23 07:14:54,568 - swallow_ai - INFO - 📹 Camera specs - 1920x1080 @ 15.0fps
+2025-08-23 07:14:54,598 - swallow_ai - INFO - ✅ Camera connected successfully: rtsp://ainok1:ainok123@192.168.1.100:554/stream1
+2025-08-23 07:14:54,598 - swallow_ai - INFO - 🎯 Frame ready for AI processing: (1080, 1920, 3)
+2025-08-23 07:14:54,598 - swallow_ai - INFO - ✅ Camera connected and ready for AI processing
+2025-08-23 07:14:54,598 - swallow_ai - INFO - 🎥 Starting AI video processing thread...
+2025-08-23 07:14:54,599 - swallow_ai - INFO - 🎬 Video processing thread started - using connected camera
+2025-08-23 07:14:54,599 - swallow_ai - INFO - ✅ AI video processing thread started successfully
+2025-08-23 07:14:54,599 - swallow_ai - INFO - 🤖 AI Detection: Enabled
+2025-08-23 07:14:54,599 - swallow_ai - INFO - 🔧 Enhanced Database: Available
+2025-08-23 07:14:54,600 - swallow_ai - INFO - 🛡️ Intruder Detection: Available
+2025-08-23 07:14:54,600 - swallow_ai - INFO - 💬 AI Chatbot: Available
+2025-08-23 07:14:54,600 - swallow_ai - INFO - 🌐 Starting Flask web server...
+2025-08-23 07:14:54,600 - swallow_ai - INFO - 📍 Access the system at: http://127.0.0.1:5000
+2025-08-23 07:14:54,608 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.12.24:5000
+2025-08-23 07:14:54,609 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-23 07:14:54,897 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:55,144 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:55,383 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:55,624 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:55,863 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:56,082 - swallow_ai - INFO - 📹 Processing frame 30 - Camera feed active
+2025-08-23 07:14:56,100 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:56,335 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:56,575 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:56,814 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:57,163 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:57,475 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:57,772 - swallow_ai - INFO - 📹 Processing frame 60 - Camera feed active
+2025-08-23 07:14:57,790 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:58,122 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:58,483 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:58,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:59,128 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:59,644 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:14:59,866 - swallow_ai - INFO - 📹 Processing frame 90 - Camera feed active
+2025-08-23 07:14:59,884 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:00,123 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:00,480 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:00,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:01,203 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:01,482 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:01,773 - swallow_ai - INFO - 📹 Processing frame 120 - Camera feed active
+2025-08-23 07:15:01,791 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:02,119 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:02,473 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:02,795 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:03,223 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:03,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:03,772 - swallow_ai - INFO - 📹 Processing frame 150 - Camera feed active
+2025-08-23 07:15:03,789 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:04,123 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:04,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:04,801 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:05,143 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:05,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:05,776 - swallow_ai - INFO - 📹 Processing frame 180 - Camera feed active
+2025-08-23 07:15:05,793 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:06,121 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:06,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:06,797 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:07,134 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:07,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:07,775 - swallow_ai - INFO - 📹 Processing frame 210 - Camera feed active
+2025-08-23 07:15:07,791 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:08,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:08,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:08,808 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:09,154 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:09,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:09,780 - swallow_ai - INFO - 📹 Processing frame 240 - Camera feed active
+2025-08-23 07:15:09,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:10,129 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:10,474 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:10,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:11,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:11,473 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:11,779 - swallow_ai - INFO - 📹 Processing frame 270 - Camera feed active
+2025-08-23 07:15:11,797 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:12,115 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:12,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:12,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:13,141 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:13,475 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:13,770 - swallow_ai - INFO - 📹 Processing frame 300 - Camera feed active
+2025-08-23 07:15:13,786 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:14,118 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:14,475 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:14,805 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:15,124 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:15,473 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:15,776 - swallow_ai - INFO - 📹 Processing frame 330 - Camera feed active
+2025-08-23 07:15:15,795 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:16,120 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:16,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:16,810 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:17,133 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:17,474 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:17,775 - swallow_ai - INFO - 📹 Processing frame 360 - Camera feed active
+2025-08-23 07:15:17,792 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:18,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:18,479 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:18,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:19,126 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:19,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:19,775 - swallow_ai - INFO - 📹 Processing frame 390 - Camera feed active
+2025-08-23 07:15:19,792 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:20,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:20,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:20,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:21,126 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:21,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:21,772 - swallow_ai - INFO - 📹 Processing frame 420 - Camera feed active
+2025-08-23 07:15:21,789 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:22,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:22,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:22,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:23,121 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:23,477 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:23,781 - swallow_ai - INFO - 📹 Processing frame 450 - Camera feed active
+2025-08-23 07:15:23,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:24,133 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:24,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:24,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:25,128 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:25,485 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:25,771 - swallow_ai - INFO - 📹 Processing frame 480 - Camera feed active
+2025-08-23 07:15:25,789 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:26,120 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:26,479 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:26,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:27,115 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:27,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:27,784 - swallow_ai - INFO - 📹 Processing frame 510 - Camera feed active
+2025-08-23 07:15:27,804 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:28,137 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:28,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:28,801 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:29,113 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:29,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:29,776 - swallow_ai - INFO - 📹 Processing frame 540 - Camera feed active
+2025-08-23 07:15:29,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:30,122 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:30,466 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:30,797 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:31,192 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:31,482 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:31,771 - swallow_ai - INFO - 📹 Processing frame 570 - Camera feed active
+2025-08-23 07:15:31,789 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:32,120 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:32,482 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:32,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:33,118 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:33,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:33,772 - swallow_ai - INFO - 📹 Processing frame 600 - Camera feed active
+2025-08-23 07:15:33,788 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:34,115 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:34,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:34,807 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:35,128 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:35,466 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:35,776 - swallow_ai - INFO - 📹 Processing frame 630 - Camera feed active
+2025-08-23 07:15:35,792 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:36,119 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:36,478 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:36,801 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:37,183 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:37,466 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:37,771 - swallow_ai - INFO - 📹 Processing frame 660 - Camera feed active
+2025-08-23 07:15:37,789 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:38,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:38,466 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:38,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:39,149 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:39,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:39,775 - swallow_ai - INFO - 📹 Processing frame 690 - Camera feed active
+2025-08-23 07:15:39,793 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:40,115 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:40,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:40,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:41,129 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:41,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:41,782 - swallow_ai - INFO - 📹 Processing frame 720 - Camera feed active
+2025-08-23 07:15:41,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:42,122 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:42,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:42,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:43,139 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:43,474 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:43,773 - swallow_ai - INFO - 📹 Processing frame 750 - Camera feed active
+2025-08-23 07:15:43,790 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:44,118 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:44,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:44,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:45,125 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:45,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:45,776 - swallow_ai - INFO - 📹 Processing frame 780 - Camera feed active
+2025-08-23 07:15:45,794 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:46,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:46,467 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:46,795 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:47,130 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:47,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:47,771 - swallow_ai - INFO - 📹 Processing frame 810 - Camera feed active
+2025-08-23 07:15:47,786 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:48,109 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:48,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:48,811 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:49,178 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:49,475 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:49,772 - swallow_ai - INFO - 📹 Processing frame 840 - Camera feed active
+2025-08-23 07:15:49,789 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:50,120 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:50,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:50,802 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:51,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:51,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:51,774 - swallow_ai - INFO - 📹 Processing frame 870 - Camera feed active
+2025-08-23 07:15:51,791 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:52,115 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:52,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:52,802 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:53,119 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:53,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:53,774 - swallow_ai - INFO - 📹 Processing frame 900 - Camera feed active
+2025-08-23 07:15:53,791 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:54,111 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:54,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:54,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:55,120 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:55,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:55,779 - swallow_ai - INFO - 📹 Processing frame 930 - Camera feed active
+2025-08-23 07:15:55,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:56,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:56,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:56,802 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:57,118 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:57,479 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:57,775 - swallow_ai - INFO - 📹 Processing frame 960 - Camera feed active
+2025-08-23 07:15:57,793 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:58,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:58,467 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:58,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:59,149 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:59,478 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:15:59,773 - swallow_ai - INFO - 📹 Processing frame 990 - Camera feed active
+2025-08-23 07:15:59,790 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:00,119 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:00,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:00,801 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:01,144 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:01,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:01,772 - swallow_ai - INFO - 📹 Processing frame 1020 - Camera feed active
+2025-08-23 07:16:01,788 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:02,120 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:02,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:02,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:03,137 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:03,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:03,776 - swallow_ai - INFO - 📹 Processing frame 1050 - Camera feed active
+2025-08-23 07:16:03,792 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:04,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:04,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:04,801 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:05,127 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:05,467 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:05,775 - swallow_ai - INFO - 📹 Processing frame 1080 - Camera feed active
+2025-08-23 07:16:05,793 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:06,118 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:06,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:06,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:07,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:07,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:07,772 - swallow_ai - INFO - 📹 Processing frame 1110 - Camera feed active
+2025-08-23 07:16:07,787 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:08,122 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:08,473 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:08,807 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:09,150 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:09,465 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:09,771 - swallow_ai - INFO - 📹 Processing frame 1140 - Camera feed active
+2025-08-23 07:16:09,787 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:10,118 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:10,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:10,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:11,125 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:11,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:11,775 - swallow_ai - INFO - 📹 Processing frame 1170 - Camera feed active
+2025-08-23 07:16:11,793 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:12,115 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:12,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:12,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:13,118 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:13,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:13,776 - swallow_ai - INFO - 📹 Processing frame 1200 - Camera feed active
+2025-08-23 07:16:13,793 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:14,113 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:14,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:14,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:15,133 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:15,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:15,775 - swallow_ai - INFO - 📹 Processing frame 1230 - Camera feed active
+2025-08-23 07:16:15,792 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:16,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:16,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:16,802 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:17,130 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:17,481 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:17,770 - swallow_ai - INFO - 📹 Processing frame 1260 - Camera feed active
+2025-08-23 07:16:17,787 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:18,111 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:18,467 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:18,822 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:19,156 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:19,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:19,777 - swallow_ai - INFO - 📹 Processing frame 1290 - Camera feed active
+2025-08-23 07:16:19,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:20,127 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:20,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:20,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:21,208 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:21,474 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:21,773 - swallow_ai - INFO - 📹 Processing frame 1320 - Camera feed active
+2025-08-23 07:16:21,790 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:22,114 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:22,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:22,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:23,201 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:23,474 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:23,779 - swallow_ai - INFO - 📹 Processing frame 1350 - Camera feed active
+2025-08-23 07:16:23,797 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:24,112 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:24,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:24,802 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:25,131 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:25,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:25,771 - swallow_ai - INFO - 📹 Processing frame 1380 - Camera feed active
+2025-08-23 07:16:25,788 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:26,115 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:26,477 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:26,805 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:27,151 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:27,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:27,779 - swallow_ai - INFO - 📹 Processing frame 1410 - Camera feed active
+2025-08-23 07:16:27,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:28,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:28,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:28,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:29,129 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:29,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:29,782 - swallow_ai - INFO - 📹 Processing frame 1440 - Camera feed active
+2025-08-23 07:16:29,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:30,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:30,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:30,813 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:31,275 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:31,547 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:31,779 - swallow_ai - INFO - 📹 Processing frame 1470 - Camera feed active
+2025-08-23 07:16:31,797 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:32,114 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:32,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:32,802 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:33,141 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:33,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:33,780 - swallow_ai - INFO - 📹 Processing frame 1500 - Camera feed active
+2025-08-23 07:16:33,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:34,120 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:34,467 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:34,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:35,114 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:35,473 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:35,772 - swallow_ai - INFO - 📹 Processing frame 1530 - Camera feed active
+2025-08-23 07:16:35,788 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:36,115 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:36,473 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:36,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:37,123 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:37,466 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:37,771 - swallow_ai - INFO - 📹 Processing frame 1560 - Camera feed active
+2025-08-23 07:16:37,787 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:38,114 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:38,473 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:38,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:39,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:39,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:39,770 - swallow_ai - INFO - 📹 Processing frame 1590 - Camera feed active
+2025-08-23 07:16:39,787 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:40,112 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:40,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:40,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:41,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:41,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:41,772 - swallow_ai - INFO - 📹 Processing frame 1620 - Camera feed active
+2025-08-23 07:16:41,793 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:42,110 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:42,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:42,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:43,136 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:43,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:43,771 - swallow_ai - INFO - 📹 Processing frame 1650 - Camera feed active
+2025-08-23 07:16:43,787 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:44,121 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:44,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:44,795 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:45,119 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:45,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:45,773 - swallow_ai - INFO - 📹 Processing frame 1680 - Camera feed active
+2025-08-23 07:16:45,790 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:46,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:46,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:46,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:47,129 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:47,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:47,783 - swallow_ai - INFO - 📹 Processing frame 1710 - Camera feed active
+2025-08-23 07:16:47,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:48,109 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:48,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:48,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:49,138 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:49,464 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:49,780 - swallow_ai - INFO - 📹 Processing frame 1740 - Camera feed active
+2025-08-23 07:16:49,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:50,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:50,468 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:50,797 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:51,110 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:51,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:51,773 - swallow_ai - INFO - 📹 Processing frame 1770 - Camera feed active
+2025-08-23 07:16:51,789 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:52,112 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:52,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:52,796 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:53,148 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:53,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:53,785 - swallow_ai - INFO - 📹 Processing frame 1800 - Camera feed active
+2025-08-23 07:16:53,800 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:54,115 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:54,464 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:54,803 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:55,123 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:55,484 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:55,772 - swallow_ai - INFO - 📹 Processing frame 1830 - Camera feed active
+2025-08-23 07:16:55,790 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:56,114 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:56,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:56,797 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:57,120 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:57,472 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:57,773 - swallow_ai - INFO - 📹 Processing frame 1860 - Camera feed active
+2025-08-23 07:16:57,790 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:58,113 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:58,469 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:58,805 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:59,136 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:59,475 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:16:59,770 - swallow_ai - INFO - 📹 Processing frame 1890 - Camera feed active
+2025-08-23 07:16:59,786 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:00,113 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:00,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:00,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:01,114 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:01,467 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:01,769 - swallow_ai - INFO - 📹 Processing frame 1920 - Camera feed active
+2025-08-23 07:17:01,786 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:02,118 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:02,492 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:02,793 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:03,133 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:03,470 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:03,775 - swallow_ai - INFO - 📹 Processing frame 1950 - Camera feed active
+2025-08-23 07:17:03,792 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:04,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:04,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:04,802 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:05,125 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:05,465 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:05,780 - swallow_ai - INFO - 📹 Processing frame 1980 - Camera feed active
+2025-08-23 07:17:05,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:06,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:06,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:06,798 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:07,150 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:07,480 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:07,770 - swallow_ai - INFO - 📹 Processing frame 2010 - Camera feed active
+2025-08-23 07:17:07,785 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:08,116 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:08,477 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:08,795 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:09,117 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:09,471 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:09,771 - swallow_ai - INFO - 📹 Processing frame 2040 - Camera feed active
+2025-08-23 07:17:09,787 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:10,111 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:10,473 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:10,799 - intelligent_intruder_integration - ERROR - YOLO detection error: The truth value of an array with more than one element is ambiguous. Use a.any() or a.all()
+2025-08-23 07:17:10,848 - swallow_ai - ERROR - Frame read error: Unknown C++ exception from OpenCV code
+2025-08-23 07:17:10,871 - swallow_ai - INFO - Camera released
+2025-08-23 07:17:10,871 - swallow_ai - INFO - 🔄 System shutdown complete
+2025-08-23 07:31:16,507 - UltimateSwallowAI - INFO - 🚀 เริ่มต้นระบบ Ultimate Swallow AI Agent V5
+2025-08-23 07:31:16,718 - UltimateSwallowAI - INFO - ✅ AI Agent SwallowAI_20250823_073116 พร้อมใช้งาน
+2025-08-23 07:31:16,718 - swallow_ai - INFO - Ultimate Swallow AI Agent initialized successfully
+2025-08-23 07:31:16,718 - swallow_ai - INFO - Ultra Safe Detector initialized
+2025-08-23 07:31:16,718 - swallow_ai - INFO - Advanced Object Detector initialized (using UltraSafeDetector)
+2025-08-23 07:31:16,744 - swallow_ai - INFO - Simple YOLO Detector initialized
+2025-08-23 07:31:16,744 - swallow_ai - INFO - 🔧 Initializing Intruder Detection System...
+2025-08-23 07:31:16,954 - swallow_ai - INFO - ✅ Enhanced Intruder Detection System initialized successfully
+2025-08-23 07:31:16,955 - swallow_ai - INFO - AI chatbot initialized
+2025-08-23 07:31:16,955 - swallow_ai - INFO - 🔧 Setting up Flask integration...
+2025-08-23 07:31:16,956 - swallow_ai - INFO - ✅ Flask integration setup completed
+2025-08-23 07:31:16,957 - swallow_ai - INFO - 🔧 Adding camera stream (non-blocking)...
+2025-08-23 07:31:16,959 - swallow_ai - INFO - Enhanced API routes setup completed
+2025-08-23 07:31:16,965 - swallow_ai - INFO - 🚀 Starting Ultimate AI Bird Tracking System - Enhanced Edition V8
+2025-08-23 07:31:16,965 - swallow_ai - INFO - Enhanced Database system ready
+2025-08-23 07:31:16,965 - swallow_ai - INFO - Basic detection database initialized successfully
+2025-08-23 07:31:16,966 - swallow_ai - INFO - 📹 Connecting to camera...
+2025-08-23 07:31:16,966 - swallow_ai - INFO - Attempting to connect to camera: rtsp://ainok1:ainok123@192.168.1.100:554/stream1
+2025-08-23 07:31:18,990 - swallow_ai - INFO - ✅ Camera stream added successfully
+2025-08-23 07:31:20,949 - swallow_ai - INFO - 🔧 Setting enhanced camera properties...
+2025-08-23 07:31:20,949 - swallow_ai - INFO - 📹 Camera specs - 1920x1080 @ 15.0fps
+2025-08-23 07:31:20,978 - swallow_ai - INFO - ✅ Camera connected successfully: rtsp://ainok1:ainok123@192.168.1.100:554/stream1
+2025-08-23 07:31:20,979 - swallow_ai - INFO - 🎯 Frame ready for AI processing: (1080, 1920, 3)
+2025-08-23 07:31:20,980 - swallow_ai - INFO - ✅ Camera connected and ready for AI processing
+2025-08-23 07:31:20,980 - swallow_ai - INFO - 🎥 Starting AI video processing thread...
+2025-08-23 07:31:20,981 - swallow_ai - INFO - 🎬 Video processing thread started - using connected camera
+2025-08-23 07:31:20,981 - swallow_ai - INFO - ✅ AI video processing thread started successfully
+2025-08-23 07:31:20,981 - swallow_ai - INFO - 🤖 AI Detection: Enabled
+2025-08-23 07:31:20,981 - swallow_ai - INFO - 🔧 Enhanced Database: Available
+2025-08-23 07:31:20,982 - swallow_ai - INFO - 🛡️ Intruder Detection: Available
+2025-08-23 07:31:20,982 - swallow_ai - INFO - 💬 AI Chatbot: Available
+2025-08-23 07:31:20,982 - swallow_ai - INFO - 🌐 Starting Flask web server...
+2025-08-23 07:31:20,982 - swallow_ai - INFO - 📍 Access the system at: http://127.0.0.1:5000
+2025-08-23 07:31:20,990 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.12.24:5000
+2025-08-23 07:31:20,991 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-23 07:31:27,550 - swallow_ai - INFO - 📹 Processing frame 30 - Camera feed active
+2025-08-23 07:31:34,211 - swallow_ai - INFO - 📹 Processing frame 60 - Camera feed active
+2025-08-23 07:31:40,480 - swallow_ai - INFO - 📹 Processing frame 90 - Camera feed active
+2025-08-23 07:31:46,972 - swallow_ai - INFO - 📹 Processing frame 120 - Camera feed active
+2025-08-23 07:31:55,339 - swallow_ai - INFO - 📹 Processing frame 150 - Camera feed active
+2025-08-23 07:32:08,120 - swallow_ai - INFO - 📹 Processing frame 180 - Camera feed active
+2025-08-23 07:32:19,603 - swallow_ai - INFO - Camera released
+2025-08-23 07:32:19,604 - swallow_ai - INFO - 🔄 System shutdown complete
+2025-08-23 07:35:37,177 - UltimateSwallowAI - INFO - 🚀 เริ่มต้นระบบ Ultimate Swallow AI Agent V5
+2025-08-23 07:35:37,431 - UltimateSwallowAI - INFO - ✅ AI Agent SwallowAI_20250823_073537 พร้อมใช้งาน
+2025-08-23 07:35:37,432 - swallow_ai - INFO - Ultimate Swallow AI Agent initialized successfully
+2025-08-23 07:35:37,432 - swallow_ai - INFO - Ultra Safe Detector initialized
+2025-08-23 07:35:37,432 - swallow_ai - INFO - Advanced Object Detector initialized (using UltraSafeDetector)
+2025-08-23 07:35:37,642 - swallow_ai - INFO - Simple YOLO Detector initialized
+2025-08-23 07:35:37,642 - swallow_ai - INFO - 🔧 Initializing Intruder Detection System...
+2025-08-23 07:35:37,851 - swallow_ai - INFO - ✅ Enhanced Intruder Detection System initialized successfully
+2025-08-23 07:35:37,852 - swallow_ai - INFO - 🔧 Setting up Flask integration...
+2025-08-23 07:35:37,853 - swallow_ai - INFO - ✅ Flask integration setup completed
+2025-08-23 07:35:37,853 - swallow_ai - INFO - 🔧 Adding camera stream (non-blocking)...
+2025-08-23 07:35:37,857 - swallow_ai - INFO - Enhanced API routes setup completed
+2025-08-23 07:35:37,863 - swallow_ai - INFO - 🚀 Starting Ultimate AI Bird Tracking System - Enhanced Edition V8
+2025-08-23 07:35:37,863 - swallow_ai - INFO - Enhanced Database system ready
+2025-08-23 07:35:37,864 - swallow_ai - INFO - Basic detection database initialized successfully
+2025-08-23 07:35:37,864 - swallow_ai - INFO - 📹 Connecting to camera...
+2025-08-23 07:35:37,864 - swallow_ai - INFO - Attempting to connect to camera: rtsp://ainok1:ainok123@192.168.1.100:554/stream1
+2025-08-23 07:35:39,906 - swallow_ai - INFO - ✅ Camera stream added successfully
+2025-08-23 07:35:41,867 - swallow_ai - INFO - 🔧 Setting enhanced camera properties...
+2025-08-23 07:35:41,867 - swallow_ai - INFO - 📹 Camera specs - 1920x1080 @ 15.0fps
+2025-08-23 07:35:41,895 - swallow_ai - INFO - ✅ Camera connected successfully: rtsp://ainok1:ainok123@192.168.1.100:554/stream1
+2025-08-23 07:35:41,896 - swallow_ai - INFO - 🎯 Frame ready for AI processing: (1080, 1920, 3)
+2025-08-23 07:35:41,896 - swallow_ai - INFO - ✅ Camera connected and ready for AI processing
+2025-08-23 07:35:41,896 - swallow_ai - INFO - 🎥 Starting AI video processing thread...
+2025-08-23 07:35:41,898 - swallow_ai - INFO - 🎬 Video processing thread started - using connected camera
+2025-08-23 07:35:41,898 - swallow_ai - INFO - ✅ AI video processing thread started successfully
+2025-08-23 07:35:41,898 - swallow_ai - INFO - 🤖 AI Detection: Enabled
+2025-08-23 07:35:41,898 - swallow_ai - INFO - 🔧 Enhanced Database: Available
+2025-08-23 07:35:41,898 - swallow_ai - INFO - 🛡️ Intruder Detection: Available
+2025-08-23 07:35:41,898 - swallow_ai - INFO - 💬 AI Chatbot: Not Available
+2025-08-23 07:35:41,898 - swallow_ai - INFO - 🌐 Starting Flask web server...
+2025-08-23 07:35:41,898 - swallow_ai - INFO - 📍 Access the system at: http://127.0.0.1:5000
+2025-08-23 07:35:41,909 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.12.24:5000
+2025-08-23 07:35:41,909 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-23 07:35:48,574 - swallow_ai - INFO - 📹 Processing frame 30 - Camera feed active
+2025-08-23 07:35:54,962 - swallow_ai - INFO - 📹 Processing frame 60 - Camera feed active
+2025-08-23 07:36:01,652 - swallow_ai - INFO - 📹 Processing frame 90 - Camera feed active
+2025-08-23 07:36:08,024 - swallow_ai - INFO - 📹 Processing frame 120 - Camera feed active
+2025-08-23 07:36:11,123 - swallow_ai - INFO - Camera released
+2025-08-23 07:36:11,123 - swallow_ai - INFO - 🔄 System shutdown complete

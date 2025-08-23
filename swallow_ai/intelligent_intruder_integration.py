@@ -183,17 +183,26 @@ class UltraIntelligentIntruderDetector:
         """เริ่มต้น AI Models"""
         self.models = {}
         
-        # YOLO Model
-        if YOLO_AVAILABLE:
-            try:
-                model_path = "yolov8n.pt"
-                if os.path.exists(model_path):
-                    self.models['yolo'] = YOLO(model_path)
-                    print("✅ YOLO Model โหลดสำเร็จ")
-                else:
-                    print(f"⚠️ YOLO Model file not found: {model_path}")
-            except Exception as e:
-                print(f"❌ Error loading YOLO: {e}")
+        # OpenCV AI Detector แทน YOLO ที่มี bug
+        try:
+            print("🤖 โหลด OpenCV AI Detector...")
+            # ใช้ OpenCV DNN แทน Ultralytics YOLO
+            import sys
+            import os
+            sys.path.append(os.path.dirname(__file__))
+            from opencv_yolo_detector import OpenCVYOLODetector
+            
+            self.opencv_ai = OpenCVYOLODetector()
+            if self.opencv_ai.available:
+                print("✅ OpenCV AI Detector โหลดสำเร็จ")
+                self.models['yolo'] = self.opencv_ai
+            else:
+                print("⚠️ OpenCV AI ไม่พร้อม - ใช้ fallback")
+                self.models['yolo'] = None
+                
+        except Exception as e:
+            print(f"⚠️ ไม่สามารถโหลด OpenCV AI: {e}")
+            self.models['yolo'] = None
         
         # MediaPipe (for person detection)
         if MEDIAPIPE_AVAILABLE:
@@ -208,47 +217,50 @@ class UltraIntelligentIntruderDetector:
         print("✅ Backup Detection System พร้อมใช้งาน")
     
     def _yolo_detection(self, frame: np.ndarray, camera_id: str, timestamp: str) -> List[IntruderDetection]:
-        """YOLO-based detection (with label mapping)"""
+        """OpenCV AI-based detection (แทน YOLO ที่มี bug)"""
         detections = []
+        
+        if self.models.get('yolo') is None:
+            return detections
+            
         try:
-            results = self.models['yolo'](frame, conf=self.confidence_threshold, verbose=False)
-            for result in results:
-                boxes = result.boxes
-                if boxes is not None and len(boxes) > 0:
-                    for box in boxes:
-                        conf = float(box.conf[0])
-                        if conf < self.confidence_threshold:
-                            continue
-                        cls_id = int(box.cls[0])
-                        class_name = result.names[cls_id]
-                        # Map label alias
-                        for main_label, aliases in self.label_alias.items():
-                            if class_name in aliases:
-                                class_name = main_label
-                                break
-                        # Get bounding box
-                        x1, y1, x2, y2 = box.xyxy[0].tolist()
-                        bbox = (int(x1), int(y1), int(x2-x1), int(y2-y1))
-                        center = (int((x1+x2)/2), int((y1+y2)/2))
-                        # Determine threat level
-                        threat_info = self.threat_objects.get(class_name, {
-                            'threat': ThreatLevel.LOW, 
-                            'priority': DetectionPriority.NORMAL
-                        })
-                        detection = IntruderDetection(
-                            object_type=class_name,
-                            confidence=conf,
-                            bbox=bbox,
-                            center=center,
-                            threat_level=threat_info['threat'],
-                            priority=threat_info['priority'],
-                            timestamp=timestamp,
-                            camera_id=camera_id,
-                            description=f"Detected {class_name} with {conf:.2%} confidence"
-                        )
-                        detections.append(detection)
+            # ใช้ OpenCV AI Detector
+            ai_detections = self.models['yolo'].detect_objects(frame, conf_threshold=self.confidence_threshold)
+            
+            for det in ai_detections:
+                class_name = det['class']
+                confidence = det['confidence']
+                x, y, w, h = det['bbox']
+                center = det['center']
+                
+                # Map label alias
+                for main_label, aliases in self.label_alias.items():
+                    if class_name in aliases:
+                        class_name = main_label
+                        break
+                
+                # Determine threat level
+                threat_info = self.threat_objects.get(class_name, {
+                    'threat': ThreatLevel.LOW, 
+                    'priority': DetectionPriority.NORMAL
+                })
+                
+                detection = IntruderDetection(
+                    object_type=class_name,
+                    confidence=confidence,
+                    bbox=(x, y, w, h),
+                    center=center,
+                    threat_level=threat_info['threat'],
+                    priority=threat_info['priority'],
+                    timestamp=timestamp,
+                    camera_id=camera_id,
+                    description=f"AI detected {class_name} with {confidence:.2%} confidence"
+                )
+                detections.append(detection)
+                
         except Exception as e:
-            logger.error(f"YOLO detection error: {e}")
+            logger.error(f"OpenCV AI detection error: {e}")
+            
         return detections
     
     def _backup_detection(self, frame: np.ndarray, camera_id: str, timestamp: str) -> List[IntruderDetection]:

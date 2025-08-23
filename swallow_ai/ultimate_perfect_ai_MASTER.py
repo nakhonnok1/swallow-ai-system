@@ -528,18 +528,26 @@ class SmartBirdDetector:
         }
     
     def _load_yolo_model(self):
-        """📦 โหลดโมเดล YOLO"""
-        if YOLO_AVAILABLE:
-            try:
-                model_path = "yolov8n.pt"
-                if os.path.exists(model_path):
-                    return YOLO(model_path)
-                else:
-                    logger.warning("YOLO model file not found, downloading...")
-                    return YOLO('yolov8n.pt')  # Will download if not exists
-            except Exception as e:
-                logger.error(f"Failed to load YOLO: {e}")
-        return None
+        """📦 โหลด OpenCV AI Detector สำหรับนก"""
+        try:
+            print("🤖 โหลด OpenCV AI Detector สำหรับนก...")
+            # ใช้ OpenCV DNN แทน Ultralytics YOLO
+            import sys
+            import os
+            sys.path.append(os.path.dirname(__file__))
+            from opencv_yolo_detector import OpenCVYOLODetector
+            
+            opencv_ai = OpenCVYOLODetector()
+            if opencv_ai.available:
+                print("✅ OpenCV AI Bird Detector โหลดสำเร็จ")
+                return opencv_ai
+            else:
+                print("⚠️ OpenCV AI ไม่พร้อม")
+                return None
+                
+        except Exception as e:
+            logger.error(f"ไม่สามารถโหลด OpenCV AI: {e}")
+            return None
     
     def detect_primary(self, frame):
         """🎯 การตรวจจับหลัก"""
@@ -571,35 +579,28 @@ class SmartBirdDetector:
             return []
     
     def _detect_with_yolo(self, frame):
-        """🤖 ตรวจจับด้วย YOLO"""
+        """🤖 ตรวจจับด้วย OpenCV AI"""
         try:
-            results = self.yolo_model(frame, verbose=False)
-            detections = []
+            if self.yolo_model is None:
+                return []
+                
+            # ใช้ OpenCV AI Detector
+            bird_detections = self.yolo_model.detect_birds(frame)
             
-            for result in results:
-                boxes = result.boxes
-                if boxes is not None and len(boxes) > 0:
-                    for box in boxes:
-                        # Only birds (class 14 in COCO)
-                        cls_value = int(box.cls[0]) if hasattr(box.cls, '__len__') else int(box.cls)
-                        if cls_value == 14:  # bird class
-                            coords = box.xyxy[0].cpu().numpy() if hasattr(box.xyxy[0], 'cpu') else box.xyxy[0].tolist()
-                            x1, y1, x2, y2 = coords
-                            conf_value = float(box.conf[0]) if hasattr(box.conf, '__len__') else float(box.conf)
-                            
-                            if conf_value > 0.2:  # Minimum confidence
-                                detections.append({
-                                    'bbox': [int(x1), int(y1), int(x2-x1), int(y2-y1)],
-                                    'center': (int((x1+x2)/2), int((y1+y2)/2)),
-                                    'confidence': conf_value,
-                                    'source': 'yolo',
-                                    'class': 'bird'
-                                })
+            detections = []
+            for det in bird_detections:
+                detections.append({
+                    'bbox': det['bbox'],
+                    'center': det['center'],
+                    'confidence': det['confidence'],
+                    'source': 'opencv_ai',
+                    'class': 'bird'
+                })
             
             return detections
             
         except Exception as e:
-            logger.error(f"YOLO detection error: {e}")
+            logger.error(f"OpenCV AI detection error: {e}")
             return []
     
     def _remove_duplicates(self, detections):
