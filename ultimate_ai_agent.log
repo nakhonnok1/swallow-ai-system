@@ -981,3 +981,45 @@
 2025-08-23 07:36:08,024 - swallow_ai - INFO - 📹 Processing frame 120 - Camera feed active
 2025-08-23 07:36:11,123 - swallow_ai - INFO - Camera released
 2025-08-23 07:36:11,123 - swallow_ai - INFO - 🔄 System shutdown complete
+2025-08-23 07:50:14,469 - UltimateSwallowAI - INFO - 🚀 เริ่มต้นระบบ Ultimate Swallow AI Agent V5
+2025-08-23 07:50:14,712 - UltimateSwallowAI - INFO - ✅ AI Agent SwallowAI_20250823_075014 พร้อมใช้งาน
+2025-08-23 07:50:14,712 - swallow_ai - INFO - Ultimate Swallow AI Agent initialized successfully
+2025-08-23 07:50:14,712 - swallow_ai - INFO - Ultra Safe Detector initialized
+2025-08-23 07:50:14,712 - swallow_ai - INFO - Advanced Object Detector initialized (using UltraSafeDetector)
+2025-08-23 07:50:14,929 - swallow_ai - INFO - Simple YOLO Detector initialized
+2025-08-23 07:50:14,929 - swallow_ai - INFO - 🔧 Initializing Intruder Detection System...
+2025-08-23 07:50:15,136 - swallow_ai - INFO - ✅ Enhanced Intruder Detection System initialized successfully
+2025-08-23 07:50:15,137 - swallow_ai - INFO - 🔧 Setting up Flask integration...
+2025-08-23 07:50:15,138 - swallow_ai - INFO - ✅ Flask integration setup completed
+2025-08-23 07:50:15,138 - swallow_ai - INFO - 🔧 Adding camera stream (non-blocking)...
+2025-08-23 07:50:15,141 - swallow_ai - INFO - Enhanced API routes setup completed
+2025-08-23 07:50:15,147 - swallow_ai - INFO - 🚀 Starting Ultimate AI Bird Tracking System - Enhanced Edition V8
+2025-08-23 07:50:15,148 - swallow_ai - INFO - Enhanced Database system ready
+2025-08-23 07:50:15,149 - swallow_ai - INFO - Basic detection database initialized successfully
+2025-08-23 07:50:15,150 - swallow_ai - INFO - 📹 Connecting to camera...
+2025-08-23 07:50:15,150 - swallow_ai - INFO - Attempting to connect to camera: rtsp://ainok1:ainok123@192.168.1.100:554/stream1
+2025-08-23 07:50:17,182 - swallow_ai - INFO - ✅ Camera stream added successfully
+2025-08-23 07:50:19,139 - swallow_ai - INFO - 🔧 Setting enhanced camera properties...
+2025-08-23 07:50:19,139 - swallow_ai - INFO - 📹 Camera specs - 1920x1080 @ 15.0fps
+2025-08-23 07:50:19,171 - swallow_ai - INFO - ✅ Camera connected successfully: rtsp://ainok1:ainok123@192.168.1.100:554/stream1
+2025-08-23 07:50:19,171 - swallow_ai - INFO - 🎯 Frame ready for AI processing: (1080, 1920, 3)
+2025-08-23 07:50:19,171 - swallow_ai - INFO - ✅ Camera connected and ready for AI processing
+2025-08-23 07:50:19,171 - swallow_ai - INFO - 🎥 Starting AI video processing thread...
+2025-08-23 07:50:19,172 - swallow_ai - INFO - 🎬 Video processing thread started - using connected camera
+2025-08-23 07:50:19,172 - swallow_ai - INFO - ✅ AI video processing thread started successfully
+2025-08-23 07:50:19,172 - swallow_ai - INFO - 🤖 AI Detection: Enabled
+2025-08-23 07:50:19,172 - swallow_ai - INFO - 🔧 Enhanced Database: Available
+2025-08-23 07:50:19,173 - swallow_ai - INFO - 🛡️ Intruder Detection: Available
+2025-08-23 07:50:19,173 - swallow_ai - INFO - 💬 AI Chatbot: Not Available
+2025-08-23 07:50:19,173 - swallow_ai - INFO - 🌐 Starting Flask web server...
+2025-08-23 07:50:19,173 - swallow_ai - INFO - 📍 Access the system at: http://127.0.0.1:5000
+2025-08-23 07:50:19,180 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.12.24:5000
+2025-08-23 07:50:19,181 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-23 07:50:25,815 - swallow_ai - INFO - 📹 Processing frame 30 - Camera feed active
+2025-08-23 07:50:32,499 - swallow_ai - INFO - 📹 Processing frame 60 - Camera feed active
+2025-08-23 07:50:39,114 - swallow_ai - INFO - 📹 Processing frame 90 - Camera feed active
+2025-08-23 07:50:39,397 - swallow_ai - INFO - Camera released
+2025-08-23 07:50:39,397 - swallow_ai - INFO - 🔄 System shutdown complete
