@@ -192,6 +192,46 @@ class PerformanceMonitor:
 # Initialize performance monitor
 performance_monitor = PerformanceMonitor()
 
+# -------- Global Statistics --------
+class IntruderStats:
+    """Global intruder detection statistics"""
+    
+    def __init__(self):
+        self.total_intruders = 0
+        self.daily_intruders = 0
+        self.last_detection = None
+        self.detection_count_today = 0
+        self.reset_daily_stats()
+    
+    def reset_daily_stats(self):
+        """Reset daily statistics at midnight"""
+        current_date = dt.datetime.now().date()
+        if not hasattr(self, 'last_date') or self.last_date != current_date:
+            self.daily_intruders = 0
+            self.detection_count_today = 0
+            self.last_date = current_date
+    
+    def add_detection(self, count: int = 1):
+        """Add intruder detection"""
+        self.reset_daily_stats()
+        self.total_intruders += count
+        self.daily_intruders += count
+        self.detection_count_today += 1
+        self.last_detection = dt.datetime.now()
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """Get current statistics"""
+        self.reset_daily_stats()
+        return {
+            'total_intruders': self.total_intruders,
+            'daily_intruders': self.daily_intruders,
+            'detection_count_today': self.detection_count_today,
+            'last_detection': self.last_detection.isoformat() if self.last_detection else None
+        }
+
+# Initialize intruder statistics
+intruder_stats = IntruderStats()
+
 # -------- Utility Functions --------
 def frame_quality(frame: Optional[np.ndarray]) -> Dict[str, float]:
     """Calculate frame quality metrics"""
@@ -602,7 +642,8 @@ class AIDetector:
         return status
 
     def detect_intruders(self, frame: np.ndarray) -> List[Dict[str, Any]]:
-        """Detect intruders/objects specifically - returns results for RED bounding boxes"""
+        """Detect intruders/objects specifically - returns results for RED bounding boxes
+        กรองไม่ให้จับนกนางแอ่นหรือนกขนาดเล็ก เพื่อไม่ทับกับ AI หลัก"""
         if not self.intruder_system:
             return []
             
@@ -618,17 +659,58 @@ class AIDetector:
                 frame, camera_id="main_camera"
             )
             
-            # Convert intruder detections to standard format
+            # Bird/Small animal exclusion list for intruder detection
+            bird_classes = [
+                'bird', 'swallow', 'pigeon', 'dove', 'sparrow', 'crow', 'eagle',
+                'hawk', 'owl', 'parrot', 'canary', 'robin', 'chicken', 'duck',
+                'goose', 'turkey', 'swan', 'seagull', 'pelican', 'flamingo',
+                'penguin', 'ostrich', 'peacock', 'hummingbird', 'woodpecker',
+                'kingfisher', 'magpie', 'jay', 'finch', 'warbler', 'thrush',
+                'blackbird', 'starling', 'martin', 'swift', 'falcon',
+                'vulture', 'stork', 'crane', 'heron', 'ibis', 'spoonbill'
+            ]
+            
+            small_animal_classes = [
+                'cat', 'kitten', 'mouse', 'rat', 'squirrel', 'rabbit', 'hamster',
+                'guinea pig', 'ferret', 'hedgehog', 'chipmunk', 'bat', 'lizard',
+                'gecko', 'frog', 'toad', 'butterfly', 'bee', 'wasp', 'spider'
+            ]
+            
+            # Convert intruder detections to standard format and filter out birds/small animals
             formatted_detections = []
             for detection in intruder_detections:
-                formatted_detections.append({
-                    'bbox': detection.bbox,
-                    'confidence': detection.confidence,
-                    'class': detection.object_type,  # ใช้ object_type ตามที่กำหนดในระบบ
-                    'threat_level': detection.threat_level if hasattr(detection, 'threat_level') else 'medium',
-                    'priority': detection.priority if hasattr(detection, 'priority') else 'normal',
-                    'type': 'intruder_detection'
-                })
+                object_class = detection.object_type.lower() if hasattr(detection, 'object_type') else 'unknown'
+                
+                # Skip if detected object is a bird or small animal
+                is_bird = any(bird_term in object_class for bird_term in bird_classes)
+                is_small_animal = any(animal_term in object_class for animal_term in small_animal_classes)
+                
+                # Additional size-based filtering for very small objects (likely birds)
+                bbox_area = 0
+                if hasattr(detection, 'bbox') and len(detection.bbox) >= 4:
+                    w, h = detection.bbox[2], detection.bbox[3]
+                    bbox_area = w * h
+                    is_too_small = bbox_area < 1500  # Objects smaller than ~40x40 pixels
+                else:
+                    is_too_small = True
+                
+                # Only include if it's NOT a bird, NOT a small animal, and NOT too small
+                if not is_bird and not is_small_animal and not is_too_small:
+                    formatted_detections.append({
+                        'bbox': detection.bbox,
+                        'confidence': detection.confidence,
+                        'class': detection.object_type,  # ใช้ object_type ตามที่กำหนดในระบบ
+                        'threat_level': detection.threat_level if hasattr(detection, 'threat_level') else 'medium',
+                        'priority': detection.priority if hasattr(detection, 'priority') else 'normal',
+                        'type': 'intruder_detection'
+                    })
+                else:
+                    # Log filtered detections for debugging
+                    filter_reason = []
+                    if is_bird: filter_reason.append("bird")
+                    if is_small_animal: filter_reason.append("small_animal") 
+                    if is_too_small: filter_reason.append(f"too_small(area:{bbox_area})")
+                    logger.debug(f"🐦 Filtered {object_class} detection: {', '.join(filter_reason)}")
             
             return formatted_detections
             
@@ -975,6 +1057,7 @@ def video_processing_thread():
                         })
                     
                     if bird_detections and len(bird_detections) > 0:
+                        logger.info(f"🐦 BIRD DETECTION: Found {len(bird_detections)} birds in frame {frame_count}")
                         for detection in bird_detections:
                             bbox = detection.get('bbox', [0, 0, 0, 0])
                             confidence = detection.get('confidence', 0.0)
@@ -985,6 +1068,7 @@ def video_processing_thread():
                                 # Draw BLUE bounding box for birds
                                 x, y, w, h = map(int, bbox)
                                 color = (255, 0, 0)  # Blue in BGR format
+                                logger.info(f"🐦 Drawing BLUE box at ({x},{y},{w},{h}) for {class_name}")
                                 cv2.rectangle(processed_frame, (x, y), (x + w, y + h), color, 3)
                                 
                                 # Draw bird label with blue background
@@ -994,6 +1078,10 @@ def video_processing_thread():
                                 cv2.putText(processed_frame, label, (x, y - 8), 
                                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
                                 bird_count += 1
+                        logger.info(f"🐦 Final bird_count for frame {frame_count}: {bird_count}")
+                    else:
+                        if frame_count % 120 == 0:  # ทุก 120 frames แสดง debug
+                            logger.info(f"🐦 No birds detected in frame {frame_count}, bird_detections: {bird_detections}")
                 except Exception as e:
                     logger.error(f"Bird detection error: {e}")
             
@@ -1001,16 +1089,42 @@ def video_processing_thread():
             try:
                 intruder_detections = ai_detector.detect_intruders(enhanced_frame)
                 
-                # Force basic object detection if no intruders detected
+                # Force basic object detection if no intruders detected, but filter out birds
                 if not intruder_detections:
                     try:
                         general_detections = ai_detector.detect_objects(enhanced_frame)
                         intruder_detections = []
+                        
+                        # Bird exclusion list for fallback detection
+                        bird_exclusions = ['bird', 'swallow', 'pigeon', 'dove', 'sparrow', 'crow', 'animal']
+                        small_animal_exclusions = ['cat', 'kitten', 'mouse', 'rat', 'squirrel', 'rabbit']
+                        
                         for det in general_detections:
                             class_name = det.get('class', '').lower()
-                            if any(obj_term in class_name for obj_term in ['person', 'car', 'truck', 'motorbike', 'bicycle']):
+                            bbox = det.get('bbox', [0, 0, 0, 0])
+                            
+                            # Check if it's a bird or small animal
+                            is_bird = any(bird_term in class_name for bird_term in bird_exclusions)
+                            is_small_animal = any(animal_term in class_name for animal_term in small_animal_exclusions)
+                            
+                            # Check size - filter out very small objects (likely birds)
+                            bbox_area = bbox[2] * bbox[3] if len(bbox) >= 4 else 0
+                            is_too_small = bbox_area < 1500
+                            
+                            # Only include legitimate intruders (person, vehicle, etc.) that are not birds
+                            is_legitimate_intruder = any(obj_term in class_name for obj_term in ['person', 'car', 'truck', 'motorbike', 'bicycle', 'human', 'man', 'woman', 'people'])
+                            
+                            if is_legitimate_intruder and not is_bird and not is_small_animal and not is_too_small:
                                 det['threat_level'] = 'medium'
                                 intruder_detections.append(det)
+                                logger.debug(f"🚨 Added fallback intruder: {class_name} (area: {bbox_area})")
+                            else:
+                                filter_reasons = []
+                                if not is_legitimate_intruder: filter_reasons.append("not_intruder")
+                                if is_bird: filter_reasons.append("bird")
+                                if is_small_animal: filter_reasons.append("small_animal")
+                                if is_too_small: filter_reasons.append(f"too_small({bbox_area})")
+                                logger.debug(f"🐦 Filtered fallback detection: {class_name} - {', '.join(filter_reasons)}")
                     except:
                         pass
                 
@@ -1025,6 +1139,7 @@ def video_processing_thread():
                     })
                 
                 if intruder_detections and len(intruder_detections) > 0:
+                    logger.info(f"🚨 INTRUDER DETECTION: Found {len(intruder_detections)} intruders in frame {frame_count}")
                     for detection in intruder_detections:
                         bbox = detection.get('bbox', [0, 0, 0, 0])
                         confidence = detection.get('confidence', 0.0)
@@ -1037,6 +1152,7 @@ def video_processing_thread():
                             x, y, w, h = map(int, bbox)
                             color = (0, 0, 255)  # Red in BGR format
                             thickness = 4 if threat_level in ['high', 'critical'] else 2
+                            logger.info(f"🚨 Drawing RED box at ({x},{y},{w},{h}) for {class_name}")
                             cv2.rectangle(processed_frame, (x, y), (x + w, y + h), color, thickness)
                             
                             # Draw intruder label with red background
@@ -1047,6 +1163,10 @@ def video_processing_thread():
                             cv2.putText(processed_frame, label, (x, y - 8), 
                                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
                             intruder_count += 1
+                    logger.info(f"🚨 Final intruder_count for frame {frame_count}: {intruder_count}")
+                else:
+                    if frame_count % 180 == 0:  # ทุก 180 frames แสดง debug
+                        logger.info(f"🚨 No intruders detected in frame {frame_count}, intruder_detections: {intruder_detections}")
                     
             except Exception as e:
                 logger.error(f"Intruder detection error: {e}")
@@ -1059,6 +1179,28 @@ def video_processing_thread():
                     'birds_in': bird_counter.birds_in + bird_count,
                     'total_detections': bird_count
                 })
+            
+            # Update intruder detection statistics in database
+            if intruder_count > 0:
+                try:
+                    # Update global intruder statistics
+                    intruder_stats.add_detection(intruder_count)
+                    
+                    # Log to intruder detection database
+                    if ai_detector.intruder_system:
+                        detection_data = {
+                            'intruders_detected': intruder_count,
+                            'frame_count': frame_count,
+                            'timestamp': dt.datetime.now()
+                        }
+                        if hasattr(ai_detector.intruder_system, 'log_detection'):
+                            ai_detector.intruder_system.log_detection(detection_data)
+                        elif hasattr(ai_detector.intruder_system, 'save_detection'):
+                            ai_detector.intruder_system.save_detection(detection_data)
+                    
+                    logger.info(f"🚨 Updated intruder stats: {intruder_count} intruders detected (Total today: {intruder_stats.daily_intruders})")
+                except Exception as e:
+                    logger.error(f"Failed to update intruder stats: {e}")
             
             # Add system info to frame - เพิ่มข้อมูลที่สำคัญ
             timestamp = dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -2433,12 +2575,36 @@ def api_ai_detection_config():
 @app.route('/api/stats')
 def api_stats():
     """Enhanced stats endpoint compatible with new UI"""
+    intruder_data = intruder_stats.get_stats()
     return jsonify({
         'birds_in': bird_counter.birds_in,
         'birds_out': bird_counter.birds_out,
         'current_count': bird_counter.current_count,
+        'intruders_detected': intruder_data['total_intruders'],
+        'daily_intruders': intruder_data['daily_intruders'],
+        'intruder_detections_today': intruder_data['detection_count_today'],
+        'last_intruder_detection': intruder_data['last_detection'],
         'last_updated': dt.datetime.now().isoformat()
     })
+
+@app.route('/api/intruder-stats')
+def api_intruder_stats():
+    """Dedicated intruder statistics endpoint"""
+    try:
+        intruder_data = intruder_stats.get_stats()
+        return jsonify({
+            'success': True,
+            'data': intruder_data,
+            'system_status': {
+                'intruder_detection_active': ai_detector.intruder_system is not None,
+                'detection_enabled': getattr(ai_detector, 'object_detection_enabled', False)
+            }
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
 
 @app.route('/api/database-stats')
 def api_database_stats():
