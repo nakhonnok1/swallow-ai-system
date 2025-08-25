@@ -1257,10 +1257,13 @@
 
         // ===== DATA MANAGEMENT =====
         function loadInitialData() { 
-            updateRealTimeData(); 
+            updateRealTimeData();
+            fetchAnomalyData();
+            updateSystemInfo();
         }
 
         function updateRealTimeData() {
+            // Fetch main statistics
             fetch('/api/stats').then(r => r.json()).then(data => {
                 if (data) {
                     setText('birds-detected', data.birds_detected ?? 0);
@@ -1278,6 +1281,18 @@
                 }
             }).catch(console.error);
 
+            // Fetch Ultimate AI statistics
+            fetch('/api/ultimate-ai/statistics').then(r => r.json()).then(data => {
+                if (data) {
+                    // Update AI-specific counters
+                    setText('ai-birds-in', data.birds_entered ?? 0);
+                    setText('ai-birds-out', data.birds_exited ?? 0);
+                    setText('ai-current-count', data.current_inside ?? 0);
+                    setText('ai-accuracy', data.accuracy ? `${(data.accuracy * 100).toFixed(1)}%` : '--');
+                }
+            }).catch(console.error);
+
+            // Fetch hourly statistics
             fetch('/api/statistics').then(r => r.json()).then(data => { 
                 if (data?.hourly) updateHourlyChartData(data.hourly); 
             }).catch(console.error);

@@ -413,11 +413,29 @@ class UltimateSwallowAIAgent:
     
     def detect_birds_realtime(self, frame, **kwargs):
         """🐦 ตรวจจับนกแบบ Real-time (สำหรับเชื่อมต่อกับ app_working.py)"""
-        results = self.process_frame_agent(frame)
-        if not results:
-            return None, [], self.get_realtime_stats()
-        
-        return frame, results['detections'], results['statistics']
+        try:
+            results = self.process_frame_agent(frame)
+            if not results:
+                return frame, [], self.get_realtime_stats()
+            
+            # Format detections for app_working.py compatibility
+            formatted_detections = []
+            for detection in results.get('detections', []):
+                formatted_detections.append({
+                    'bbox': detection.get('bbox', [0, 0, 0, 0]),
+                    'center': detection.get('center', (0, 0)),
+                    'confidence': detection.get('confidence', 0.0),
+                    'class': detection.get('class', 'bird'),
+                    'track_id': detection.get('track_id', -1),
+                    'direction': detection.get('direction', 'unknown'),
+                    'type': 'bird_detection'
+                })
+            
+            return frame, formatted_detections, results.get('statistics', {})
+            
+        except Exception as e:
+            logger.error(f"Error in detect_birds_realtime: {e}")
+            return frame, [], self.get_realtime_stats()
     
     def get_bird_statistics(self):
         """📊 รับสถิติการนับนก (สำหรับ API endpoints)"""
@@ -428,6 +446,18 @@ class UltimateSwallowAIAgent:
             'total_detections': self.session_stats['total_detections'],
             'session_duration': (datetime.now() - self.session_stats['session_start']).total_seconds(),
             'agent_status': 'active' if self.is_active else 'inactive'
+        }
+    
+    def get_realtime_stats(self):
+        """📊 รับสถิติแบบ Real-time (สำหรับ compatibility)"""
+        return {
+            'birds_in': self.session_stats['birds_entered'],
+            'birds_out': self.session_stats['birds_exited'], 
+            'birds_inside': self.session_stats['birds_inside'],
+            'total_detections': self.session_stats['total_detections'],
+            'frames_processed': self.session_stats['frames_processed'],
+            'agent_active': self.is_active,
+            'timestamp': datetime.now().isoformat()
         }
     
     def reset_counters(self):

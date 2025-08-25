@@ -523,39 +523,55 @@ class EnhancedUltraSmartAIAgent:
         }
     
     def _initialize_learning_database(self):
-        """เริ่มต้นฐานข้อมูลการเรียนรู้"""
+        """เริ่มต้นฐานข้อมูลการเรียนรู้ครบถ้วน"""
         try:
             conn = sqlite3.connect(self.learning_db)
             cursor = conn.cursor()
             
+            # ตารางการสนทนาหลัก
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS conversations (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                     user_message TEXT,
                     ai_response TEXT,
                     context TEXT,
                     confidence REAL,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    session_id TEXT,
                     learned_from BOOLEAN DEFAULT 0
                 )
             ''')
             
+            # ตารางรูปแบบการเรียนรู้
             cursor.execute('''
-                CREATE TABLE IF NOT EXISTS learning_patterns (
+                CREATE TABLE IF NOT EXISTS learned_patterns (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    pattern_type TEXT,
-                    pattern_data TEXT,
+                    pattern TEXT UNIQUE,
+                    category TEXT,
+                    response_template TEXT,
+                    confidence REAL,
+                    usage_count INTEGER DEFAULT 1,
+                    last_used DATETIME,
+                    created_date DATETIME
+                )
+            ''')
+            
+            # ตารางข้อมูลผู้ใช้
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS user_analytics (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    question_type TEXT,
                     frequency INTEGER DEFAULT 1,
-                    last_used DATETIME DEFAULT CURRENT_TIMESTAMP
+                    last_asked DATETIME
                 )
             ''')
             
             conn.commit()
             conn.close()
-            print("✅ Learning database initialized")
+            print("📚 Learning database initialized successfully!")
             
         except Exception as e:
-            print(f"⚠️ Learning database initialization failed: {e}")
+            print(f"❌ Learning database initialization failed: {e}")
     
     def _initialize_continuous_learning(self):
         """เริ่มต้นระบบการเรียนรู้ต่อเนื่อง"""
@@ -1141,7 +1157,7 @@ class EnhancedUltraSmartAIAgent:
         self.threat_assessor = ThreatAssessor()
         
         # Initialize Advanced Systems
-        self._initialize_advanced_learning_database()
+        self._initialize_learning_database()
         self._load_learned_patterns()
         self._initialize_real_time_monitoring()
         self._initialize_predictive_models()
@@ -1150,62 +1166,11 @@ class EnhancedUltraSmartAIAgent:
         print("✅ Ultimate Intelligent AI Agent initialized successfully!")
         print(f"📚 Knowledge base: {len(self.knowledge_base)} categories")
         print(f"🧠 Learned patterns: {len(self.learned_patterns)} patterns")
-        print(f"� Historical data points: {len(self.swallow_patterns)}")
+        print(f"📊 Historical data points: {len(self.swallow_patterns)}")
         print("🔄 Real-time monitoring enabled")
         print("🔮 Predictive analytics ready")
     
 
-    
-    def _initialize_learning_database(self):
-        """เริ่มต้นฐานข้อมูลการเรียนรู้"""
-        try:
-            conn = sqlite3.connect(self.learning_db)
-            cursor = conn.cursor()
-            
-            # ตารางการสนทนา
-            cursor.execute('''
-                CREATE TABLE IF NOT EXISTS conversations (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_message TEXT,
-                    ai_response TEXT,
-                    context TEXT,
-                    confidence REAL,
-                    timestamp DATETIME,
-                    session_id TEXT
-                )
-            ''')
-            
-            # ตารางรูปแบบที่เรียนรู้
-            cursor.execute('''
-                CREATE TABLE IF NOT EXISTS learned_patterns (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    pattern TEXT UNIQUE,
-                    category TEXT,
-                    response_template TEXT,
-                    confidence REAL,
-                    usage_count INTEGER DEFAULT 1,
-                    last_used DATETIME,
-                    created_date DATETIME
-                )
-            ''')
-            
-            # ตารางข้อมูลผู้ใช้
-            cursor.execute('''
-                CREATE TABLE IF NOT EXISTS user_analytics (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    question_type TEXT,
-                    frequency INTEGER DEFAULT 1,
-                    last_asked DATETIME
-                )
-            ''')
-            
-            conn.commit()
-            conn.close()
-            print("📚 Learning database initialized successfully!")
-            
-        except Exception as e:
-            print(f"❌ Learning database initialization failed: {e}")
-    
     def _load_learned_patterns(self):
         """โหลดรูปแบบที่เรียนรู้แล้ว"""
         try:
@@ -2030,34 +1995,6 @@ class EnhancedUltraSmartAIAgent:
             return "🟡 แนวโน้มเป็นลบเล็กน้อย ควรติดตามต่อ"
         else:
             return "🔴 แนวโน้มเป็นลบมาก ต้องตรวจสอบปัญหา"
-    
-    def _learn_from_conversation(self, user_message: str, ai_response: str, context: Dict, question_type: str):
-        """เรียนรู้จากการสนทนา"""
-        try:
-            conn = sqlite3.connect(self.learning_db)
-            cursor = conn.cursor()
-            
-            # บันทึกการสนทนา
-            cursor.execute('''
-                INSERT INTO conversations (user_message, ai_response, context, timestamp, session_id)
-                VALUES (?, ?, ?, ?, ?)
-            ''', (user_message, ai_response, json.dumps(context), dt.datetime.now(), str(self.session_start)))
-            
-            # อัพเดทหรือเพิ่มรูปแบบใหม่
-            processed_message = self._preprocess_message(user_message)
-            cursor.execute('''
-                INSERT OR REPLACE INTO learned_patterns 
-                (pattern, category, response_template, confidence, usage_count, last_used, created_date)
-                VALUES (?, ?, ?, ?, 
-                    COALESCE((SELECT usage_count FROM learned_patterns WHERE pattern = ?) + 1, 1),
-                    ?, COALESCE((SELECT created_date FROM learned_patterns WHERE pattern = ?), ?))
-            ''', (processed_message, question_type, ai_response, 0.7, processed_message, dt.datetime.now(), processed_message, dt.datetime.now()))
-            
-            conn.commit()
-            conn.close()
-            
-        except Exception as e:
-            print(f"⚠️ Error learning from conversation: {e}")
     
     def _analyze_recent_conversations(self):
         """วิเคราะห์การสนทนาล่าสุด"""

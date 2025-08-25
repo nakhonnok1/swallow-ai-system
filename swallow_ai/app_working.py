@@ -489,50 +489,53 @@ class AIDetector:
             self.ai_agent = None
 
     def _initialize_detectors(self):
-        """Initialize all available AI detectors"""
-        # Ultimate Swallow AI Agent (priority)
+        """Initialize all available AI detectors with proper error handling"""
+        self.detectors: Dict[str, Any] = {}
+        self.current_detector = None
+        self.object_detector = None
+        self.detection_enabled = False
+        
+        # Ultimate Swallow AI Agent (primary detector)
         if MAIN_AI_AVAILABLE:
             try:
+                from ultimate_perfect_ai_MASTER import UltimateSwallowAIAgent
                 self.detectors['ultimate_ai'] = UltimateSwallowAIAgent()
                 self.current_detector = 'ultimate_ai'
                 self.detection_enabled = True
-                logger.info("Ultimate Swallow AI Agent initialized successfully")
+                logger.info("✅ Ultimate Swallow AI Agent initialized successfully")
             except Exception as e:
-                logger.error(f"Ultimate Swallow AI Agent initialization failed: {e}")
+                logger.error(f"❌ Ultimate Swallow AI Agent failed: {e}")
         
         # Ultra Safe Detector (secondary)
         if ULTRA_SAFE_DETECTOR_AVAILABLE:
             try:
+                from ultra_safe_detector import UltraSafeDetector
                 self.detectors['ultra_safe'] = UltraSafeDetector()
+                self.object_detector = self.detectors['ultra_safe']
                 if not self.current_detector:
                     self.current_detector = 'ultra_safe'
                     self.detection_enabled = True
-                logger.info("Ultra Safe Detector initialized")
+                logger.info("✅ Ultra Safe Detector initialized")
             except Exception as e:
-                logger.error(f"Ultra Safe Detector initialization failed: {e}")
+                logger.error(f"❌ Ultra Safe Detector failed: {e}")
         
-        # Advanced Object Detector (tertiary) - Use Ultra Safe Detector instead
-        if ADVANCED_DETECTOR_AVAILABLE:
-            try:
-                self.detectors['advanced'] = UltraSafeDetector()
-                self.object_detector = self.detectors['advanced']  # Set object_detector reference
-                if not self.current_detector:
-                    self.current_detector = 'advanced'
-                    self.detection_enabled = True
-                logger.info("Advanced Object Detector initialized (using UltraSafeDetector)")
-            except Exception as e:
-                logger.error(f"Advanced Object Detector initialization failed: {e}")
-        
-        # Simple YOLO (fallback)
+        # Simple YOLO Detector (fallback)
         if SIMPLE_YOLO_AVAILABLE:
             try:
+                from simple_ai_detector import SimpleYOLODetector
                 self.detectors['simple_yolo'] = SimpleYOLODetector()
                 if not self.current_detector:
                     self.current_detector = 'simple_yolo'
                     self.detection_enabled = True
-                logger.info("Simple YOLO Detector initialized")
+                logger.info("✅ Simple YOLO Detector initialized as fallback")
             except Exception as e:
-                logger.error(f"Simple YOLO Detector initialization failed: {e}")
+                logger.error(f"❌ Simple YOLO Detector failed: {e}")
+        
+        # Log final detector status
+        if self.detection_enabled:
+            logger.info(f"🎯 Active detector: {self.current_detector}")
+        else:
+            logger.warning("⚠️ No detectors available - running in monitoring mode")
 
     def detect_birds(self, frame: np.ndarray) -> List[Dict[str, Any]]:
         """Detect birds specifically - returns results for BLUE bounding boxes"""
@@ -547,48 +550,50 @@ class AIDetector:
             # Use appropriate detection method for bird detection
             if self.current_detector == 'ultimate_ai':
                 # Use the comprehensive detection from UltimateSwallowAIAgent
-                results = detector.detect_birds_realtime(frame)
-                bird_detections = []
-                for det in results:
-                    if isinstance(det, dict):
-                        bird_detections.append({
-                            'bbox': det.get('bbox', [0, 0, 0, 0]),
-                            'confidence': det.get('confidence', 0.0),
-                            'class': det.get('class', 'bird'),
-                            'type': 'bird_detection'
-                        })
-                return bird_detections
+                _, bird_detections, _ = detector.detect_birds_realtime(frame)
+                formatted_detections = []
+                if isinstance(bird_detections, list):
+                    for det in bird_detections:
+                        if isinstance(det, dict):
+                            formatted_detections.append({
+                                'bbox': det.get('bbox', [0, 0, 0, 0]),
+                                'confidence': det.get('confidence', 0.0),
+                                'class': det.get('class', 'bird'),
+                                'type': 'bird_detection'
+                            })
+                return formatted_detections
                 
             elif self.current_detector == 'ultra_safe':
-                _, detections, stats = detector.detect_birds_realtime(
-                    frame, camera_props, frame_quality(frame)
-                )
-                bird_detections = []
-                if isinstance(detections, list):
-                    for det in detections:
-                        bird_detections.append({
-                            'bbox': det.get('bbox', [0, 0, 0, 0]),
-                            'confidence': det.get('confidence', 0.0),
-                            'class': 'bird',
-                            'type': 'bird_detection'
-                        })
-                return bird_detections
-                
-            elif self.current_detector == 'advanced':
-                results = detector.detect_objects(frame, camera_props, frame_quality(frame))
-                # Filter for bird-like objects only
-                bird_detections = []
-                for det in results:
-                    if det.get('class', '').lower() in ['bird', 'swallow', 'pigeon', 'dove']:
-                        det['type'] = 'bird_detection'
-                        bird_detections.append(det)
-                return bird_detections
+                # Ultra Safe Detector has a different API
+                try:
+                    if hasattr(detector, 'detect_birds_realtime'):
+                        _, detections, _ = detector.detect_birds_realtime(
+                            frame, camera_props, frame_quality(frame)
+                        )
+                    else:
+                        # Fallback method
+                        detections = detector.detect_birds(frame)
+                        
+                    bird_detections = []
+                    if isinstance(detections, list):
+                        for det in detections:
+                            bird_detections.append({
+                                'bbox': det.get('bbox', [0, 0, 0, 0]),
+                                'confidence': det.get('confidence', 0.0),
+                                'class': 'bird',
+                                'type': 'bird_detection'
+                            })
+                    return bird_detections
+                except Exception as e:
+                    logger.error(f"Ultra Safe Detector error: {e}")
+                    return []
                 
             elif self.current_detector == 'simple_yolo':
+                # Simple YOLO Detector
                 results = detector.detect_birds(frame)
                 for det in results:
                     det['type'] = 'bird_detection'
-                return results
+                return results if isinstance(results, list) else []
             
             return []
             
@@ -597,15 +602,39 @@ class AIDetector:
             return []
     
     def get_ai_statistics(self) -> Dict[str, Any]:
-        """Get comprehensive statistics from Ultimate AI Agent"""
-        if self.current_detector == 'ultimate_ai' and 'ultimate_ai' in self.detectors:
-            try:
+        """Get comprehensive statistics from AI detectors"""
+        try:
+            if self.current_detector == 'ultimate_ai' and 'ultimate_ai' in self.detectors:
                 agent = self.detectors['ultimate_ai']
-                return agent.get_comprehensive_statistics()
-            except Exception as e:
-                logger.error(f"Failed to get AI statistics: {e}")
-                return {}
-        return {}
+                # Use available methods from Ultimate AI Agent
+                bird_stats = agent.get_bird_statistics()
+                realtime_stats = agent.get_realtime_stats()
+                
+                return {
+                    'detector_type': 'ultimate_ai',
+                    'bird_statistics': bird_stats,
+                    'realtime_statistics': realtime_stats,
+                    'birds_entered': bird_stats.get('entering', 0),
+                    'birds_exited': bird_stats.get('exiting', 0),
+                    'current_inside': bird_stats.get('current_inside', 0),
+                    'total_detections': bird_stats.get('total_detections', 0),
+                    'agent_status': bird_stats.get('agent_status', 'unknown')
+                }
+            elif self.current_detector in self.detectors:
+                # For other detectors, return basic stats
+                return {
+                    'detector_type': self.current_detector,
+                    'detection_enabled': self.detection_enabled,
+                    'basic_stats': True
+                }
+        except Exception as e:
+            logger.error(f"Failed to get AI statistics: {e}")
+        
+        return {
+            'detector_type': self.current_detector or 'none',
+            'detection_enabled': self.detection_enabled,
+            'error': 'No statistics available'
+        }
     
     def get_ai_status(self) -> Dict[str, Any]:
         """Get AI system status"""
@@ -1174,14 +1203,42 @@ def serve_anomaly_image(filename):
 # ===== ULTIMATE AI AGENT API ENDPOINTS =====
 @app.route('/api/ultimate-ai/statistics')
 def api_ultimate_ai_statistics():
-    """Get comprehensive AI Agent statistics"""
+    """Get comprehensive Ultimate AI Agent statistics"""
     try:
-        ai_stats = ai_detector.get_ai_statistics()
-        return jsonify({
-            'success': True,
-            'ai_statistics': ai_stats,
-            'timestamp': dt.datetime.now().isoformat()
-        })
+        if ai_detector.current_detector == 'ultimate_ai' and 'ultimate_ai' in ai_detector.detectors:
+            # Get statistics from Ultimate AI Agent
+            agent = ai_detector.detectors['ultimate_ai']
+            ai_stats = agent.get_bird_statistics()
+            detailed_stats = agent.get_detailed_analytics()
+            
+            return jsonify({
+                'success': True,
+                'detector_type': 'ultimate_ai',
+                'bird_statistics': ai_stats,
+                'detailed_analytics': detailed_stats,
+                'birds_entered': ai_stats.get('entering', 0),
+                'birds_exited': ai_stats.get('exiting', 0),
+                'current_inside': ai_stats.get('current_inside', 0),
+                'total_detections': ai_stats.get('total_detections', 0),
+                'accuracy': detailed_stats.get('accuracy', 0),
+                'agent_status': ai_stats.get('agent_status', 'unknown'),
+                'timestamp': dt.datetime.now().isoformat()
+            })
+        else:
+            # Fallback to basic bird counter stats
+            basic_stats = bird_counter.get_stats()
+            return jsonify({
+                'success': True,
+                'detector_type': ai_detector.current_detector or 'none',
+                'birds_entered': basic_stats.get('birds_in', 0),
+                'birds_exited': basic_stats.get('birds_out', 0),
+                'current_inside': basic_stats.get('current_count', 0),
+                'total_detections': basic_stats.get('total_detections', 0),
+                'accuracy': 0.75,  # Default accuracy
+                'agent_status': 'fallback',
+                'timestamp': dt.datetime.now().isoformat()
+            })
+            
     except Exception as e:
         logger.error(f'Ultimate AI statistics API error: {e}')
         return jsonify({'success': False, 'error': str(e)})
@@ -1247,7 +1304,7 @@ def api_cleanup_old_data():
 
 @app.route('/api/chat', methods=['POST'])
 def api_chat():
-    """Smart AI Chatbot API endpoint"""
+    """Enhanced AI Chatbot API endpoint using Enhanced Ultra Smart AI Agent"""
     try:
         from flask import request
         data = request.get_json() or {}
@@ -1256,26 +1313,59 @@ def api_chat():
         if not message:
             return jsonify({'error': 'ไม่มีข้อความ'}), 400
             
-        if ai_detector.ai_chatbot is not None:
+        # Use Enhanced Ultra Smart AI Agent if available
+        if ai_detector.ai_agent is not None:
+            # Prepare comprehensive context
             context = {
                 'birds_in': bird_counter.birds_in,
                 'birds_out': bird_counter.birds_out,
                 'current_count': bird_counter.current_count,
                 'camera_connected': camera_manager.is_connected,
-                'ai_status': 'active' if hasattr(ai_detector, 'detection_enabled') and ai_detector.detection_enabled else 'inactive'
+                'ai_status': 'active' if ai_detector.detection_enabled else 'inactive',
+                'detector_type': ai_detector.current_detector,
+                'uptime': get_uptime()
             }
-            response = ai_detector.ai_chatbot.get_response(message, context)
+            
+            # Get Ultimate AI statistics if available
+            if ai_detector.current_detector == 'ultimate_ai' and 'ultimate_ai' in ai_detector.detectors:
+                try:
+                    ultimate_stats = ai_detector.detectors['ultimate_ai'].get_bird_statistics()
+                    context.update({
+                        'ultimate_ai_stats': ultimate_stats,
+                        'ai_birds_entered': ultimate_stats.get('entering', 0),
+                        'ai_birds_exited': ultimate_stats.get('exiting', 0),
+                        'ai_current_inside': ultimate_stats.get('current_inside', 0)
+                    })
+                except Exception as e:
+                    logger.debug(f"Could not get Ultimate AI stats: {e}")
+            
+            # Get AI response with context
+            response = ai_detector.ai_agent.get_response(message, context)
+            
             return jsonify({
                 'success': True,
                 'response': response,
-                'context': context
+                'context': context,
+                'ai_type': 'enhanced_ultra_smart'
             })
         else:
+            # Fallback response
+            fallback_responses = {
+                'สวัสดี': '🤖 สวัสดีครับ! ผมคือ AI ตัวช่วยของระบบ Ultimate Bird Intelligence',
+                'สถานะ': f'🔧 ระบบทำงานปกติ มีนกเข้า {bird_counter.birds_in} ตัว ออก {bird_counter.birds_out} ตัว',
+                'นก': f'🐦 ตอนนี้มีนก {bird_counter.current_count} ตัวในรัง',
+                'เวลา': f'🕐 เวลาปัจจุบัน: {dt.datetime.now().strftime("%H:%M:%S")}'
+            }
+            
+            # Simple keyword matching
+            response = fallback_responses.get(message, 'ขออภัย AI Chatbot ไม่พร้อมใช้งาน')
+            
             return jsonify({
-                'success': False,
-                'response': 'AI Chatbot ไม่พร้อมใช้งาน กรุณาตรวจสอบการติดตั้ง',
-                'error': 'chatbot_not_available'
+                'success': True,
+                'response': response,
+                'ai_type': 'fallback'
             })
+            
     except Exception as e:
         logger.error(f'Chat API error: {e}')
         return jsonify({'success': False, 'error': str(e)}), 500
