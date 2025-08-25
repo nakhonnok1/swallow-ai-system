@@ -149,58 +149,70 @@ class UltraIntelligentIntruderDetector:
             'crow', 'raven', 'magpie',  # นกอีกา (ขนาดใหญ่)
         ]
 
-        # Label mapping ที่ปรับปรุงแล้ว - ไม่รวมยานพาหนะ
+        # 🎯 Label mapping ที่ปรับปรุงแล้ว - แยกแยะนกนางแอ่นอย่างชาญฉลาด (ไม่รวมยานพาหนะ)
         self.label_alias = {
-            # นกนางแอ่นและนกเล็ก (ไม่ใช่สิ่งแปลกปลอม)
-            'swallow': ['swallow', 'martin', 'hirundo', 'barn_swallow', 'house_martin'],
-            'small_bird': ['sparrow', 'finch', 'wren', 'robin', 'tit'],
+            # 🐦 นกนางแอ่นและนกเล็ก (ไม่ใช่สิ่งแปลกปลอม - เป็นเป้าหมายที่ต้องปกป้อง)
+            'swallow': ['swallow', 'martin', 'hirundo', 'barn_swallow', 'house_martin', 'delichon'],
+            'small_bird': ['sparrow', 'finch', 'wren', 'robin', 'tit', 'tiny_bird', 'small_passerine'],
             
-            # นกขนาดใหญ่ (สิ่งแปลกปลอม)
-            'large_predator': ['falcon', 'eagle', 'hawk', 'kite', 'buzzard', 'owl', 'barn_owl'],
-            'large_bird': ['crow', 'raven', 'magpie', 'pigeon', 'dove'],
+            # 🦅 นกขนาดใหญ่ที่เป็นภัยคุกคาม (สิ่งแปลกปลอม - ต้องมีขนาดใหญ่อย่างน้อย 5000 pixels)
+            'large_predator': ['falcon', 'eagle', 'hawk', 'kite', 'buzzard', 'owl', 'barn_owl', 'horned_owl'],
+            'large_bird': ['crow', 'raven', 'magpie', 'pigeon', 'dove', 'large_corvid'],
             
-            # สัตว์อื่นๆ (สิ่งแปลกปลอม)
-            'mammal_predator': ['cat', 'dog', 'fox', 'weasel', 'rat', 'mouse'],
-            'reptile': ['snake', 'python', 'cobra', 'lizard', 'gecko', 'monitor'],
-            'human': ['person', 'man', 'woman', 'child', 'people']
+            # 🐾 สัตว์เลี้ยงลูกด้วยนมที่เป็นภัยคุกคาม (สิ่งแปลกปลอม)
+            'mammal_predator': ['cat', 'dog', 'fox', 'weasel', 'rat', 'mouse', 'ferret', 'marten'],
+            
+            # 🐍 สัตว์เลื้อยคลาน (สิ่งแปลกปลอมอันตราย)
+            'reptile': ['snake', 'python', 'cobra', 'lizard', 'gecko', 'monitor', 'viper'],
+            
+            # 👤 มนุษย์ (สิ่งแปลกปลอมระดับวิกฤต)
+            'human': ['person', 'man', 'woman', 'child', 'people', 'human']
         }
+        
+        # 🚫 รายการที่ไม่ถือเป็นสิ่งแปลกปลอม (ยานพาหนะและวัตถุอื่นๆ ที่ไม่เป็นภัย)
+        self.non_intruder_objects = [
+            'car', 'truck', 'bus', 'motorcycle', 'bicycle', 'vehicle',
+            'airplane', 'boat', 'train', 'ship',
+            'umbrella', 'bag', 'suitcase', 'chair', 'table',
+            'bench', 'bottle', 'cup', 'phone', 'laptop'
+        ]
 
-        # การจำแนกสิ่งแปลกปลอม - ไม่รวมยานพาหนะและนกนางแอ่น
+        # 🎯 การจำแนกสิ่งแปลกปลอม - AI Agent ที่ชาญฉลาดที่สุด (ไม่รวมยานพาหนะและนกนางแอ่น)
         self.threat_objects = {
-            # มนุษย์ - ภัยคุกคามสูงสุด
-            'person': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
-            'human': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
+            # 👥 มนุษย์ - ภัยคุกคามวิกฤตระดับสูงสุด 
+            'person': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY, 'is_intruder': True},
+            'human': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY, 'is_intruder': True},
             
-            # สัตว์เลี้ยงลูกด้วยนม - ภัยคุกคามสูง
-            'cat': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
-            'dog': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
-            'fox': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
-            'weasel': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
+            # 🐱🐶 สัตว์เลี้ยงลูกด้วยนม - ภัยคุกคามสูง (ล่าสัตว์และรบกวนนก)
+            'cat': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT, 'is_intruder': True},
+            'dog': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT, 'is_intruder': True},
+            'fox': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT, 'is_intruder': True},
+            'weasel': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT, 'is_intruder': True},
             
-            # สัตว์ฟันแทะ - ภัยคุกคามปานกลาง
-            'rat': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
-            'mouse': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
+            # 🐭 สัตว์ฟันแทะ - ภัยคุกคามปานกลาง (กินไข่และลูกนก)
+            'rat': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH, 'is_intruder': True},
+            'mouse': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH, 'is_intruder': True},
             
-            # สัตว์เลื้อยคลาน - ภัยคุกคามวิกฤต
-            'snake': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
-            'python': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
-            'cobra': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
-            'lizard': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
-            'gecko': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL},
-            'monitor': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.HIGH},
+            # 🐍 สัตว์เลื้อยคลาน - ภัยคุกคามวิกฤต (อันตรายมากต่อไข่และลูกนก)
+            'snake': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY, 'is_intruder': True},
+            'python': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY, 'is_intruder': True},
+            'cobra': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY, 'is_intruder': True},
+            'lizard': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH, 'is_intruder': True},
+            'gecko': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL, 'is_intruder': False},  # ตุกแกไม่เป็นภัย
+            'monitor': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.HIGH, 'is_intruder': True},
             
-            # นกขนาดใหญ่ที่เป็นภัยคุกคาม (ต้องมีขนาดใหญ่พอ)
-            'falcon': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
-            'eagle': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
-            'hawk': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
-            'owl': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
-            'crow': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
-            'raven': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
-            'magpie': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
+            # 🦅 นกขนาดใหญ่ที่เป็นภัยคุกคาม (ต้องมีขนาดใหญ่อย่างน้อย 5000 pixels)
+            'falcon': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT, 'is_intruder': True, 'min_size': 5000},
+            'eagle': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT, 'is_intruder': True, 'min_size': 8000},
+            'hawk': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT, 'is_intruder': True, 'min_size': 4000},
+            'owl': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT, 'is_intruder': True, 'min_size': 3000},
+            'crow': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH, 'is_intruder': True, 'min_size': 4000},
+            'raven': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH, 'is_intruder': True, 'min_size': 5000},
+            'magpie': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH, 'is_intruder': True, 'min_size': 3000},
             
-            # นกนางแอ่นและนกเล็ก - ไม่ใช่สิ่งแปลกปลอม
-            'swallow': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL, 'is_target_species': True},
-            'small_bird': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL, 'is_target_species': True},
+            # 🐦 นกนางแอ่นและนกเล็ก - เป็นเป้าหมายที่ต้องปกป้อง (ไม่ใช่สิ่งแปลกปลอม!)
+            'swallow': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL, 'is_target_species': True, 'is_intruder': False},
+            'small_bird': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL, 'is_target_species': True, 'is_intruder': False},
         }
 
         # Initialize AI Models
@@ -421,11 +433,15 @@ class UltraIntelligentIntruderDetector:
                 # คำนวณขนาดของวัตถุ
                 object_area = w * h
                 
+                # กรองวัตถุที่ไม่ใช่สิ่งแปลกปลอม (ยานพาหนะ, วัตถุทั่วไป)
+                if not self._filter_non_intruders(class_name, object_area, confidence):
+                    continue  # ไม่ใช่สิ่งแปลกปลอม
+                
                 # กรองวัตถุเล็กๆ ที่ไม่สำคัญ
                 if object_area < self.min_small_object_size:
                     continue
                 
-                # Map label alias สำหรับการจำแนกประเภท
+                # Map label alias สำหรับการจำแนกประเภท - AI ที่ชาญฉลาด
                 original_class = class_name
                 mapped_class = class_name
                 
@@ -435,18 +451,18 @@ class UltraIntelligentIntruderDetector:
                         mapped_class = main_label
                         break
                 
-                # ตรวจสอบว่าเป็นนกนางแอ่นหรือไม่
+                # 🐦 ตรวจสอบว่าเป็นนกนางแอ่นหรือไม่ (AI Agent ที่ชาญฉลาดที่สุด)
                 is_swallow = self._is_swallow_detection(mapped_class, original_class, object_area, confidence)
                 
                 if is_swallow:
                     # นกนางแอ่น - ไม่ใช่สิ่งแปลกปลอม แต่บันทึกไว้เพื่อการติดตาม
-                    print(f"🐦 นกนางแอ่นตรวจพบ: {original_class} (confidence: {confidence:.2%})")
+                    print(f"🐦✅ นกนางแอ่นตรวจพบ: {original_class} (confidence: {confidence:.2%}, ขนาด: {object_area}px)")
                     continue  # ไม่เพิ่มในรายการสิ่งแปลกปลอม
                 
-                # ตรวจสอบว่าเป็นนกขนาดใหญ่หรือไม่
-                if mapped_class in ['large_predator', 'large_bird'] and object_area < self.min_large_bird_size:
-                    print(f"🐦 นกขนาดเล็ก (ไม่ใช่ภัยคุกคาม): {original_class}")
-                    continue  # นกขนาดเล็กไม่ถือเป็นสิ่งแปลกปลอม
+                # 🦅 ตรวจสอบนกขนาดใหญ่ที่เป็นภัยคุกคาม
+                if mapped_class in ['large_predator', 'large_bird']:
+                    if not self._is_large_bird_threat(mapped_class, original_class, object_area, confidence):
+                        continue  # ไม่เป็นภัยคุกคาม (ขนาดเล็กเกินไป)
                 
                 # ตรวจสอบว่าเป็นสิ่งแปลกปลอมหรือไม่
                 if mapped_class in self.threat_objects:
@@ -492,30 +508,131 @@ class UltraIntelligentIntruderDetector:
         return detections
     
     def _is_swallow_detection(self, mapped_class: str, original_class: str, object_area: int, confidence: float) -> bool:
-        """🐦 ตรวจสอบว่าเป็นนกนางแอ่นหรือไม่ (AI ที่ชาญฉลาด)"""
+        """🐦 ตรวจสอบว่าเป็นนกนางแอ่นหรือไม่ (AI ที่ชาญฉลาดที่สุด)"""
         
-        # 1. ตรวจสอบจาก mapped class
+        # 1. ตรวจสอบจาก mapped class - นกนางแอ่นและนกเล็กไม่ใช่สิ่งแปลกปลอม
         if mapped_class in ['swallow', 'small_bird']:
+            print(f"✅ ระบุเป็นนกนางแอ่น/นกเล็ก: {mapped_class}")
             return True
         
-        # 2. ตรวจสอบจาก original class
-        swallow_keywords = ['swallow', 'martin', 'hirundo', 'delichon', 'barn_swallow', 'house_martin']
+        # 2. ตรวจสอบจาก original class - คำสำคัญนกนางแอ่น
+        swallow_keywords = [
+            'swallow', 'martin', 'hirundo', 'delichon', 'barn_swallow', 
+            'house_martin', 'red_rumped_swallow', 'cliff_swallow'
+        ]
         if any(keyword in original_class.lower() for keyword in swallow_keywords):
+            print(f"✅ ตรวจพบนกนางแอ่นจากคำสำคัญ: {original_class}")
             return True
         
-        # 3. ตรวจสอบขนาด - นกนางแอ่นมักมีขนาดเล็กถึงปานกลาง
-        if mapped_class == 'bird' and object_area < self.min_large_bird_size:
-            # นกขนาดเล็ก-ปานกลางที่มี confidence สูง อาจเป็นนกนางแอ่น
+        # 3. ตรวจสอบขนาด - นกนางแอ่นมีขนาดเล็กถึงปานกลาง (< 3000 pixels)
+        if mapped_class == 'bird' and object_area < 3000:
             if confidence > 0.6:
-                print(f"🤔 นกขนาดเล็ก (อาจเป็นนกนางแอ่น): {original_class}")
+                print(f"🤔 นกขนาดเล็ก (น่าจะเป็นนกนางแอ่น): {original_class}, ขนาด: {object_area}")
                 return True
         
-        # 4. นกเล็กๆ ทั่วไป
-        small_bird_keywords = ['sparrow', 'finch', 'wren', 'robin', 'tit', 'small', 'tiny']
+        # 4. นกเล็กๆ ทั่วไป - ถือเป็นกลุ่มเดียวกับนกนางแอ่น
+        small_bird_keywords = [
+            'sparrow', 'finch', 'wren', 'robin', 'tit', 'small', 'tiny',
+            'warbler', 'flycatcher', 'chat', 'pipit'
+        ]
         if any(keyword in original_class.lower() for keyword in small_bird_keywords):
+            print(f"✅ ตรวจพบนกเล็ก (ไม่ใช่สิ่งแปลกปลอม): {original_class}")
+            return True
+        
+        # 5. ตรวจสอบ confidence + ขนาด - กรณีไม่แน่ใจ
+        if mapped_class == 'bird':
+            # ถ้า confidence สูงแต่ขนาดเล็ก = น่าจะเป็นนกนางแอ่น
+            if confidence > 0.7 and object_area < 4000:
+                print(f"🎯 นกขนาดเล็ก confidence สูง (น่าจะเป็นนกนางแอ่น): {confidence:.2f}")
+                return True
+            # ถ้า confidence ต่ำแต่ขนาดเล็กมาก = อาจเป็นนกนางแอ่นไกลๆ
+            if confidence > 0.4 and object_area < 2000:
+                print(f"🔍 นกขนาดเล็กมาก (อาจเป็นนกนางแอ่นไกล): ขนาด {object_area}")
+                return True
+        
+        # 6. ตรวจสอบว่าไม่ใช่นกขนาดใหญ่ที่เป็นภัยคุกคาม
+        large_bird_threats = [
+            'falcon', 'eagle', 'hawk', 'kite', 'buzzard', 'owl', 
+            'crow', 'raven', 'magpie', 'large', 'big'
+        ]
+        if any(keyword in original_class.lower() for keyword in large_bird_threats):
+            # ตรวจสอบขนาดเพิ่มเติม - ถ้าขนาดเล็กอาจเป็น false detection
+            if object_area < self.min_large_bird_size:
+                print(f"🚫 นกขนาดใหญ่แต่ขนาดเล็ก (น่าจะเป็น false detection): {original_class}")
+                return True  # ขนาดเล็กเกินไป น่าจะเป็นนกนางแอ่น
+        
+        return False
+    
+    def _is_large_bird_threat(self, mapped_class: str, original_class: str, object_area: int, confidence: float) -> bool:
+        """🦅 ตรวจสอบว่าเป็นนกขนาดใหญ่ที่เป็นภัยคุกคามจริงหรือไม่"""
+        
+        # 1. ต้องมีขนาดใหญ่พอที่จะเป็นภัยคุกคาม
+        if object_area < self.min_large_bird_size:
+            print(f"🚫 นกขนาดเล็กเกินไป ไม่เป็นภัย: {original_class}, ขนาด: {object_area}")
+            return False  # ขนาดเล็กเกินไป ไม่เป็นภัย
+        
+        # 2. ตรวจสอบจาก threat_objects ที่กำหนด min_size
+        threat_info = self.threat_objects.get(mapped_class, {})
+        min_required_size = threat_info.get('min_size', self.min_large_bird_size)
+        
+        if object_area < min_required_size:
+            print(f"🔍 ขนาดไม่ถึงขั้นต่ำสำหรับ {mapped_class}: {object_area} < {min_required_size}")
+            return False
+        
+        # 3. ต้องมี confidence ที่เพียงพอ
+        if confidence < self.confidence_threshold:
+            print(f"⚠️ Confidence ต่ำเกินไป: {confidence:.2f} < {self.confidence_threshold}")
+            return False
+        
+        # 4. ตรวจสอบคำสำคัญนกล่าสัตว์
+        predator_keywords = [
+            'falcon', 'eagle', 'hawk', 'kite', 'buzzard', 'owl', 
+            'barn_owl', 'horned_owl', 'crow', 'raven', 'magpie'
+        ]
+        
+        if mapped_class in ['large_predator', 'large_bird']:
+            print(f"🚨 ตรวจพบนกขนาดใหญ่ที่เป็นภัยคุกคาม: {mapped_class}")
+            return True
+        
+        if any(keyword in original_class.lower() for keyword in predator_keywords):
+            print(f"🦅 ตรวจพบนกล่าสัตว์: {original_class}")
             return True
         
         return False
+    
+    def _filter_non_intruders(self, detection_class: str, object_area: int, confidence: float) -> bool:
+        """🚫 กรองวัตถุที่ไม่ใช่สิ่งแปลกปลอม (ยานพาหนะ, วัตถุทั่วไป)"""
+        
+        # 1. ตรวจสอบรายการที่ไม่ใช่สิ่งแปลกปลอม
+        if detection_class.lower() in self.non_intruder_objects:
+            print(f"🚫 ไม่ใช่สิ่งแปลกปลอม: {detection_class}")
+            return False  # ไม่ใช่สิ่งแปลกปลอม
+        
+        # 2. ยานพาหนะและเครื่องจักร
+        vehicle_keywords = [
+            'car', 'truck', 'bus', 'motorcycle', 'bicycle', 'vehicle',
+            'airplane', 'boat', 'train', 'ship', 'helicopter'
+        ]
+        if any(keyword in detection_class.lower() for keyword in vehicle_keywords):
+            print(f"🚗 ตรวจพบยานพาหนะ (ไม่ใช่สิ่งแปลกปลอม): {detection_class}")
+            return False
+        
+        # 3. วัตถุในครัวเรือนและเครื่องใช้
+        household_keywords = [
+            'chair', 'table', 'bench', 'umbrella', 'bag', 'suitcase',
+            'bottle', 'cup', 'phone', 'laptop', 'book', 'clock'
+        ]
+        if any(keyword in detection_class.lower() for keyword in household_keywords):
+            print(f"🏠 ตรวจพบเครื่องใช้ในบ้าน (ไม่ใช่สิ่งแปลกปลอม): {detection_class}")
+            return False
+        
+        # 4. วัตถุที่มีขนาดเล็กเกินไปที่ไม่น่าจะเป็นภัย
+        if object_area < self.min_small_object_size:
+            print(f"🔍 วัตถุขนาดเล็กเกินไป: {detection_class}, ขนาด: {object_area}")
+            return False
+        
+        print(f"✅ ระบุเป็นสิ่งแปลกปลอม: {detection_class}")
+        return True  # เป็นสิ่งแปลกปลอมที่ต้องสนใจ
     
     def _backup_detection(self, frame: np.ndarray, camera_id: str, timestamp: str) -> List[IntruderDetection]:
         """Backup detection using traditional computer vision"""
@@ -923,6 +1040,41 @@ class IntelligentIntruderIntegration:
         self._register_api_routes()
         
         print("✅ Flask Integration ตั้งค่าเสร็จสิ้น")
+    
+    def process_frame_for_intruders(self, frame: np.ndarray, camera_id: str = "main_camera") -> List[Dict[str, Any]]:
+        """Process frame for intruders - NO DUPLICATE CODE - Central method for all intruder detection"""
+        if frame is None:
+            return []
+        
+        try:
+            # Use UltraIntelligentIntruderDetector directly
+            raw_detections = self.detector.detect_objects(frame, camera_id)
+            
+            # Convert to format expected by app_working.py
+            formatted_detections = []
+            for detection in raw_detections:
+                detection_dict = {
+                    'bbox': detection.bbox,
+                    'confidence': detection.confidence,
+                    'class': detection.object_type,
+                    'threat_level': detection.threat_level.value if hasattr(detection.threat_level, 'value') else str(detection.threat_level),
+                    'priority': detection.priority.value if hasattr(detection.priority, 'value') else str(detection.priority),
+                    'type': 'intruder_detection',
+                    'description': detection.description,
+                    'center': detection.center,
+                    'timestamp': detection.timestamp,
+                    'camera_id': detection.camera_id
+                }
+                formatted_detections.append(detection_dict)
+            
+            # Save to database
+            self._save_detections_to_db(raw_detections, frame)
+            
+            return formatted_detections
+            
+        except Exception as e:
+            print(f"❌ Frame processing error: {e}")
+            return []
     
     def _register_api_routes(self):
         """ลงทะเบียน API Routes สำหรับ Intruder Detection"""
