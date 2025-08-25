@@ -69,6 +69,44 @@ class DetectionPriority(Enum):
     URGENT = 4
     EMERGENCY = 5
 
+class IntruderStats:
+    """Global intruder detection statistics"""
+    
+    def __init__(self):
+        self.total_intruders = 0
+        self.daily_intruders = 0
+        self.last_detection = None
+        self.detection_count_today = 0
+        self.reset_daily_stats()
+    
+    def reset_daily_stats(self):
+        """Reset daily statistics at midnight"""
+        import datetime as dt
+        current_date = dt.datetime.now().date()
+        if not hasattr(self, 'last_date') or self.last_date != current_date:
+            self.daily_intruders = 0
+            self.detection_count_today = 0
+            self.last_date = current_date
+    
+    def add_detection(self, count: int = 1):
+        """Add intruder detection"""
+        import datetime as dt
+        self.reset_daily_stats()
+        self.total_intruders += count
+        self.daily_intruders += count
+        self.detection_count_today += 1
+        self.last_detection = dt.datetime.now()
+    
+    def get_stats(self) -> Dict[str, Any]:
+        """Get current statistics"""
+        self.reset_daily_stats()
+        return {
+            'total_intruders': self.total_intruders,
+            'daily_intruders': self.daily_intruders,
+            'detection_count_today': self.detection_count_today,
+            'last_detection': self.last_detection.isoformat() if self.last_detection else None
+        }
+
 @dataclass
 class IntruderDetection:
     """ข้อมูลการตรวจจับสิ่งแปลกปลอม"""
@@ -89,36 +127,80 @@ class UltraIntelligentIntruderDetector:
         """เริ่มต้นระบบ AI Agent"""
         print("🧠 เริ่มต้น Ultra Intelligent Intruder Detector...")
 
-        # Core Settings
-        self.confidence_threshold = 0.35  # ลด threshold เพื่อจับได้ไวขึ้น
-        self.detection_interval = 5  # ตรวจจับทุก 5 เฟรม เพื่อลดโหลด CPU
+        # Core Settings - ปรับแต่งให้เป็น AI เอเจนต์ที่ดีที่สุด
+        self.confidence_threshold = 0.45  # เพิ่ม threshold เพื่อลด false positive
+        self.detection_interval = 3  # ตรวจจับบ่อยขึ้นเพื่อความแม่นยำ
         self.frame_count = 0
+        
+        # ขนาดขั้นต่ำสำหรับการจำแนกประเภท (pixel area)
+        self.min_large_bird_size = 5000  # นกขนาดใหญ่ต้องมีขนาดอย่างน้อย 5000 pixels
+        self.min_small_object_size = 1000  # วัตถุเล็กๆ ที่จะไม่สนใจ
 
-        # Label mapping สำหรับสัตว์เฉพาะ/นก
+        # นกนางแอ่น - ไม่ใช่สิ่งแปลกปลอม (รายการนกที่อนุญาต)
+        self.allowed_birds = [
+            'swallow', 'martin', 'hirundo', 'delichon',  # นกนางแอ่นทุกชนิด
+            'small_bird', 'tiny_bird', 'sparrow', 'finch'  # นกเล็กๆ ทั่วไป
+        ]
+        
+        # นกขนาดใหญ่ที่เป็นภัยคุกคาม
+        self.large_predator_birds = [
+            'falcon', 'eagle', 'hawk', 'kite', 'buzzard',  # นกล่าสัตว์
+            'owl', 'barn_owl', 'horned_owl',  # นกฮูก
+            'crow', 'raven', 'magpie',  # นกอีกา (ขนาดใหญ่)
+        ]
+
+        # Label mapping ที่ปรับปรุงแล้ว - ไม่รวมยานพาหนะ
         self.label_alias = {
-            'bird': ['bird', 'pigeon', 'falcon', 'eagle', 'owl', 'crow', 'dove', 'parrot'],
-            'snake': ['snake', 'python', 'cobra'],
-            'lizard': ['lizard', 'gecko'],
+            # นกนางแอ่นและนกเล็ก (ไม่ใช่สิ่งแปลกปลอม)
+            'swallow': ['swallow', 'martin', 'hirundo', 'barn_swallow', 'house_martin'],
+            'small_bird': ['sparrow', 'finch', 'wren', 'robin', 'tit'],
+            
+            # นกขนาดใหญ่ (สิ่งแปลกปลอม)
+            'large_predator': ['falcon', 'eagle', 'hawk', 'kite', 'buzzard', 'owl', 'barn_owl'],
+            'large_bird': ['crow', 'raven', 'magpie', 'pigeon', 'dove'],
+            
+            # สัตว์อื่นๆ (สิ่งแปลกปลอม)
+            'mammal_predator': ['cat', 'dog', 'fox', 'weasel', 'rat', 'mouse'],
+            'reptile': ['snake', 'python', 'cobra', 'lizard', 'gecko', 'monitor'],
+            'human': ['person', 'man', 'woman', 'child', 'people']
         }
 
+        # การจำแนกสิ่งแปลกปลอม - ไม่รวมยานพาหนะและนกนางแอ่น
         self.threat_objects = {
-            'person': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
-            'cat': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.ELEVATED},
-            'dog': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.ELEVATED},
-            'bird': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL},
-            'snake': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
+            # มนุษย์ - ภัยคุกคามสูงสุด
+            'person': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
+            'human': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
+            
+            # สัตว์เลี้ยงลูกด้วยนม - ภัยคุกคามสูง
+            'cat': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
+            'dog': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
+            'fox': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
+            'weasel': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
+            
+            # สัตว์ฟันแทะ - ภัยคุกคามปานกลาง
             'rat': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
             'mouse': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
-            'lizard': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL},
+            
+            # สัตว์เลื้อยคลาน - ภัยคุกคามวิกฤต
+            'snake': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
+            'python': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
+            'cobra': {'threat': ThreatLevel.CRITICAL, 'priority': DetectionPriority.EMERGENCY},
+            'lizard': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
             'gecko': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL},
-            # เพิ่ม mapping สำหรับนกขนาดใหญ่
-            'falcon': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.HIGH},
-            'eagle': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.HIGH},
-            'owl': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.HIGH},
-            'pigeon': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL},
-            'crow': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL},
-            'dove': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL},
-            'parrot': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL},
+            'monitor': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.HIGH},
+            
+            # นกขนาดใหญ่ที่เป็นภัยคุกคาม (ต้องมีขนาดใหญ่พอ)
+            'falcon': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
+            'eagle': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
+            'hawk': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
+            'owl': {'threat': ThreatLevel.HIGH, 'priority': DetectionPriority.URGENT},
+            'crow': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
+            'raven': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
+            'magpie': {'threat': ThreatLevel.MEDIUM, 'priority': DetectionPriority.HIGH},
+            
+            # นกนางแอ่นและนกเล็ก - ไม่ใช่สิ่งแปลกปลอม
+            'swallow': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL, 'is_target_species': True},
+            'small_bird': {'threat': ThreatLevel.LOW, 'priority': DetectionPriority.NORMAL, 'is_target_species': True},
         }
 
         # Initialize AI Models
@@ -132,7 +214,49 @@ class UltraIntelligentIntruderDetector:
             'accuracy_score': 0.0
         }
 
-    print("✅ Ultra Intelligent Intruder Detector พร้อมใช้งาน!")
+        print("✅ Ultra Intelligent Intruder Detector พร้อมใช้งาน!")
+    
+    def _summarize_threats(self, detections: List[IntruderDetection]) -> Dict[str, Any]:
+        """สรุปภัยคุกคาม - ฟังก์ชันใหม่สำหรับ app_working.py"""
+        summary = {
+            'total': len(detections),
+            'by_threat_level': {},
+            'by_object_type': {},
+            'highest_threat': None,
+            'avg_confidence': 0.0
+        }
+        
+        if not detections:
+            return summary
+        
+        # นับตาม threat level
+        for detection in detections:
+            level = detection.threat_level.value
+            summary['by_threat_level'][level] = summary['by_threat_level'].get(level, 0) + 1
+            
+            obj_type = detection.object_type
+            summary['by_object_type'][obj_type] = summary['by_object_type'].get(obj_type, 0) + 1
+        
+        # หา threat level สูงสุด
+        threat_priorities = {
+            ThreatLevel.CRITICAL: 4,
+            ThreatLevel.HIGH: 3,
+            ThreatLevel.MEDIUM: 2,
+            ThreatLevel.LOW: 1
+        }
+        
+        highest_priority = 0
+        for detection in detections:
+            priority = threat_priorities.get(detection.threat_level, 0)
+            if priority > highest_priority:
+                highest_priority = priority
+                summary['highest_threat'] = detection.threat_level.value
+        
+        # คำนวณ confidence เฉลี่ย
+        if detections:
+            summary['avg_confidence'] = sum(d.confidence for d in detections) / len(detections)
+        
+        return summary
         
     def detect_objects(self, frame: np.ndarray, camera_id: str = "default", camera_props: dict = None) -> List[IntruderDetection]:
         """🔍 ตรวจจับวัตถุและสิ่งแปลกปลอมอย่างชาญฉลาด (optimized for low CPU)"""
@@ -262,7 +386,7 @@ class UltraIntelligentIntruderDetector:
         print("✅ Backup Detection System พร้อมใช้งาน")
     
     def _yolo_detection(self, frame: np.ndarray, camera_id: str, timestamp: str) -> List[IntruderDetection]:
-        """Ultimate AI-based detection - ใช้ Ultimate AI Vision System"""
+        """Ultimate AI-based detection - ใช้ Ultimate AI Vision System พร้อมการแยกแยะนกนางแอ่น"""
         detections = []
         
         # ลำดับความสำคัญ: Ultimate AI > Fallback AI > None
@@ -294,25 +418,56 @@ class UltraIntelligentIntruderDetector:
                 x, y, w, h = det['bbox']
                 center = det['center']
                 
-                # Map label alias สำหรับสิ่งแปลกปลอม
+                # คำนวณขนาดของวัตถุ
+                object_area = w * h
+                
+                # กรองวัตถุเล็กๆ ที่ไม่สำคัญ
+                if object_area < self.min_small_object_size:
+                    continue
+                
+                # Map label alias สำหรับการจำแนกประเภท
                 original_class = class_name
+                mapped_class = class_name
+                
+                # จำแนกประเภทด้วย AI ที่ชาญฉลาด
                 for main_label, aliases in self.label_alias.items():
-                    if class_name in aliases:
-                        class_name = main_label
+                    if class_name.lower() in [alias.lower() for alias in aliases]:
+                        mapped_class = main_label
                         break
                 
+                # ตรวจสอบว่าเป็นนกนางแอ่นหรือไม่
+                is_swallow = self._is_swallow_detection(mapped_class, original_class, object_area, confidence)
+                
+                if is_swallow:
+                    # นกนางแอ่น - ไม่ใช่สิ่งแปลกปลอม แต่บันทึกไว้เพื่อการติดตาม
+                    print(f"🐦 นกนางแอ่นตรวจพบ: {original_class} (confidence: {confidence:.2%})")
+                    continue  # ไม่เพิ่มในรายการสิ่งแปลกปลอม
+                
+                # ตรวจสอบว่าเป็นนกขนาดใหญ่หรือไม่
+                if mapped_class in ['large_predator', 'large_bird'] and object_area < self.min_large_bird_size:
+                    print(f"🐦 นกขนาดเล็ก (ไม่ใช่ภัยคุกคาม): {original_class}")
+                    continue  # นกขนาดเล็กไม่ถือเป็นสิ่งแปลกปลอม
+                
                 # ตรวจสอบว่าเป็นสิ่งแปลกปลอมหรือไม่
-                if class_name in self.threat_objects:
-                    threat_info = self.threat_objects[class_name]
+                if mapped_class in self.threat_objects:
+                    threat_info = self.threat_objects[mapped_class]
+                    
+                    # ถ้าเป็นพันธุ์เป้าหมาย (นกนางแอ่น) ให้ข้าม
+                    if threat_info.get('is_target_species', False):
+                        print(f"🎯 พันธุ์เป้าหมาย: {original_class} - ไม่ใช่สิ่งแปลกปลอม")
+                        continue
+                        
                 else:
-                    # สำหรับวัตถุที่ไม่รู้จัก
+                    # สำหรับวัตถุที่ไม่รู้จัก - ให้ระวัง
                     threat_info = {
                         'threat': ThreatLevel.MEDIUM, 
                         'priority': DetectionPriority.ELEVATED
                     }
+                    print(f"❓ วัตถุไม่ทราบประเภท: {original_class}")
                 
+                # สร้าง detection สำหรับสิ่งแปลกปลอม
                 detection = IntruderDetection(
-                    object_type=class_name,
+                    object_type=mapped_class,
                     confidence=confidence,
                     bbox=(x, y, w, h),
                     center=center,
@@ -320,19 +475,47 @@ class UltraIntelligentIntruderDetector:
                     priority=threat_info['priority'],
                     timestamp=timestamp,
                     camera_id=camera_id,
-                    description=f"{detector_name} detected {original_class} ({class_name}) with {confidence:.2%} confidence"
+                    description=f"{detector_name} detected {original_class} → {mapped_class} (size: {object_area}px, conf: {confidence:.2%})"
                 )
                 detections.append(detection)
                 
                 # Log การตรวจจับสิ่งแปลกปลอม
                 if threat_info['threat'] in [ThreatLevel.HIGH, ThreatLevel.CRITICAL]:
-                    print(f"🚨 INTRUDER ALERT: {class_name} detected with {confidence:.2%} confidence")
+                    print(f"🚨 INTRUDER ALERT: {mapped_class} ({original_class}) detected with {confidence:.2%} confidence")
+                elif threat_info['threat'] == ThreatLevel.MEDIUM:
+                    print(f"⚠️ MEDIUM THREAT: {mapped_class} ({original_class}) detected")
                 
         except Exception as e:
             logger.error(f"{detector_name} detection error: {e}")
             print(f"❌ {detector_name} เกิดข้อผิดพลาด: {e}")
             
         return detections
+    
+    def _is_swallow_detection(self, mapped_class: str, original_class: str, object_area: int, confidence: float) -> bool:
+        """🐦 ตรวจสอบว่าเป็นนกนางแอ่นหรือไม่ (AI ที่ชาญฉลาด)"""
+        
+        # 1. ตรวจสอบจาก mapped class
+        if mapped_class in ['swallow', 'small_bird']:
+            return True
+        
+        # 2. ตรวจสอบจาก original class
+        swallow_keywords = ['swallow', 'martin', 'hirundo', 'delichon', 'barn_swallow', 'house_martin']
+        if any(keyword in original_class.lower() for keyword in swallow_keywords):
+            return True
+        
+        # 3. ตรวจสอบขนาด - นกนางแอ่นมักมีขนาดเล็กถึงปานกลาง
+        if mapped_class == 'bird' and object_area < self.min_large_bird_size:
+            # นกขนาดเล็ก-ปานกลางที่มี confidence สูง อาจเป็นนกนางแอ่น
+            if confidence > 0.6:
+                print(f"🤔 นกขนาดเล็ก (อาจเป็นนกนางแอ่น): {original_class}")
+                return True
+        
+        # 4. นกเล็กๆ ทั่วไป
+        small_bird_keywords = ['sparrow', 'finch', 'wren', 'robin', 'tit', 'small', 'tiny']
+        if any(keyword in original_class.lower() for keyword in small_bird_keywords):
+            return True
+        
+        return False
     
     def _backup_detection(self, frame: np.ndarray, camera_id: str, timestamp: str) -> List[IntruderDetection]:
         """Backup detection using traditional computer vision"""
@@ -382,25 +565,49 @@ class UltraIntelligentIntruderDetector:
         return enhanced_detections
     
     def _enhance_detection(self, detection: IntruderDetection, frame: np.ndarray) -> IntruderDetection:
-        """เพิ่มความแม่นยำของการตรวจจับด้วย AI"""
-        # Advanced AI analysis could go here
-        # For now, we'll enhance based on context and confidence
+        """🧠 เพิ่มความแม่นยำของการตรวจจับด้วย AI ที่ชาญฉลาด"""
         
-        # Adjust threat level based on confidence
+        # คำนวณขนาดวัตถุจากพิกเซล
+        x, y, w, h = detection.bbox
+        object_area = w * h
+        
+        # ปรับระดับความเสี่ยงตามขนาดและ confidence
         if detection.confidence > 0.8:
             if detection.threat_level == ThreatLevel.HIGH:
                 detection.threat_level = ThreatLevel.CRITICAL
                 detection.priority = DetectionPriority.EMERGENCY
         
-        # Enhanced description
-        threat_desc = {
-            ThreatLevel.LOW: "ระดับเสี่ยงต่ำ",
-            ThreatLevel.MEDIUM: "ระดับเสี่ยงปานกลาง", 
-            ThreatLevel.HIGH: "ระดับเสี่ยงสูง",
-            ThreatLevel.CRITICAL: "ระดับเสี่ยงวิกฤต"
+        # วิเคราะห์เพิ่มเติมสำหรับนกขนาดใหญ่
+        if detection.object_type in ['large_predator', 'large_bird']:
+            if object_area < self.min_large_bird_size:
+                # ลดระดับความเสี่ยงถ้านกขนาดไม่ใหญ่พอ
+                if detection.threat_level == ThreatLevel.HIGH:
+                    detection.threat_level = ThreatLevel.MEDIUM
+                    detection.priority = DetectionPriority.ELEVATED
+                detection.description += f" | ขนาดเล็กกว่าที่คาดหวัง ({object_area}px)"
+        
+        # เพิ่มข้อมูลสำหรับการวิเคราะห์
+        threat_descriptions = {
+            ThreatLevel.LOW: "ระดับเสี่ยงต่ำ - ไม่เป็นอันตรายต่อนกนางแอ่น",
+            ThreatLevel.MEDIUM: "ระดับเสี่ยงปานกลาง - ควรเฝ้าระวัง", 
+            ThreatLevel.HIGH: "ระดับเสี่ยงสูง - อาจเป็นภัยต่อนกนางแอ่น",
+            ThreatLevel.CRITICAL: "ระดับเสี่ยงวิกฤต - อันตรายต่อนกนางแอ่นมาก"
         }
         
-        detection.description += f" | {threat_desc[detection.threat_level]}"
+        object_analysis = {
+            'person': "บุคคลในพื้นที่ - ตรวจสอบสิทธิ์การเข้าถึง",
+            'human': "มนุษย์ในพื้นที่ - อาจรบกวนนกนางแอ่น",
+            'cat': "แมว - นักล่าตัวฉกาจที่อันตรายต่อนก",
+            'dog': "สุนัข - อาจไล่ล่าหรือรบกวนนก",
+            'snake': "งู - อันตรายมากต่อไข่และลูกนก",
+            'large_predator': "นกล่าสัตว์ขนาดใหญ่ - ภัยคุกคามสูงต่อนกนางแอ่น",
+            'large_bird': "นกขนาดใหญ่ - อาจแย่งที่ทำรังหรือล่าสัตว์",
+            'rat': "หนู - อาจกินไข่หรือลูกนก",
+            'mouse': "หนูเล็ก - ภัยคุกคามน้อยแต่ควรระวัง"
+        }
+        
+        analysis = object_analysis.get(detection.object_type, "วัตถุไม่ทราบประเภท")
+        detection.description += f" | {threat_descriptions[detection.threat_level]} | {analysis}"
         
         return detection
     
@@ -566,37 +773,65 @@ class UltraIntelligentIntruderDetector:
         return summary
     
     def _generate_recommendations(self, intruder_detections: List[IntruderDetection], bird_analysis: Dict) -> List[str]:
-        """สร้างคำแนะนำจากผลการวิเคราะห์"""
+        """🎯 สร้างคำแนะนำเฉพาะเจาะจงสำหรับการป้องกันนกนางแอ่น"""
         recommendations = []
         
-        # คำแนะนำจากการตรวจจับสิ่งแปลกปลอม
+        # วิเคราะห์การตรวจจับสิ่งแปลกปลอม
         if intruder_detections:
-            high_threat_count = sum(1 for d in intruder_detections if d.threat_level in [ThreatLevel.HIGH, ThreatLevel.CRITICAL])
+            critical_threats = [d for d in intruder_detections if d.threat_level == ThreatLevel.CRITICAL]
+            high_threats = [d for d in intruder_detections if d.threat_level == ThreatLevel.HIGH]
             
-            if high_threat_count > 0:
-                recommendations.append(f"🚨 พบภัยคุกคามระดับสูง {high_threat_count} รายการ - ควรตรวจสอบทันที")
+            # ภัยคุกคามระดับวิกฤต
+            if critical_threats:
+                for threat in critical_threats:
+                    if threat.object_type in ['person', 'human']:
+                        recommendations.append(f"🚨 พบบุคคลในพื้นที่ - ตรวจสอบสิทธิ์การเข้าถึงทันที")
+                    elif threat.object_type in ['snake', 'python', 'cobra']:
+                        recommendations.append(f"� อันตราย! พบงูในพื้นที่ - เสี่ยงต่อไข่และลูกนกนางแอ่น")
+                
+            # ภัยคุกคามระดับสูง
+            if high_threats:
+                predator_count = len([d for d in high_threats if d.object_type in ['cat', 'dog', 'fox']])
+                if predator_count > 0:
+                    recommendations.append(f"🐱 พบสัตว์นักล่า {predator_count} ตัว - อันตรายต่อนกนางแอ่น")
+                
+                large_bird_count = len([d for d in high_threats if d.object_type in ['large_predator', 'falcon', 'eagle', 'hawk']])
+                if large_bird_count > 0:
+                    recommendations.append(f"🦅 พบนกล่าสัตว์ขนาดใหญ่ {large_bird_count} ตัว - อาจล่านกนางแอ่น")
             
-            person_count = sum(1 for d in intruder_detections if d.object_type == 'person')
-            if person_count > 0:
-                recommendations.append(f"👤 พบบุคคล {person_count} คน - ควรตรวจสอบสิทธิ์การเข้าพื้นที่")
-            
-            predator_count = sum(1 for d in intruder_detections if d.object_type in ['snake', 'cat', 'dog', 'falcon', 'eagle', 'owl'])
-            if predator_count > 0:
-                recommendations.append(f"🐍 พบสัตว์นักล่า {predator_count} ตัว - อาจเป็นภัยต่อนกนางแอ่น")
-        
-        # คำแนะนำจากการตรวจจับนก
+            # สัตว์ฟันแทะ
+            rodent_count = len([d for d in intruder_detections if d.object_type in ['rat', 'mouse']])
+            if rodent_count > 0:
+                recommendations.append(f"� พบสัตว์ฟันแทะ {rodent_count} ตัว - อาจกินไข่นกนางแอ่น")
+                
+        # วิเคราะห์ข้อมูลนก
         if 'bird_stats' in bird_analysis and isinstance(bird_analysis['bird_stats'], dict):
             bird_stats = bird_analysis['bird_stats']
             current_birds = bird_stats.get('current_count', 0)
             
             if current_birds > 0:
-                recommendations.append(f"🐦 มีนกในพื้นที่ {current_birds} ตัว - หลีกเลี่ยงการรบกวน")
-            
-            if intruder_detections and current_birds > 0:
-                recommendations.append("⚠️ มีทั้งสิ่งแปลกปลอมและนกในพื้นที่ - ควรเฝ้าระวังเป็นพิเศษ")
+                if intruder_detections:
+                    high_risk_intruders = [d for d in intruder_detections if d.threat_level in [ThreatLevel.HIGH, ThreatLevel.CRITICAL]]
+                    if high_risk_intruders:
+                        recommendations.append(f"⚠️ มีนกนางแอ่น {current_birds} ตัว และสิ่งแปลกปลอม {len(high_risk_intruders)} รายการ - เสี่ยงสูงมาก!")
+                    else:
+                        recommendations.append(f"🐦 มีนกนางแอ่น {current_birds} ตัว ในพื้นที่ - หลีกเลี่ยงการรบกวน")
+                else:
+                    recommendations.append(f"✅ มีนกนางแอ่น {current_birds} ตัว และไม่พบภัยคุกคาม - สภาพแวดล้อมดี")
+            else:
+                if intruder_detections:
+                    recommendations.append(f"🚫 ไม่มีนกนางแอ่นแต่มีสิ่งแปลกปลอม - อาจเป็นสาเหตุที่นกหลบหนี")
+        
+        # คำแนะนำเฉพาะกรณี
+        if not intruder_detections and not current_birds:
+            recommendations.append("🔍 ไม่พบนกหรือสิ่งแปลกปลอม - ตรวจสอบการตั้งค่ากล้องและ AI")
         
         if not recommendations:
-            recommendations.append("✅ ไม่พบภัยคุกคามในขณะนี้ - พื้นที่ปลอดภัย")
+            recommendations.append("✅ สภาพแวดล้อมปลอดภัยสำหรับนกนางแอ่น - ไม่พบภัยคุกคาม")
+        
+        # เพิ่มคำแนะนำการป้องกันทั่วไป
+        if intruder_detections:
+            recommendations.append("💡 แนะนำ: ตรวจสอบรั้วและจุดเข้าออก เพิ่มระบบป้องกันตามความจำเป็น")
         
         return recommendations
 

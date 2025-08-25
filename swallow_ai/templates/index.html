@@ -1,377 +1,192 @@
 <!DOCTYPE html>
-<html lang="th" id="app-html">
+<html lang="th" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🦅 Ultimate AI Bird Intelligence System V2.0 - Swallow AI</title>
+    <title>🦅 Ultimate AI Bird Intelligence System V3.0</title>
     
-    <!-- Enhanced Meta Tags -->
-    <meta name="description" content="Advanced AI-powered bird monitoring system with real-time detection, analytics, and intelligent alerts">
-    <meta name="keywords" content="AI, Bird Detection, Smart System, YOLOv4, Computer Vision, Real-time Monitoring">
-    <meta name="author" content="Swallow AI Team">
-    <meta name="theme-color" content="#00D4FF">
-    <meta name="robots" content="index, follow">
+    <!-- Enhanced Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        'neon-blue': '#00D4FF',
-                        'neon-purple': '#8B5CF6', 
-                        'neon-pink': '#F472B6',
-                        'neon-green': '#10B981',
-                        'neon-orange': '#F59E0B',
-                        'neon-red': '#EF4444',
-                        'cyber-dark': '#0F0F23',
-                        'cyber-light': '#1A1A40',
-                        'cyber-medium': '#2D1B69',
-                        'ai-primary': '#4338CA',
-                        'ai-secondary': '#7C3AED',
-                        'ai-accent': '#06B6D4'
-                    },
-                    fontFamily: {
-                        'kanit': ['Kanit', 'sans-serif'],
-                        'orbitron': ['Orbitron', 'monospace'],
-                        'inter': ['Inter', 'sans-serif']
-                    },
-                    animation: {
-                        'scale-pulse': 'scalePulse 2s ease-in-out infinite',
-                        'neon-glow': 'neonGlow 3s ease-in-out infinite alternate',
-                        'slide-up': 'slideUp 0.5s ease-out',
-                        'fade-in': 'fadeIn 0.3s ease-out',
-                        'bounce-soft': 'bounceSoft 2s ease-in-out infinite'
-                    },
-                    backdropBlur: {
-                        '4xl': '72px'
-                    },
-                    boxShadow: {
-                        'neon': '0 0 20px rgba(0, 212, 255, 0.5)',
-                        'glass': '0 8px 32px rgba(0, 0, 0, 0.3)'
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    
+
     <style>
-        /* ===== ULTRA MODERN CSS VARIABLES ===== */
+        /* ===== CUSTOM CSS VARIABLES ===== */
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --neon-gradient: linear-gradient(135deg, #00D4FF 0%, #8B5CF6 50%, #F472B6 100%);
-            --ai-gradient: linear-gradient(135deg, #4338CA 0%, #7C3AED 100%);
-            --glass-light: rgba(255, 255, 255, 0.1);
-            --glass-dark: rgba(0, 0, 0, 0.2);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --shadow-neon: 0 0 30px rgba(0, 212, 255, 0.4);
-            --shadow-purple: 0 0 30px rgba(139, 92, 246, 0.4);
-            --shadow-pink: 0 0 30px rgba(244, 114, 182, 0.4);
-            --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
-            --border-radius: 20px;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --neon-blue: #00D4FF;
+            --neon-purple: #8B5CF6;
+            --neon-green: #10B981;
+            --neon-orange: #F59E0B;
+            --neon-red: #EF4444;
+            --neon-gradient: linear-gradient(135deg, #00D4FF 0%, #8B5CF6 100%);
+            --glass-bg: rgba(15, 15, 35, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            /* Text Colors for Dark Theme */
+            --text-primary: #ffffff;
+            --text-secondary: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-accent: #00D4FF;
+            --text-contrast: #ffffff;
         }
 
-        /* ===== GLOBAL STYLES ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            /* Text Colors for Light Theme */
+            --text-primary: #1a202c;
+            --text-secondary: #2d3748;
+            --text-muted: #4a5568;
+            --text-accent: #0066cc;
+            --text-contrast: #1a202c;
+            /* Adjusted Neon Colors for Light Theme */
+            --neon-blue: #0066cc;
+            --neon-green: #059669;
+            --neon-orange: #ea580c;
+            --neon-red: #dc2626;
+            --neon-purple: #7c3aed;
         }
 
-        html {
-            scroll-behavior: smooth;
+        /* ===== ENHANCED BACKGROUNDS ===== */
+        .dark {
+            background: linear-gradient(135deg, #0F0F23 0%, #1A1A2E 50%, #16213E 100%);
         }
 
-        body {
-            font-family: 'Inter', 'Kanit', sans-serif;
-            background: linear-gradient(135deg, #0F0F23 0%, #1A1A40 30%, #2D1B69 70%, #4338CA 100%);
-            color: white;
-            overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
+        .light {
+            background: linear-gradient(135deg, #F0F9FF 0%, #E0E7FF 50%, #F3F4F6 100%);
         }
 
-        /* ===== ANIMATED BACKGROUND ===== */
-        .cyber-bg {
+        /* ===== TEXT COLOR UTILITIES ===== */
+        .text-primary { color: var(--text-primary) !important; }
+        .text-secondary { color: var(--text-secondary) !important; }
+        .text-muted { color: var(--text-muted) !important; }
+        .text-accent { color: var(--text-accent) !important; }
+        .text-contrast { color: var(--text-contrast) !important; }
+        
+        /* Force visible text in all themes */
+        .text-visible-always {
+            color: var(--text-primary) !important;
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.8) !important;
+        }
+        
+        .text-neon-safe {
+            color: var(--neon-blue) !important;
+            text-shadow: 0 0 10px var(--neon-blue) !important;
+        }
+        
+        .text-number-display {
+            color: var(--text-contrast) !important;
+            text-shadow: 
+                0 0 5px rgba(0, 0, 0, 0.8),
+                0 0 10px var(--neon-blue),
+                0 0 15px var(--neon-blue) !important;
+        }
+
+        /* ===== GLASS MORPHISM ===== */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            color: var(--text-primary);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        /* Enhanced glass card with better text contrast */
+        .glass-card h1, .glass-card h2, .glass-card h3, .glass-card h4, .glass-card h5, .glass-card h6 {
+            color: var(--text-primary) !important;
+        }
+        
+        .glass-card p, .glass-card span, .glass-card div {
+            color: var(--text-secondary) !important;
+        }
+        
+        .glass-card .text-gray-300, .glass-card .text-gray-400 {
+            color: var(--text-muted) !important;
+        }
+
+        /* ===== NEON EFFECTS ===== */
+        .neon-text {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
+        }
+
+        .neon-border {
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes neonGlow {
+            0%, 100% { text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue); }
+            50% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue), 0 0 40px var(--neon-blue); }
+        }
+
+        .animate-neon {
+            animation: neonGlow 2s ease-in-out infinite;
+        }
+
+        /* ===== FLOATING PARTICLES ===== */
+        .floating-particles {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(244, 114, 182, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 60% 60%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
-            z-index: -2;
-            animation: float 12s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        /* ===== GLASS MORPHISM SYSTEM ===== */
-        .glass {
-            background: var(--glass-light);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow-glass);
-            border-radius: var(--border-radius);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: var(--shadow-glass);
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-        }
-
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(0, 212, 255, 0.5);
-            box-shadow: var(--shadow-neon);
-            transform: translateY(-5px);
-        }
-
-        /* ===== MODERN BUTTONS ===== */
-        .cyber-btn {
-            background: var(--ai-gradient);
-            border: none;
-            color: white;
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            font-family: 'Orbitron', monospace;
-        }
-
-        .cyber-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-purple);
-        }
-
-        .cyber-btn::before {
-            content: '';
+        .particle {
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            animation: particleFloat 15s infinite linear;
+            opacity: 0.6;
         }
 
-        .cyber-btn:hover::before {
-            left: 100%;
-        }
-
-        /* ===== HEADER STYLES ===== */
-        .header-glass {
-            background: rgba(15, 15, 35, 0.9);
-            backdrop-filter: blur(30px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo-glow {
-            text-shadow: 0 0 20px #00D4FF, 0 0 40px #00D4FF;
-            animation: neon-glow 3s ease-in-out infinite alternate;
-        }
-
-        /* ===== VIDEO CONTAINER ===== */
-        .video-cyber {
-            background: var(--glass-light);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            border-radius: 24px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: var(--shadow-neon);
-            transition: var(--transition);
-        }
-
-        .video-cyber:hover {
-            border-color: rgba(0, 212, 255, 0.8);
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.6);
-        }
-
-        /* ===== COUNTER CARDS ===== */
-        .counter-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .counter-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--neon-gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .counter-card:hover::before {
-            opacity: 1;
-        }
-
-        .counter-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(0, 212, 255, 0.5);
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px) rotate(360deg); opacity: 0; }
         }
 
         /* ===== CHART CONTAINERS ===== */
         .chart-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 24px;
-            transition: var(--transition);
-        }
-
-        .chart-container:hover {
-            border-color: rgba(139, 92, 246, 0.5);
-            box-shadow: var(--shadow-purple);
-        }
-
-        /* ===== STATUS INDICATORS ===== */
-        .status-online {
-            width: 12px;
-            height: 12px;
-            background: #10B981;
-            border-radius: 50%;
-            animation: scale-pulse 2s infinite;
-            box-shadow: 0 0 15px #10B981;
-        }
-
-        .status-offline {
-            width: 12px;
-            height: 12px;
-            background: #EF4444;
-            border-radius: 50%;
-            box-shadow: 0 0 15px #EF4444;
+            position: relative;
+            height: 300px !important;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--glass-border);
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 768px) {
-            .counter-card {
-                padding: 16px;
-            }
-            
             .chart-container {
-                padding: 20px;
+                height: 250px !important;
+                padding: 15px;
             }
         }
 
-        @media (max-width: 640px) {
-            .video-cyber {
-                border-radius: 16px;
-            }
-            
-            .glass-card {
-                border-radius: 12px;
-            }
-            
-            .cyber-btn {
-                padding: 12px 24px;
-                font-size: 14px;
-            }
-        }
-
-        /* ===== ANIMATION KEYFRAMES ===== */
-        @keyframes neonGlow {
-            0% {
-                text-shadow: 0 0 10px #00D4FF, 0 0 20px #00D4FF, 0 0 30px #00D4FF;
-            }
-            100% {
-                text-shadow: 0 0 20px #00D4FF, 0 0 30px #00D4FF, 0 0 40px #00D4FF, 0 0 50px #00D4FF;
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            33% {
-                transform: translateY(-20px) rotate(1deg);
-            }
-            66% {
-                transform: translateY(-10px) rotate(-1deg);
-            }
-        }
-
-        @keyframes bounceSoft {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @keyframes scalePulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.8;
-            }
-        }
-
-        /* ===== SCROLLBAR STYLING ===== */
+        /* ===== CUSTOM SCROLLBAR ===== */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -385,1089 +200,1643 @@
             border-radius: 4px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #00D4FF 0%, #8B5CF6 100%);
+        /* ===== BUTTON STYLES ===== */
+        .cyber-btn {
+            background: var(--neon-gradient);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
         }
 
-        /* ===== LOADING ANIMATIONS ===== */
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(0, 212, 255, 0.3);
-            border-top: 4px solid #00D4FF;
+        .cyber-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+        }
+
+        /* ===== COUNTER CARDS ===== */
+        .counter-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+        }
+
+        .counter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Enhanced Counter Card Text */
+        .counter-card .text-3xl, .counter-card .text-4xl {
+            color: var(--text-contrast) !important;
+            text-shadow: 
+                0 0 5px rgba(0, 0, 0, 0.8),
+                0 0 10px currentColor !important;
+        }
+
+        .counter-card .text-sm, .counter-card .text-xs {
+            color: var(--text-muted) !important;
+        }
+
+        /* ===== ENHANCED NEON EFFECTS ===== */
+        .neon-text {
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue);
+        }
+
+        .text-neon-blue {
+            color: var(--neon-blue) !important;
+            text-shadow: 0 0 8px var(--neon-blue) !important;
+        }
+
+        .text-neon-green {
+            color: var(--neon-green) !important;
+            text-shadow: 0 0 8px var(--neon-green) !important;
+        }
+
+        .text-neon-orange {
+            color: var(--neon-orange) !important;
+            text-shadow: 0 0 8px var(--neon-orange) !important;
+        }
+
+        .text-neon-red {
+            color: var(--neon-red) !important;
+            text-shadow: 0 0 8px var(--neon-red) !important;
+        }
+
+        .neon-border {
+            box-shadow: 0 0 10px var(--neon-blue), inset 0 0 10px rgba(0, 212, 255, 0.1);
+        }
+
+        .animate-neon {
+            animation: neonGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            from { text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue); }
+            to { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-blue), 0 0 40px var(--neon-blue); }
+        }
+
+        /* ===== VIDEO OVERLAY STYLES ===== */
+        .video-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .detection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .detection-box {
+            position: absolute;
+            border: 3px solid;
+            border-radius: 6px;
+            animation: detectPulse 2s ease-in-out infinite alternate;
+            transition: all 0.3s ease;
+        }
+
+        .detection-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.8);
+        }
+
+        .detection-label {
+            position: absolute;
+            top: -32px;
+            left: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            white-space: nowrap;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .detection-info {
+            background: rgba(0, 0, 0, 0.95) !important;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes detectPulse {
+            from { 
+                opacity: 0.7; 
+                transform: scale(1); 
+                box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1.02); 
+                box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== ENHANCED ALERT STYLES ===== */
+        .alert-item {
+            transition: all 0.3s ease;
+            animation: slideInRight 0.5s ease-out;
+            border-left: 4px solid;
+        }
+
+        .alert-item.danger {
+            border-left-color: #ef4444;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+        }
+
+        .alert-item.warning {
+            border-left-color: #f59e0b;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+        }
+
+        .alert-item.info {
+            border-left-color: #3b82f6;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+        }
+
+        .alert-item:hover {
+            transform: translateX(-8px);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        @keyframes slideInRight {
+            from { 
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to { 
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ===== THREAT LEVEL INDICATORS ===== */
+        .threat-indicator {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 16px;
+            height: 16px;
+            background: #ef4444;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            border: 2px solid white;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* ===== ENHANCED STATS CARDS ===== */
+        .stats-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        /* ===== STATUS INDICATORS ===== */
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: statusPulse 2s infinite;
+        }
+
+        .status-indicator.connected {
+            background: #10b981;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+        }
+
+        .status-indicator.disconnected {
+            background: #ef4444;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+        }
+
+        @keyframes statusPulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: scale(1.2);
+            }
         }
     </style>
 </head>
 
-<body class="min-h-screen relative font-inter">
-    <!-- Animated Background Effects -->
-    <div class="cyber-bg"></div>
-    
-    <!-- ===== MODERN HEADER ===== -->
-    <header class="header-glass fixed top-0 left-0 right-0 z-50">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Enhanced Logo & Title -->
-                <div class="flex items-center space-x-4 animate-slide-up">
-                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink flex items-center justify-center shadow-neon">
-                        🦅
-                    </div>
-                    <div>
-                        <div class="text-xl font-bold font-orbitron logo-glow">Swallow AI</div>
-                        <div class="text-sm text-gray-300">Ultimate Bird Intelligence V2.0</div>
-                    </div>
-                </div>
-                
-                <!-- Enhanced Status & Controls -->
-                <div class="flex items-center space-x-6 animate-slide-up">
-                    <!-- AI System Status -->
-                    <div class="hidden lg:flex items-center space-x-4 glass-card px-4 py-2 rounded-full">
-                        <div class="status-online"></div>
-                        <span class="text-sm font-medium">AI ACTIVE</span>
-                        <span class="text-xs text-gray-300" id="current-time">--:--:--</span>
-                    </div>
-                    
-                    <!-- Action Buttons -->
-                    <div class="flex items-center space-x-2">
-                        <button id="search-toggle" title="Search" class="p-3 rounded-lg hover:bg-white/10 transition-all">
-                            <i class="fas fa-search text-lg"></i>
-                        </button>
-                        <button id="fullscreen-toggle" title="Fullscreen" class="p-3 rounded-lg hover:bg-white/10 transition-all">
-                            <i class="fas fa-expand text-lg"></i>
-                        </button>
-                        <button id="lang-toggle" class="px-4 py-2 rounded-lg bg-gradient-to-r from-neon-blue to-neon-purple text-black font-semibold hover:shadow-neon transition-all">
-                            <span>ไทย</span>
-                        </button>
-                        <button id="theme-toggle" class="p-3 rounded-lg hover:bg-white/10 transition-all">
-                            <i class="fas fa-moon text-lg"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <!-- ===== SEARCH OVERLAY ===== -->
-    <div id="search-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-lg z-[60] hidden">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="glass-card max-w-2xl w-full p-8 rounded-3xl animate-scale-pulse">
-                <div class="flex items-center justify-between mb-6">
-                    <h3 class="text-2xl font-bold font-orbitron">🔍 Smart Search</h3>
-                    <button id="close-search" class="p-2 rounded-lg hover:bg-white/10 transition-all">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                
-                <div class="space-y-4">
-                    <input id="search-input" 
-                           class="w-full p-4 rounded-xl bg-white/10 border border-white/20 focus:border-neon-blue focus:outline-none transition-all" 
-                           placeholder="ค้นหาข้อมูล, การตรวจจับ, สถิติ... / Search data, detections, statistics..."
-                           data-th-placeholder="ค้นหาข้อมูล, การตรวจจับ, สถิติ..."
-                           data-en-placeholder="Search data, detections, statistics...">
-                    
-                    <div id="search-results" class="space-y-3 max-h-64 overflow-y-auto">
-                        <div class="text-center text-gray-400 py-8">
-                            <i class="fas fa-search text-4xl mb-4"></i>
-                            <p data-th="เริ่มพิมพ์เพื่อค้นหา..." data-en="Start typing to search...">เริ่มพิมพ์เพื่อค้นหา...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<body class="min-h-screen relative font-poppins transition-all duration-300">
+    <!-- ===== FLOATING PARTICLES BACKGROUND ===== -->
+    <div class="floating-particles">
+        <!-- Particles will be generated by JavaScript -->
     </div>
 
-    <!-- ===== MAIN CONTENT ===== -->
-    <main class="pt-24 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-            
-            <!-- ===== HERO SECTION - VIDEO STREAM ===== -->
-            <section class="animate-fade-in">
-                <div class="video-cyber relative">
-                    <img id="video-stream" 
-                         src="/video_feed" 
-                         alt="Live Camera Feed" 
-                         class="w-full h-[500px] object-cover">
-                    
-                    <!-- Video Overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent">
-                        <!-- Top Status Bar -->
-                        <div class="absolute top-6 left-6 right-6 flex justify-between items-center">
-                            <div class="glass rounded-full px-4 py-2 flex items-center space-x-3">
-                                <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                                <span class="text-sm font-medium">LIVE</span>
-                                <span class="text-xs text-gray-300" id="stream-time">--:--:--</span>
-                            </div>
-                            
-                            <div class="glass rounded-full px-4 py-2">
-                                <span class="text-sm" data-th="ความแม่นยำ: " data-en="Accuracy: ">ความแม่นยำ: </span>
-                                <span class="font-bold text-neon-green" id="detection-accuracy">98.5%</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Bottom Info Panel -->
-                        <div class="absolute bottom-6 left-6 right-6">
-                            <div class="glass rounded-xl p-6">
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                                    <!-- Birds Detected Today -->
-                                    <div class="counter-card bg-gradient-to-br from-neon-blue/30 via-neon-blue/20 to-transparent border-l-4 border-neon-blue">
-                                        <div class="flex items-center justify-center mb-2">
-                                            <i class="fas fa-dove text-2xl text-neon-blue"></i>
-                                        </div>
-                                        <div class="text-3xl lg:text-4xl font-bold font-orbitron text-neon-blue mb-1" id="birds-detected">0</div>
-                                        <div class="text-sm font-kanit text-gray-300" data-th="นกที่ตรวจพบ" data-en="Birds Detected">นกที่ตรวจพบ</div>
-                                        <div class="text-xs text-neon-blue/70 mt-1" data-th="📊 วันนี้" data-en="📊 Today">📊 วันนี้</div>
-                                    </div>
-                                    
-                                    <!-- Birds In Nest -->
-                                    <div class="counter-card bg-gradient-to-br from-neon-green/30 via-neon-green/20 to-transparent border-l-4 border-neon-green">
-                                        <div class="flex items-center justify-center mb-2">
-                                            <i class="fas fa-home text-2xl text-neon-green"></i>
-                                        </div>
-                                        <div class="text-3xl lg:text-4xl font-bold font-orbitron text-neon-green mb-1" id="birds-in-nest">0</div>
-                                        <div class="text-sm font-kanit text-gray-300" data-th="ในรัง" data-en="In Nest">ในรัง</div>
-                                        <div class="text-xs text-neon-green/70 mt-1" data-th="🏠 ปัจจุบัน" data-en="🏠 Current">🏠 ปัจจุบัน</div>
-                                    </div>
-                                    
-                                    <!-- Birds Out -->
-                                    <div class="counter-card bg-gradient-to-br from-neon-orange/30 via-neon-orange/20 to-transparent border-l-4 border-neon-orange">
-                                        <div class="flex items-center justify-center mb-2">
-                                            <i class="fas fa-plane-departure text-2xl text-neon-orange"></i>
-                                        </div>
-                                        <div class="text-3xl lg:text-4xl font-bold font-orbitron text-neon-orange mb-1" id="birds-out">0</div>
-                                        <div class="text-sm font-kanit text-gray-300" data-th="นอกรัง" data-en="Outside">นอกรัง</div>
-                                        <div class="text-xs text-neon-orange/70 mt-1" data-th="✈️ กำลังบิน" data-en="✈️ Flying">✈️ กำลังบิน</div>
-                                    </div>
-                                    
-                                    <!-- Intruder Detection -->
-                                    <div class="counter-card bg-gradient-to-br from-neon-red/30 via-neon-red/20 to-transparent border-l-4 border-neon-red">
-                                        <div class="flex items-center justify-center mb-2">
-                                            <i class="fas fa-exclamation-triangle text-2xl text-neon-red"></i>
-                                        </div>
-                                        <div class="text-3xl lg:text-4xl font-bold font-orbitron text-neon-red mb-1" id="intruders-detected">0</div>
-                                        <div class="text-sm font-kanit text-gray-300" data-th="ผู้บุกรุก" data-en="Intruders">ผู้บุกรุก</div>
-                                        <div class="text-xs text-neon-red/70 mt-1" data-th="⚠️ แจ้งเตือน" data-en="⚠️ Alerts">⚠️ แจ้งเตือน</div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Bottom Control Bar -->
-                                <div class="flex items-center justify-between mt-6 pt-4 border-t border-white/10">
-                                    <div class="flex items-center space-x-4">
-                                        <button onclick="toggleRecording()" class="cyber-btn">
-                                            <i class="fas fa-video mr-2"></i>
-                                            <span data-th="บันทึก" data-en="Record">บันทึก</span>
-                                        </button>
-                                        <button onclick="takeSnapshot()" class="cyber-btn bg-gradient-to-r from-neon-green to-neon-blue">
-                                            <i class="fas fa-camera mr-2"></i>
-                                            <span data-th="ถ่ายภาพ" data-en="Snapshot">ถ่ายภาพ</span>
-                                        </button>
-                                    </div>
-                                    
-                                    <div class="flex items-center space-x-4 text-sm text-gray-300">
-                                        <div class="flex items-center space-x-2">
-                                            <i class="fas fa-wifi text-neon-green"></i>
-                                            <span data-th="เชื่อมต่อแล้ว" data-en="Connected">เชื่อมต่อแล้ว</span>
-                                        </div>
-                                        <div class="flex items-center space-x-2">
-                                            <i class="fas fa-microchip text-neon-blue"></i>
-                                            <span data-th="AI เปิดใช้งาน" data-en="AI Active">AI เปิดใช้งาน</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <!-- ===== ENHANCED DASHBOARD SECTION ===== -->
-            <section class="animate-slide-up">
-                <div class="glass-card rounded-3xl p-8 mb-8">
-                    <h2 class="text-3xl font-bold font-orbitron mb-6 flex items-center">
-                        <i class="fas fa-chart-line text-neon-blue mr-4"></i>
-                        <span data-th="แดชบอร์ดวิเคราะห์ AI" data-en="AI Analytics Dashboard">แดชบอร์ดวิเคราะห์ AI</span>
-                    </h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-                        <!-- Today Activity -->
-                        <div class="glass rounded-xl p-6 text-center">
-                            <div class="flex items-center justify-center mb-4">
-                                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center">
-                                    <i class="fas fa-calendar-day text-2xl text-white"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-2xl font-bold text-neon-blue mb-2" id="today-activity">0</h3>
-                            <p class="text-gray-300" data-th="กิจกรรมวันนี้" data-en="Today's Activity">กิจกรรมวันนี้</p>
-                            <div class="mt-2 text-sm">
-                                <span class="text-neon-green">+15%</span>
-                                <span class="text-gray-400" data-th="จากเมื่อวาน" data-en="vs yesterday">จากเมื่อวาน</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Weekly Average -->
-                        <div class="glass rounded-xl p-6 text-center">
-                            <div class="flex items-center justify-center mb-4">
-                                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-green to-neon-blue flex items-center justify-center">
-                                    <i class="fas fa-chart-bar text-2xl text-white"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-2xl font-bold text-neon-green mb-2" id="weekly-average">0</h3>
-                            <p class="text-gray-300" data-th="เฉลี่ยสัปดาห์" data-en="Weekly Average">เฉลี่ยสัปดาห์</p>
-                            <div class="mt-2 text-sm">
-                                <span class="text-neon-blue">Stable</span>
-                                <span class="text-gray-400" data-th="แนวโน้ม" data-en="trend">แนวโน้ม</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Detection Rate -->
-                        <div class="glass rounded-xl p-6 text-center">
-                            <div class="flex items-center justify-center mb-4">
-                                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-purple to-neon-pink flex items-center justify-center">
-                                    <i class="fas fa-bullseye text-2xl text-white"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-2xl font-bold text-neon-purple mb-2" id="detection-rate">98.5%</h3>
-                            <p class="text-gray-300" data-th="อัตราตรวจจับ" data-en="Detection Rate">อัตราตรวจจับ</p>
-                            <div class="mt-2 text-sm">
-                                <span class="text-neon-green">Excellent</span>
-                                <span class="text-gray-400" data-th="สถานะ" data-en="status">สถานะ</span>
-                            </div>
-                        </div>
-                        
-                        <!-- System Uptime -->
-                        <div class="glass rounded-xl p-6 text-center">
-                            <div class="flex items-center justify-center mb-4">
-                                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-orange to-neon-red flex items-center justify-center">
-                                    <i class="fas fa-clock text-2xl text-white"></i>
-                                </div>
-                            </div>
-                            <h3 class="text-2xl font-bold text-neon-orange mb-2" id="system-uptime">99.9%</h3>
-                            <p class="text-gray-300" data-th="เวลาทำงาน" data-en="System Uptime">เวลาทำงาน</p>
-                            <div class="mt-2 text-sm">
-                                <span class="text-neon-green">5d 12h</span>
-                                <span class="text-gray-400" data-th="ต่อเนื่อง" data-en="continuous">ต่อเนื่อง</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== REAL-TIME CHARTS SECTION ===== -->
-            <section class="animate-fade-in">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                    <!-- Real-time Detection Chart -->
-                    <div class="chart-container">
-                        <h2 class="text-xl font-bold mb-4 flex items-center">
-                            <i class="fas fa-chart-line text-neon-blue mr-3"></i>
-                            <span data-th="การตรวจจับแบบเรียลไทม์" data-en="Real-time Detections">การตรวจจับแบบเรียลไทม์</span>
-                        </h2>
-                        <canvas id="realtime-chart" class="w-full h-64"></canvas>
-                    </div>
-                    
-                    <!-- Hourly Distribution Chart -->
-                    <div class="chart-container">
-                        <h2 class="text-xl font-bold mb-4 flex items-center">
-                            <i class="fas fa-chart-bar text-neon-purple mr-3"></i>
-                            <span data-th="การกระจายตัวรายชั่วโมง" data-en="Hourly Distribution">การกระจายตัวรายชั่วโมง</span>
-                        </h2>
-                        <canvas id="hourly-chart" class="w-full h-64"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== ADVANCED ANALYTICS GRID ===== -->
-            <section class="animate-slide-left">
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
-                    <!-- Species Detection -->
-                    <div class="glass-card rounded-xl p-6">
-                        <h3 class="text-lg font-bold mb-4 flex items-center">
-                            <i class="fas fa-dove text-neon-blue mr-3"></i>
-                            <span data-th="ชนิดนกที่ตรวจพบ" data-en="Species Detected">ชนิดนกที่ตรวจพบ</span>
-                        </h3>
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-300">นกแอ่น / Swallow</span>
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
-                                        <div class="w-4/5 h-full bg-gradient-to-r from-neon-blue to-neon-purple"></div>
-                                    </div>
-                                    <span class="text-sm text-neon-blue font-medium">80%</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-300">นกกระจอก / Sparrow</span>
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
-                                        <div class="w-1/5 h-full bg-gradient-to-r from-neon-green to-neon-blue"></div>
-                                    </div>
-                                    <span class="text-sm text-neon-green font-medium">15%</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-300">อื่นๆ / Others</span>
-                                <div class="flex items-center space-x-2">
-                                    <div class="w-16 h-2 bg-gray-700 rounded-full overflow-hidden">
-                                        <div class="w-1/10 h-full bg-gradient-to-r from-neon-orange to-neon-red"></div>
-                                    </div>
-                                    <span class="text-sm text-neon-orange font-medium">5%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Activity Patterns -->
-                    <div class="glass-card rounded-xl p-6">
-                        <h3 class="text-lg font-bold mb-4 flex items-center">
-                            <i class="fas fa-clock text-neon-green mr-3"></i>
-                            <span data-th="รูปแบบกิจกรรม" data-en="Activity Patterns">รูปแบบกิจกรรม</span>
-                        </h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-sun text-neon-orange"></i>
-                                    <span class="text-gray-300" data-th="เช้า (06:00-12:00)" data-en="Morning (06:00-12:00)">เช้า (06:00-12:00)</span>
-                                </div>
-                                <span class="text-neon-orange font-bold">45%</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-sun text-neon-blue"></i>
-                                    <span class="text-gray-300" data-th="บ่าย (12:00-18:00)" data-en="Afternoon (12:00-18:00)">บ่าย (12:00-18:00)</span>
-                                </div>
-                                <span class="text-neon-blue font-bold">35%</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-moon text-neon-purple"></i>
-                                    <span class="text-gray-300" data-th="เย็น (18:00-00:00)" data-en="Evening (18:00-00:00)">เย็น (18:00-00:00)</span>
-                                </div>
-                                <span class="text-neon-purple font-bold">20%</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Weather Impact -->
-                    <div class="glass-card rounded-xl p-6">
-                        <h3 class="text-lg font-bold mb-4 flex items-center">
-                            <i class="fas fa-cloud-sun text-neon-pink mr-3"></i>
-                            <span data-th="ผลกระทบสภาพอากาศ" data-en="Weather Impact">ผลกระทบสภาพอากาศ</span>
-                        </h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-sun text-yellow-400"></i>
-                                    <span class="text-gray-300" data-th="แจ่มใส" data-en="Sunny">แจ่มใส</span>
-                                </div>
-                                <span class="text-neon-green font-bold">High</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-cloud text-gray-400"></i>
-                                    <span class="text-gray-300" data-th="มีเม็ด" data-en="Cloudy">มีเมฆ</span>
-                                </div>
-                                <span class="text-neon-blue font-bold">Medium</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-3">
-                                    <i class="fas fa-cloud-rain text-blue-400"></i>
-                                    <span class="text-gray-300" data-th="ฝนตก" data-en="Rainy">ฝนตก</span>
-                                </div>
-                                <span class="text-neon-red font-bold">Low</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      <!-- Video Stream -->
-      <section>
-        <div class="video-cyber relative">
-          <img id="video-stream" src="/video_feed" alt="Video Stream" class="w-full aspect-video object-cover" />
-          <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-              <span class="text-red-500 font-bold">● LIVE</span>
-              <span id="stream-time" class="text-sm text-gray-300">--:--:--</span>
-            </div>
-            <div class="text-xs text-gray-300">FPS: <span id="processing-speed">-</span> | Acc: <span id="accuracy-rate">-</span> | Mem: <span id="memory-usage">-</span></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Counters -->
-      <section>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="glass-card p-4 text-center">
-            <div class="text-xs text-gray-300">Birds In</div>
-            <div id="birds-in" class="text-3xl font-bold">0</div>
-          </div>
-          <div class="glass-card p-4 text-center">
-            <div class="text-xs text-gray-300">Birds Out</div>
-            <div id="birds-out" class="text-3xl font-bold">0</div>
-          </div>
-          <div class="glass-card p-4 text-center">
-            <div class="text-xs text-gray-300">In Nest</div>
-            <div id="birds-remaining" class="text-3xl font-bold">0</div>
-          </div>
-          <div class="glass-card p-4 text-center">
-            <div class="text-xs text-gray-300">Intruders</div>
-            <div id="intruders-detected" class="text-3xl font-bold text-neon-red">0</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Charts -->
-      <section>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="glass-card p-4">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-orbitron">Real-time Detections</h3>
-              <span id="current-time" class="text-xs text-gray-300">--:--:--</span>
-            </div>
-            <canvas id="realtime-chart" class="w-full h-64"></canvas>
-          </div>
-          <div class="glass-card p-4">
-            <h3 class="font-orbitron mb-2">Hourly Activity</h3>
-            <canvas id="hourly-chart" class="w-full h-64"></canvas>
-          </div>
-        </div>
-      </section>
-
-      <!-- Notifications & Anomaly Gallery -->
-      <section>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div class="glass-card p-4">
-            <h3 class="font-orbitron mb-3">Notifications</h3>
-            <div id="notifications" class="space-y-2 max-h-80 overflow-auto"></div>
-          </div>
-          <div class="glass-card p-4">
-            <h3 class="font-orbitron mb-3">Anomaly Images</h3>
-            <div id="anomaly-gallery" class="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-80 overflow-auto"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Data Management -->
-      <section>
-        <div class="glass-card p-4">
-          <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-            <div>
-              <h3 class="font-orbitron">Data Management</h3>
-              <div class="text-xs text-gray-300">Oldest record: <span id="oldest-data">-</span></div>
-            </div>
-            <div class="flex items-center gap-2">
-              <label class="text-sm">Keep last (days)</label>
-              <input id="retention-period" type="number" min="1" value="7" class="w-20 p-2 rounded bg-white/10 border border-white/20" />
-              <button id="btn-delete-old" class="px-3 py-2 rounded bg-neon-red/80 hover:bg-neon-red">Delete Old</button>
-              <button id="btn-export" class="px-3 py-2 rounded bg-neon-blue/80 hover:bg-neon-blue text-black">Export</button>
-            </div>
-          </div>
-        </div>
-            <!-- ===== NOTIFICATIONS & ALERTS SECTION ===== -->
-            <section class="animate-slide-right">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                    <!-- Real-time Notifications -->
-                    <div class="glass-card rounded-xl p-6">
-                        <h2 class="text-xl font-bold mb-4 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <i class="fas fa-bell text-neon-blue mr-3"></i>
-                                <span data-th="การแจ้งเตือนแบบเรียลไทม์" data-en="Real-time Notifications">การแจ้งเตือนแบบเรียลไทม์</span>
-                            </div>
-                            <span class="text-xs bg-neon-blue/20 text-neon-blue px-2 py-1 rounded-full" id="notification-count">0</span>
-                        </h2>
-                        
-                        <div id="notifications-container" class="space-y-3 max-h-80 overflow-y-auto">
-                            <!-- Notifications will be populated here -->
-                            <div class="flex items-center space-x-3 p-3 rounded-lg bg-white/5 border-l-4 border-neon-green">
-                                <i class="fas fa-check-circle text-neon-green"></i>
-                                <div>
-                                    <div class="text-sm font-medium" data-th="ระบบเริ่มต้นสำเร็จ" data-en="System initialized successfully">ระบบเริ่มต้นสำเร็จ</div>
-                                    <div class="text-xs text-gray-400" data-th="เมื่อกี้นี้" data-en="Just now">เมื่อกี้นี้</div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center space-x-3 p-3 rounded-lg bg-white/5 border-l-4 border-neon-blue">
-                                <i class="fas fa-dove text-neon-blue"></i>
-                                <div>
-                                    <div class="text-sm font-medium" data-th="ตรวจพบนกแอ่น 3 ตัว" data-en="3 swallows detected">ตรวจพบนกแอ่น 3 ตัว</div>
-                                    <div class="text-xs text-gray-400" data-th="2 นาทีที่แล้ว" data-en="2 minutes ago">2 นาทีที่แล้ว</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4 pt-4 border-t border-white/10">
-                            <button onclick="clearNotifications()" class="w-full py-2 text-sm text-gray-400 hover:text-white transition-colors">
-                                <i class="fas fa-trash mr-2"></i>
-                                <span data-th="ลบการแจ้งเตือนทั้งหมด" data-en="Clear All Notifications">ลบการแจ้งเตือนทั้งหมด</span>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Alert Log -->
-                    <div class="glass-card rounded-xl p-6">
-                        <h2 class="text-xl font-bold mb-4 flex items-center justify-between">
-                            <div class="flex items-center">
-                                <i class="fas fa-exclamation-triangle text-neon-red mr-3"></i>
-                                <span data-th="บันทึกการแจ้งเตือน" data-en="Alert Log">บันทึกการแจ้งเตือน</span>
-                            </div>
-                            <button onclick="exportAlerts()" class="text-xs bg-neon-red/20 text-neon-red px-2 py-1 rounded-full hover:bg-neon-red/30 transition-colors">
-                                <i class="fas fa-download mr-1"></i>
-                                <span data-th="ส่งออก" data-en="Export">ส่งออก</span>
-                            </button>
-                        </h2>
-                        
-                        <div id="alerts-container" class="space-y-3 max-h-80 overflow-y-auto">
-                            <!-- Alerts will be populated here -->
-                            <div class="flex items-center space-x-3 p-3 rounded-lg bg-red-500/10 border border-red-500/20">
-                                <i class="fas fa-exclamation-triangle text-red-400"></i>
-                                <div class="flex-1">
-                                    <div class="text-sm font-medium text-red-300" data-th="ตรวจพบผู้บุกรุก" data-en="Intruder detected">ตรวจพบผู้บุกรุก</div>
-                                    <div class="text-xs text-gray-400" data-th="มุม A - ความเชื่อมั่น 95%" data-en="Zone A - Confidence 95%">มุม A - ความเชื่อมั่น 95%</div>
-                                    <div class="text-xs text-gray-500" data-th="5 นาทีที่แล้ว" data-en="5 minutes ago">5 นาทีที่แล้ว</div>
-                                </div>
-                                <button class="text-red-400 hover:text-red-300 transition-colors">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                            
-                            <div class="flex items-center space-x-3 p-3 rounded-lg bg-orange-500/10 border border-orange-500/20">
-                                <i class="fas fa-exclamation-circle text-orange-400"></i>
-                                <div class="flex-1">
-                                    <div class="text-sm font-medium text-orange-300" data-th="การเคลื่อนไหวผิดปกติ" data-en="Unusual movement detected">การเคลื่อนไหวผิดปกติ</div>
-                                    <div class="text-xs text-gray-400" data-th="มุม B - กิจกรรมสูงผิดปกติ" data-en="Zone B - Unusual high activity">มุม B - กิจกรรมสูงผิดปกติ</div>
-                                    <div class="text-xs text-gray-500" data-th="15 นาทีที่แล้ว" data-en="15 minutes ago">15 นาทีที่แล้ว</div>
-                                </div>
-                                <button class="text-orange-400 hover:text-orange-300 transition-colors">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== DATABASE & SYSTEM MANAGEMENT ===== -->
-            <section class="animate-fade-in">
-                <div class="glass-card rounded-xl p-8 mb-8">
-                    <h2 class="text-2xl font-bold mb-6 flex items-center">
-                        <i class="fas fa-database text-neon-purple mr-4"></i>
-                        <span data-th="การจัดการฐานข้อมูลและระบบ" data-en="Database & System Management">การจัดการฐานข้อมูลและระบบ</span>
-                    </h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Database Statistics -->
-                        <div class="glass rounded-xl p-6">
-                            <h3 class="text-lg font-bold mb-4 flex items-center">
-                                <i class="fas fa-chart-pie text-neon-blue mr-3"></i>
-                                <span data-th="สถิติฐานข้อมูล" data-en="Database Statistics">สถิติฐานข้อมูล</span>
-                            </h3>
-                            <div class="space-y-3">
-                                <div class="flex justify-between">
-                                    <span class="text-gray-300" data-th="รวมบันทึก" data-en="Total Records">รวมบันทึก:</span>
-                                    <span class="font-bold text-neon-blue" id="total-records">0</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-300" data-th="ข้อมูลเก่าสุด" data-en="Oldest Data">ข้อมูลเก่าสุด:</span>
-                                    <span class="font-bold text-neon-green" id="oldest-data">-</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-300" data-th="ขนาดฐานข้อมูล" data-en="Database Size">ขนาดฐานข้อมูล:</span>
-                                    <span class="font-bold text-neon-purple" id="database-size">0 MB</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Data Management Actions -->
-                        <div class="glass rounded-xl p-6">
-                            <h3 class="text-lg font-bold mb-4 flex items-center">
-                                <i class="fas fa-tools text-neon-green mr-3"></i>
-                                <span data-th="การจัดการข้อมูล" data-en="Data Management">การจัดการข้อมูล</span>
-                            </h3>
-                            <div class="space-y-3">
-                                <div class="flex items-center space-x-2">
-                                    <select id="retention-period" class="flex-1 p-2 rounded bg-white/10 border border-white/20 text-white">
-                                        <option value="7" data-th="7 วัน" data-en="7 days">7 วัน</option>
-                                        <option value="30" data-th="30 วัน" data-en="30 days">30 วัน</option>
-                                        <option value="90" data-th="90 วัน" data-en="90 days">90 วัน</option>
-                                    </select>
-                                    <button onclick="deleteOldData()" class="px-4 py-2 bg-neon-red rounded hover:bg-neon-red/80 transition-colors">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                                <button onclick="exportData()" class="w-full py-2 bg-neon-blue rounded hover:bg-neon-blue/80 transition-colors">
-                                    <i class="fas fa-download mr-2"></i>
-                                    <span data-th="ส่งออกข้อมูล" data-en="Export Data">ส่งออกข้อมูล</span>
-                                </button>
-                                <button onclick="backupDatabase()" class="w-full py-2 bg-neon-green rounded hover:bg-neon-green/80 transition-colors">
-                                    <i class="fas fa-save mr-2"></i>
-                                    <span data-th="สำรองข้อมูล" data-en="Backup Database">สำรองข้อมูล</span>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- System Performance -->
-                        <div class="glass rounded-xl p-6">
-                            <h3 class="text-lg font-bold mb-4 flex items-center">
-                                <i class="fas fa-tachometer-alt text-neon-orange mr-3"></i>
-                                <span data-th="ประสิทธิภาพระบบ" data-en="System Performance">ประสิทธิภาพระบบ</span>
-                            </h3>
-                            <div class="space-y-3">
-                                <div class="flex justify-between">
-                                    <span class="text-gray-300" data-th="CPU" data-en="CPU">CPU:</span>
-                                    <span class="font-bold text-neon-orange" id="cpu-usage">0%</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-300" data-th="หน่วยความจำ" data-en="Memory">หน่วยความจำ:</span>
-                                    <span class="font-bold text-neon-pink" id="memory-usage">0%</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-300" data-th="FPS" data-en="FPS">FPS:</span>
-                                    <span class="font-bold text-neon-blue" id="fps-rate">0</span>
-                                </div>
-                                <button onclick="optimizeSystem()" class="w-full py-2 bg-neon-purple rounded hover:bg-neon-purple/80 transition-colors mt-3">
-                                    <i class="fas fa-magic mr-2"></i>
-                                    <span data-th="เพิ่มประสิทธิภาพ" data-en="Optimize System">เพิ่มประสิทธิภาพ</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== ANOMALY DETECTION GALLERY ===== -->
-            <section class="animate-slide-up">
-                <div class="glass-card rounded-xl p-8 mb-8">
-                    <h2 class="text-2xl font-bold mb-6 flex items-center justify-between">
-                        <div class="flex items-center">
-                            <i class="fas fa-images text-neon-pink mr-4"></i>
-                            <span data-th="แกลเลอรีภาพผิดปกติ" data-en="Anomaly Detection Gallery">แกลเลอรีภาพผิดปกติ</span>
-                        </div>
-                        <button onclick="refreshAnomalyGallery()" class="px-4 py-2 bg-neon-pink rounded hover:bg-neon-pink/80 transition-colors">
-                            <i class="fas fa-sync-alt mr-2"></i>
-                            <span data-th="รีเฟรช" data-en="Refresh">รีเฟรช</span>
-                        </button>
-                    </h2>
-                    
-                    <div id="anomaly-gallery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                        <!-- Anomaly images will be populated here -->
-                        <div class="aspect-square bg-white/5 rounded-lg border-2 border-dashed border-white/20 flex items-center justify-center">
-                            <i class="fas fa-image text-gray-400 text-2xl"></i>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    <!-- ===== ULTRA MODERN FOOTER ===== -->
-    <footer class="glass-card mt-16 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <!-- Company Info -->
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink flex items-center justify-center">
-                            🦅
-                        </div>
-                        <div>
-                            <div class="font-bold font-orbitron">Swallow AI</div>
-                            <div class="text-xs text-gray-400">V2.0</div>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 text-sm" data-th="ระบบตรวจจับนกอัจฉริยะที่ทันสมัยที่สุด" data-en="The most advanced AI bird detection system">ระบบตรวจจับนกอัจฉริยะที่ทันสมัยที่สุด</p>
-                </div>
-                
-                <!-- Quick Links -->
+    <!-- ===== HEADER SECTION ===== -->
+    <header class="glass-card sticky top-4 mx-4 mb-6 z-50">
+        <div class="flex justify-between items-center p-4">
+            <!-- Logo & Title -->
+            <div class="flex items-center space-x-4">
+                <div class="text-3xl animate-bounce">🦅</div>
                 <div>
-                    <h4 class="font-bold text-white mb-4 font-orbitron" data-th="ลิงก์ด่วน" data-en="Quick Links">ลิงก์ด่วน</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="text-gray-300 hover:text-neon-blue transition-colors" data-th="แดชบอร์ด" data-en="Dashboard">แดชบอร์ด</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-neon-blue transition-colors" data-th="การตั้งค่า" data-en="Settings">การตั้งค่า</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-neon-blue transition-colors" data-th="รายงาน" data-en="Reports">รายงาน</a></li>
-                        <li><a href="#" class="text-gray-300 hover:text-neon-blue transition-colors" data-th="ช่วยเหลือ" data-en="Help">ช่วยเหลือ</a></li>
-                    </ul>
-                </div>
-                
-                <!-- System Status -->
-                <div>
-                    <h4 class="font-bold text-white mb-4 font-orbitron" data-th="สถานะระบบ" data-en="System Status">สถานะระบบ</h4>
-                    <div class="space-y-3 text-sm">
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-300" data-th="AI Engine" data-en="AI Engine">AI Engine</span>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-                                <span class="text-xs text-neon-green" data-th="ออนไลน์" data-en="Online">ออนไลน์</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-300" data-th="กล้อง" data-en="Camera">กล้อง</span>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-                                <span class="text-xs text-neon-green" data-th="เชื่อมต่อแล้ว" data-en="Connected">เชื่อมต่อแล้ว</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-gray-300" data-th="ฐานข้อมูล" data-en="Database">ฐานข้อมูล</span>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-                                <span class="text-xs text-neon-green" data-th="เชื่อมต่อแล้ว" data-en="Connected">เชื่อมต่อแล้ว</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Performance Metrics -->
-                <div>
-                    <h4 class="font-bold text-white mb-4 font-orbitron" data-th="ประสิทธิภาพ" data-en="Performance">ประสิทธิภาพ</h4>
-                    <div class="space-y-3 text-sm">
-                        <div class="flex justify-between">
-                            <span class="text-gray-300" data-th="ความแม่นยำ" data-en="Accuracy">ความแม่นยำ:</span>
-                            <span class="font-bold text-neon-green">98.5%</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-300" data-th="เวลาตอบสนอง" data-en="Response Time">เวลาตอบสนอง:</span>
-                            <span class="font-bold text-neon-blue">15ms</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-300" data-th="เวลาทำงาน" data-en="Uptime">เวลาทำงาน:</span>
-                            <span class="font-bold text-neon-purple">99.9%</span>
-                        </div>
-                    </div>
+                    <h1 class="text-xl lg:text-2xl font-bold font-orbitron text-primary neon-text animate-neon">
+                        Ultimate AI Bird Intelligence V3.0
+                    </h1>
+                    <p class="text-sm text-muted" data-th="ระบบตรวจจับนกอัจฉริยะขั้นสูง" data-en="Advanced AI Bird Detection System">
+                        ระบบตรวจจับนกอัจฉริยะขั้นสูง
+                    </p>
                 </div>
             </div>
-            
-            <div class="border-t border-gray-700 pt-8">
-                <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-                    <div class="text-gray-400 text-sm text-center md:text-left">
-                        <span data-th="© 2025 Swallow AI. สงวนลิขสิทธิ์" data-en="© 2025 Swallow AI. All rights reserved.">© 2025 Swallow AI. สงวนลิขสิทธิ์</span>
-                    </div>
-                    <div class="flex items-center space-x-6 text-sm">
-                        <span class="text-gray-400" data-th="ขับเคลื่อนโดย AI" data-en="Powered by AI">ขับเคลื่อนโดย AI</span>
-                        <div class="flex items-center space-x-2">
-                            <i class="fas fa-heart text-red-500 animate-pulse"></i>
-                            <span class="text-gray-400" data-th="ด้วยความรัก" data-en="Made with love">ด้วยความรัก</span>
-                        </div>
-                    </div>
+
+            <!-- Controls -->
+            <div class="flex items-center space-x-4">
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-3 rounded-full glass-card hover:scale-110 transition-transform text-accent" title="Toggle Day/Night Mode">
+                    <i class="fas fa-moon text-lg"></i>
+                </button>
+
+                <!-- Language Toggle -->
+                <button id="lang-toggle" class="px-4 py-2 cyber-btn text-sm text-contrast" data-th="EN" data-en="ไทย">EN</button>
+
+                <!-- Status Indicator -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                    <span class="text-sm text-green-400 font-medium" data-th="ออนไลน์" data-en="Online">ออนไลน์</span>
                 </div>
             </div>
         </div>
-    </footer>
+    </header>
 
-    <!-- ===== AI CHATBOT (FIXED POSITION) ===== -->
-    <div id="ai-chatbot" class="fixed bottom-6 right-6 z-50">
-        <!-- Chat Toggle Button -->
-        <button id="chat-toggle" onclick="toggleChat()" class="w-16 h-16 rounded-full bg-gradient-to-r from-neon-blue to-neon-purple flex items-center justify-center shadow-neon hover:shadow-lg transition-all duration-300 transform hover:scale-110">
-            <i class="fas fa-robot text-white text-xl"></i>
-        </button>
+    <!-- ===== MAIN CONTENT CONTAINER ===== -->
+    <main class="container mx-auto px-4 pb-8 relative z-10">
         
-        <!-- Chat Window -->
-        <div id="chat-window" class="hidden absolute bottom-20 right-0 w-96 h-[500px] glass-card rounded-2xl overflow-hidden animate-slide-up">
-            <!-- Chat Header -->
-            <div class="bg-gradient-to-r from-neon-blue to-neon-purple p-4 flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                        <i class="fas fa-robot text-white"></i>
-                    </div>
-                    <div>
-                        <div class="font-bold text-white" data-th="Swallow AI Assistant" data-en="Swallow AI Assistant">Swallow AI Assistant</div>
-                        <div class="text-xs text-white/80" data-th="ออนไลน์" data-en="Online">ออนไลน์</div>
+        <!-- ===== HERO SECTION - VIDEO STREAM ===== -->
+        <section class="glass-card mb-8 overflow-hidden">
+            <div class="grid lg:grid-cols-3 gap-6 p-6">
+                
+                <!-- Video Stream -->
+                <div class="lg:col-span-2">
+                    <div class="video-container relative">
+                        <img id="video-stream" 
+                             src="/video_feed" 
+                             alt="🦅 Live AI Bird Detection Feed" 
+                             class="w-full h-[600px] object-cover transition-all duration-300 rounded-2xl neon-border"
+                             onload="console.log('Video stream loaded successfully')"
+                             onerror="console.error('Video stream failed to load'); this.style.display='none'; document.getElementById('video-error').style.display='block'">
+                        
+                        <!-- Detection Overlay will be added here by JavaScript -->
+                        
+                        <!-- Error Fallback -->
+                        <div id="video-error" style="display: none;" class="w-full h-[600px] bg-gradient-to-br from-red-900/50 to-red-800/30 flex items-center justify-center rounded-2xl border border-red-500/30">
+                            <div class="text-center">
+                                <i class="fas fa-exclamation-triangle text-6xl text-red-400 mb-4"></i>
+                                <div class="text-xl font-bold text-red-300 mb-2">การเชื่อมต่อวิดีโอผิดพลาด</div>
+                                <div class="text-sm text-red-200">กรุณาตรวจสอบการเชื่อมต่อกล้อง</div>
+                                <button onclick="document.getElementById('video-stream').src='/video_feed?' + Date.now(); this.parentNode.parentNode.style.display='none';" 
+                                        class="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+                                    ลองใหม่
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Live Indicator -->
+                        <div class="absolute top-4 left-4 px-3 py-1 bg-red-600 text-white text-sm font-bold rounded-full flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                            <span data-th="สดจากกล้อง" data-en="LIVE">สดจากกล้อง</span>
+                        </div>
+
+                        <!-- Stream Info -->
+                        <div class="absolute bottom-4 right-4 glass-card px-3 py-2">
+                            <div class="flex flex-col text-right">
+                                <span class="text-sm font-bold text-red-400">LIVE STREAMING</span>
+                                <span class="text-xs text-gray-300 font-mono" id="stream-time">--:--:--</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button onclick="toggleChat()" class="text-white/80 hover:text-white transition-colors">
-                    <i class="fas fa-times"></i>
+
+                <!-- Statistics Panel -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-center neon-text mb-6" data-th="สถิติการตรวจจับ" data-en="Detection Statistics">
+                        สถิติการตรวจจับ
+                    </h3>
+
+                    <!-- Live Stats Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Birds Detected -->
+                        <div class="counter-card bg-gradient-to-br from-neon-blue/30 via-neon-blue/20 to-transparent border-l-4 border-neon-blue">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-dove text-2xl text-neon-blue"></i>
+                            </div>
+                            <div class="text-3xl lg:text-4xl font-bold font-orbitron text-neon-blue mb-1" id="birds-detected">0</div>
+                            <div class="text-sm font-kanit text-muted" data-th="นกที่ตรวจพบ" data-en="Birds Detected">นกที่ตรวจพบ</div>
+                            <div class="text-xs text-neon-blue/70 mt-1" data-th="🦅 วันนี้" data-en="🦅 Today">🦅 วันนี้</div>
+                        </div>
+                        
+                        <!-- Active Detection -->
+                        <div class="counter-card bg-gradient-to-br from-neon-purple/30 via-neon-purple/20 to-transparent border-l-4 border-neon-purple">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-brain text-2xl text-neon-purple"></i>
+                            </div>
+                            <div class="text-3xl lg:text-4xl font-bold font-orbitron text-neon-purple mb-1" id="ai-confidence">0%</div>
+                            <div class="text-sm font-kanit text-muted" data-th="ความมั่นใจ AI" data-en="AI Confidence">ความมั่นใจ AI</div>
+                            <div class="text-xs text-neon-purple/70 mt-1" data-th="🧠 ปัจจุบัน" data-en="🧠 Current">🧠 ปัจจุบัน</div>
+                        </div>
+                    </div>
+
+                    <!-- Bird Movement Tracking -->
+                    <div class="grid grid-cols-3 gap-3 mt-4">
+                        <!-- Birds In -->
+                        <div class="counter-card bg-gradient-to-br from-neon-green/30 via-neon-green/20 to-transparent border-l-4 border-neon-green">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-home text-2xl text-neon-green"></i>
+                            </div>
+                            <div class="text-3xl lg:text-4xl font-bold font-orbitron text-neon-green mb-1" id="birds-in-nest">0</div>
+                            <div class="text-sm font-kanit text-muted" data-th="ในรัง" data-en="In Nest">ในรัง</div>
+                            <div class="text-xs text-neon-green/70 mt-1" data-th="🏠 ปัจจุบัน" data-en="🏠 Current">🏠 ปัจจุบัน</div>
+                        </div>
+                        
+                        <!-- Birds Out -->
+                        <div class="counter-card bg-gradient-to-br from-neon-orange/30 via-neon-orange/20 to-transparent border-l-4 border-neon-orange">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-plane-departure text-2xl text-neon-orange"></i>
+                            </div>
+                            <div class="text-3xl lg:text-4xl font-bold font-orbitron text-neon-orange mb-1" id="birds-out">0</div>
+                            <div class="text-sm font-kanit text-muted" data-th="นอกรัง" data-en="Outside">นอกรัง</div>
+                            <div class="text-xs text-neon-orange/70 mt-1" data-th="✈️ ออกไป" data-en="✈️ Departed">✈️ ออกไป</div>
+                        </div>
+                        
+                        <!-- Intruders -->
+                        <div class="counter-card bg-gradient-to-br from-neon-red/30 via-neon-red/20 to-transparent border-l-4 border-neon-red">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-exclamation-triangle text-2xl text-neon-red"></i>
+                            </div>
+                            <div class="text-3xl lg:text-4xl font-bold font-orbitron text-neon-red mb-1" id="intruders-detected">0</div>
+                            <div class="text-sm font-kanit text-muted" data-th="ผู้บุกรุก" data-en="Intruders">ผู้บุกรุก</div>
+                            <div class="text-xs text-neon-red/70 mt-1" data-th="⚠️ เตือนภัย" data-en="⚠️ Alerts">⚠️ เตือนภัย</div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Metrics -->
+                    <div class="glass-card p-4 mt-4">
+                        <h4 class="font-semibold text-center mb-3 text-primary" data-th="ประสิทธิภาพระบบ" data-en="System Performance">ประสิทธิภาพระบบ</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-muted" data-th="ความเร็ว:" data-en="Speed:">ความเร็ว:</span>
+                                <span id="processing-speed" class="text-neon-blue font-mono">-- FPS</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-muted" data-th="ความแม่นยำ:" data-en="Accuracy:">ความแม่นยำ:</span>
+                                <span id="accuracy-rate" class="text-neon-green font-mono">-- %</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-muted" data-th="หน่วยความจำ:" data-en="Memory:">หน่วยความจำ:</span>
+                                <span id="memory-usage" class="text-neon-orange font-mono">-- %</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Anomaly Detection Stats -->
+                    <div class="glass-card p-4 mt-4">
+                        <h4 class="font-semibold text-center mb-3 text-neon-red" data-th="ระบบตรวจจับสิ่งแปลกปลอม" data-en="Anomaly Detection System">ระบบตรวจจับสิ่งแปลกปลอม</h4>
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-neon-red" id="total-anomalies">0</div>
+                                <div class="text-xs text-muted">รวมทั้งหมด</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-neon-orange" id="today-anomalies">0</div>
+                                <div class="text-xs text-muted">วันนี้</div>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-muted">การตรวจจับสด:</span>
+                                <span id="active-detections" class="text-neon-blue font-mono">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-muted">ความมั่นใจ:</span>
+                                <span id="detection-confidence" class="text-neon-green font-mono">-- %</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-muted">แจ้งเตือนสำคัญ:</span>
+                                <span id="critical-alerts" class="text-neon-red font-mono">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Connection Status -->
+                    <div class="glass-card p-4 mt-4">
+                        <h4 class="font-semibold text-center mb-3 text-neon-blue">สถานะระบบ AI</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-muted">การเชื่อมต่อ AI:</span>
+                                <span id="ai-connection" class="font-mono">--</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-muted">สถานะประมวลผล:</span>
+                                <span id="ai-processing" class="font-mono">--</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-muted">FPS เรียลไทม์:</span>
+                                <span id="ai-fps" class="text-neon-blue font-mono">-- FPS</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-muted">ระดับแจ้งเตือน:</span>
+                                <span id="alert-level" class="font-mono">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detection Breakdown -->
+                    <div class="glass-card p-4 mt-4">
+                        <h4 class="font-semibold text-center mb-3 text-neon-purple">สรุปการตรวจจับ</h4>
+                        <div class="grid grid-cols-2 gap-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-muted">👤 บุคคล:</span>
+                                <span id="person-count" class="text-neon-red font-mono">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-muted">🚗 ยานพาหนะ:</span>
+                                <span id="vehicle-count" class="text-neon-orange font-mono">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-muted">🐾 สัตว์:</span>
+                                <span id="animal-count" class="text-neon-green font-mono">0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-muted">📦 วัตถุอื่น:</span>
+                                <span id="object-count" class="text-neon-blue font-mono">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ANALYTICS SECTION ===== -->
+        <section class="grid lg:grid-cols-2 gap-8 mb-8">
+            
+            <!-- Real-time Chart -->
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-bold mb-4 text-primary neon-text" data-th="📈 การตรวจจับแบบเรียลไทม์" data-en="📈 Real-time Detection">
+                    📈 การตรวจจับแบบเรียลไทม์
+                </h3>
+                <div class="chart-container">
+                    <canvas id="realtime-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Hourly Chart -->
+            <div class="glass-card p-6">
+                <h3 class="text-xl font-bold mb-4 text-primary neon-text" data-th="📊 สถิติรายชั่วโมง" data-en="📊 Hourly Statistics">
+                    📊 สถิติรายชั่วโมง
+                </h3>
+                <div class="chart-container">
+                    <canvas id="hourly-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ENHANCED ALERTS & ANOMALY DETECTION ===== -->
+        <section class="glass-card p-6 mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-primary neon-text" data-th="🚨 ระบบตรวจจับสิ่งแปลกปลอม" data-en="🚨 Anomaly Detection System">
+                    🚨 ระบบตรวจจับสิ่งแปลกปลอม
+                </h3>
+                <div class="flex space-x-2">
+                    <button onclick="refreshAlerts()" class="p-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button onclick="clearAllAlerts()" class="p-2 bg-red-600 hover:bg-red-700 rounded-lg transition-colors">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Live Detection Status -->
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="glass-card p-3 text-center">
+                    <div class="text-xs text-muted mb-1">สถานะตรวจจับ</div>
+                    <div id="detection-status" class="text-sm font-bold text-green-400">🟢 ทำงาน</div>
+                </div>
+                <div class="glass-card p-3 text-center">
+                    <div class="text-xs text-muted mb-1">การแจ้งเตือนล่าสุด</div>
+                    <div id="last-alert-time" class="text-sm font-bold text-blue-400">--:--:--</div>
+                </div>
+                <div class="glass-card p-3 text-center">
+                    <div class="text-xs text-muted mb-1">วัตถุที่ตรวจจับ</div>
+                    <div id="current-objects" class="text-sm font-bold text-neon-orange">0</div>
+                </div>
+            </div>
+            
+            <!-- Enhanced Alert List -->
+            <div class="space-y-3 max-h-80 overflow-y-auto">
+                <div id="alerts-container" class="space-y-3">
+                    <!-- Dynamic alerts will be loaded here -->
+                </div>
+                
+                <!-- No alerts message -->
+                <div id="no-alerts-message" class="text-center p-8 text-muted" style="display: none;">
+                    <i class="fas fa-shield-check text-4xl mb-3 text-green-400"></i>
+                    <div class="text-lg font-bold">ระบบปลอดภัย</div>
+                    <div class="text-sm">ไม่พบสิ่งแปลกปลอมในขณะนี้</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== LIVE DETECTION OVERLAY (Hidden, for video overlay) ===== -->
+        <div id="detection-overlay" style="display: none;">
+            <!-- This will contain real-time detection data for video overlay -->
+        </div>
+                        <button class="p-2 text-blue-400 hover:text-blue-300 transition-colors">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- No Alerts Message -->
+                <div id="no-alerts" class="text-center py-8 text-gray-500 hidden">
+                    <i class="fas fa-check-circle text-4xl mb-4 text-green-400"></i>
+                    <div data-th="ไม่มีการแจ้งเตือน" data-en="No alerts at this time">ไม่มีการแจ้งเตือน</div>
+                    <div class="text-sm mt-2" data-th="ระบบทำงานปกติ" data-en="System operating normally">ระบบทำงานปกติ</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== AI CHATBOT SECTION ===== -->
+        <section class="glass-card p-6 mb-8">
+            <h3 class="text-xl font-bold mb-6 neon-text" data-th="🤖 AI แชทบอท" data-en="🤖 AI Chatbot">
+                🤖 AI แชทบอท
+            </h3>
+            
+            <div class="bg-gray-900/50 rounded-lg h-64 mb-4 overflow-y-auto p-4" id="chat-messages">
+                <!-- Chat Messages -->
+                <div class="space-y-3">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-robot text-white text-sm"></i>
+                        </div>
+                        <div class="bg-blue-600/20 rounded-lg px-3 py-2 max-w-xs">
+                            <div class="text-sm text-blue-300">สวัสดีครับ! ผมเป็น AI ผู้ช่วยระบบตรวจจับนก มีอะไรให้ช่วยเหลือไหมครับ?</div>
+                            <div class="text-xs text-gray-400 mt-1">22:00:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex space-x-2">
+                <input type="text" id="chat-input" 
+                       class="flex-1 px-4 py-2 bg-gray-900/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                       placeholder="พิมพ์ข้อความ..." 
+                       onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+                    <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
             
-            <!-- Chat Messages -->
-            <div id="chat-messages" class="h-80 overflow-y-auto p-4 space-y-3 bg-black/20">
-                <div class="flex space-x-2">
-                    <div class="w-8 h-8 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-robot text-white text-sm"></i>
-                    </div>
-                    <div class="glass rounded-xl p-3 max-w-xs">
-                        <p class="text-sm" data-th="สวัสดีครับ! ผมคือ AI ผู้ช่วยของระบบ Swallow AI พร้อมช่วยเหลือคุณแล้วครับ" data-en="Hello! I'm Swallow AI Assistant, ready to help you with the bird monitoring system.">สวัสดีครับ! ผมคือ AI ผู้ช่วยของระบบ Swallow AI พร้อมช่วยเหลือคุณแล้วครับ</p>
-                    </div>
+            <!-- Quick Actions -->
+            <div class="flex flex-wrap gap-2 mt-4">
+                <button onclick="quickChat('สถานะระบบ')" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs transition-colors">
+                    สถานะระบบ
+                </button>
+                <button onclick="quickChat('สถิติวันนี้')" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs transition-colors">
+                    สถิติวันนี้
+                </button>
+                <button onclick="quickChat('ปัญหาระบบ')" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs transition-colors">
+                    ปัญหาระบบ
+                </button>
+                <button onclick="quickChat('ช่วยเหลือ')" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-xs transition-colors">
+                    ช่วยเหลือ
+                </button>
+            </div>
+        </section>
+
+        <!-- ===== CONTROL PANEL ===== -->
+        <section class="glass-card p-6 mb-8">
+            <h3 class="text-xl font-bold mb-6 text-primary neon-text" data-th="⚙️ ควบคุมระบบ" data-en="⚙️ System Control">
+                ⚙️ ควบคุมระบบ
+            </h3>
+            
+            <div class="grid md:grid-cols-3 gap-4">
+                <!-- AI Detection Toggle -->
+                <button class="cyber-btn w-full" onclick="toggleDetection()">
+                    <i class="fas fa-robot mr-2"></i>
+                    <span data-th="สลับการตรวจจับ AI" data-en="Toggle AI Detection">สลับการตรวจจับ AI</span>
+                </button>
+
+                <!-- Recording Toggle -->
+                <button class="cyber-btn w-full" onclick="toggleRecording()">
+                    <i class="fas fa-video mr-2"></i>
+                    <span data-th="เริ่ม/หยุดบันทึก" data-en="Start/Stop Recording">เริ่ม/หยุดบันทึก</span>
+                </button>
+
+                <!-- Reset Statistics -->
+                <button class="cyber-btn w-full" onclick="resetStats()">
+                    <i class="fas fa-refresh mr-2"></i>
+                    <span data-th="รีเซ็ตสถิติ" data-en="Reset Statistics">รีเซ็ตสถิติ</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ===== SYSTEM INFORMATION ===== -->
+        <section class="glass-card p-6 mb-8">
+            <h3 class="text-xl font-bold mb-6 neon-text" data-th="📊 ข้อมูลระบบ" data-en="📊 System Information">
+                📊 ข้อมูลระบบ
+            </h3>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- System Status -->
+                <div class="glass-card p-4 text-center">
+                    <div class="text-2xl mb-2">💻</div>
+                    <div class="text-sm text-gray-400 mb-1" data-th="สถานะระบบ" data-en="System Status">สถานะระบบ</div>
+                    <div class="text-green-400 font-bold" id="system-status">ปกติ</div>
+                </div>
+                
+                <!-- Uptime -->
+                <div class="glass-card p-4 text-center">
+                    <div class="text-2xl mb-2">⏱️</div>
+                    <div class="text-sm text-gray-400 mb-1" data-th="เวลาทำงาน" data-en="Uptime">เวลาทำงาน</div>
+                    <div class="text-blue-400 font-mono" id="system-uptime">02:45:33</div>
+                </div>
+                
+                <!-- Temperature -->
+                <div class="glass-card p-4 text-center">
+                    <div class="text-2xl mb-2">🌡️</div>
+                    <div class="text-sm text-gray-400 mb-1" data-th="อุณหภูมิ CPU" data-en="CPU Temperature">อุณหภูมิ CPU</div>
+                    <div class="text-orange-400 font-mono" id="cpu-temp">45°C</div>
+                </div>
+                
+                <!-- Network -->
+                <div class="glass-card p-4 text-center">
+                    <div class="text-2xl mb-2">🌐</div>
+                    <div class="text-sm text-gray-400 mb-1" data-th="เครือข่าย" data-en="Network">เครือข่าย</div>
+                    <div class="text-green-400 font-bold" id="network-status">เชื่อมต่อ</div>
                 </div>
             </div>
             
-            <!-- Chat Input -->
-            <div class="p-4 border-t border-white/10 bg-black/20">
-                <div class="flex space-x-2">
-                    <input type="text" 
-                           id="chat-input"
-                           class="flex-1 p-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:border-neon-blue focus:outline-none transition-all" 
-                           placeholder="พิมพ์ข้อความ..."
-                           data-th-placeholder="พิมพ์ข้อความ..."
-                           data-en-placeholder="Type your message..."
-                           onkeypress="if(event.key === 'Enter') sendMessage()">
-                    <button onclick="sendMessage()" class="cyber-btn px-4 py-3">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
+            <!-- Detailed System Info -->
+            <div class="mt-6 grid md:grid-cols-2 gap-6">
+                <!-- Hardware Info -->
+                <div class="space-y-3">
+                    <h4 class="font-semibold text-gray-300 border-b border-gray-600 pb-2" data-th="ข้อมูลฮาร์ดแวร์" data-en="Hardware Information">ข้อมูลฮาร์ดแวร์</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span data-th="CPU:" data-en="CPU:">CPU:</span>
+                            <span class="text-blue-400">Intel Core i7-12700K</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span data-th="RAM:" data-en="RAM:">RAM:</span>
+                            <span class="text-green-400">16GB DDR4</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span data-th="GPU:" data-en="GPU:">GPU:</span>
+                            <span class="text-purple-400">NVIDIA RTX 4070</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span data-th="Storage:" data-en="Storage:">Storage:</span>
+                            <span class="text-orange-400">1TB NVMe SSD</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Software Info -->
+                <div class="space-y-3">
+                    <h4 class="font-semibold text-gray-300 border-b border-gray-600 pb-2" data-th="ข้อมูลซอฟต์แวร์" data-en="Software Information">ข้อมูลซอฟต์แวร์</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span data-th="ระบบปฏิบัติการ:" data-en="OS:">ระบบปฏิบัติการ:</span>
+                            <span class="text-blue-400">Windows 11 Pro</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span data-th="Python:" data-en="Python:">Python:</span>
+                            <span class="text-green-400">3.11.5</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span data-th="OpenCV:" data-en="OpenCV:">OpenCV:</span>
+                            <span class="text-purple-400">4.8.1</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span data-th="AI Model:" data-en="AI Model:">AI Model:</span>
+                            <span class="text-orange-400">YOLOv4 + Custom</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>  <!-- Footer -->
-  <footer class="mt-10 py-6 border-t border-white/10 text-sm text-center text-gray-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">© <span id="year"></span> Swallow AI — Ultimate AI Bird Intelligence System V2.0</div>
-  </footer>
+        </section>
 
-  <!-- Floating Chat -->
-  <div id="ai-chatbot" class="fixed bottom-4 right-4 w-[360px] max-w-[calc(100vw-2rem)] glass-card overflow-hidden">
-    <div class="bg-gradient-to-r from-neon-blue to-neon-purple px-4 py-3 flex items-center justify-between cursor-pointer" onclick="toggleChat()">
-      <div class="flex items-center gap-2">
-        <div class="w-7 h-7 rounded-lg bg-black/20 flex items-center justify-center">🤖</div>
-        <div class="font-orbitron">AI Assistant</div>
-      </div>
-      <div class="status-dot bg-neon-green"></div>
-    </div>
-    <div id="chat-body" class="max-h-80 overflow-y-auto p-3 space-y-2 hidden">
-      <div class="text-xs text-gray-300">Ask about detections, stats, or commands.</div>
-      <div id="chat-messages" class="space-y-2"></div>
-      <div class="flex items-center gap-2 pt-2">
-        <input id="chat-input" class="flex-1 p-2 rounded bg-white/10 border border-white/20" placeholder="พิมพ์ข้อความ / Type message..." />
-        <button id="chat-send" class="px-3 py-2 rounded bg-neon-blue/80 text-black">Send</button>
-      </div>
-    </div>
-  </div>
+        <!-- ===== FOOTER ===== -->
+        <footer class="text-center py-6 text-gray-400">
+            <p class="mb-2">
+                <span data-th="© 2025 Ultimate AI Bird Intelligence System V3.0" data-en="© 2025 Ultimate AI Bird Intelligence System V3.0">
+                    © 2025 Ultimate AI Bird Intelligence System V3.0
+                </span>
+            </p>
+            <p class="text-sm">
+                <span data-th="เวลาปัจจุบัน:" data-en="Current Time:">เวลาปัจจุบัน:</span>
+                <span id="current-time" class="font-mono text-neon-blue">--:--:--</span>
+            </p>
+        </footer>
+    </main>
 
-  <script>
-    // Globals
-    let currentLang = 'th';
-    let isDark = false;
-    let realtimeChart, hourlyChart;
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== GLOBAL VARIABLES =====
+        let isDark = true;
+        let currentLang = 'th';
+        let realtimeChart = null;
+        let hourlyChart = null;
 
-    // Init
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('year').textContent = new Date().getFullYear();
-      setupUI();
-      initCharts();
-      loadInitialData();
-      updateTime();
-      setInterval(updateTime, 1000);
-      window.updateInterval = setInterval(updateRealTimeData, 5000);
-    });
-
-    function setupUI() {
-      // Theme
-      const themeBtn = document.getElementById('theme-toggle');
-      themeBtn?.addEventListener('click', () => {
-        isDark = !isDark;
-        document.documentElement.classList.toggle('dark', isDark);
-        themeBtn.innerHTML = `<i class="fa ${isDark ? 'fa-sun' : 'fa-moon'}"></i>`;
-      });
-
-      // Lang
-      const langBtn = document.getElementById('lang-toggle');
-      langBtn?.addEventListener('click', toggleLanguage);
-
-      // Search
-      setupSearchFeature();
-
-      // Fullscreen
-      const fsBtn = document.getElementById('fullscreen-toggle');
-      fsBtn?.addEventListener('click', () => { if (!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); });
-
-      // Data actions
-      document.getElementById('btn-delete-old')?.addEventListener('click', deleteOldData);
-      document.getElementById('btn-export')?.addEventListener('click', exportData);
-
-      // Chat
-      document.getElementById('chat-send')?.addEventListener('click', sendMessage);
-      document.getElementById('chat-input')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-
-      // Keyboard shortcut: Ctrl+K for chat
-      document.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-          e.preventDefault();
-          toggleChat(true);
-          document.getElementById('chat-input')?.focus();
+        // ===== UTILITY FUNCTIONS =====
+        function setText(id, text) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = text;
         }
-      });
-    }
 
-    function toggleLanguage() {
-      currentLang = currentLang === 'th' ? 'en' : 'th';
-      const btn = document.querySelector('#lang-toggle span');
-      if (btn) btn.textContent = currentLang === 'th' ? 'ไทย' : 'EN';
-      document.querySelectorAll('[data-th][data-en]')?.forEach(el => {
-        const text = currentLang === 'th' ? el.getAttribute('data-th') : el.getAttribute('data-en');
-        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = text; else el.textContent = text;
-      });
-    }
-
-    function setupSearchFeature() {
-      const toggle = document.getElementById('search-toggle');
-      const overlay = document.getElementById('search-overlay');
-      const closeBtn = document.getElementById('close-search');
-      const input = document.getElementById('search-input');
-      const results = document.getElementById('search-results');
-
-      const open = () => { overlay?.classList.remove('hidden'); setTimeout(() => input?.focus(), 100); };
-      const close = () => { overlay?.classList.add('hidden'); input.value = ''; results.innerHTML = ''; };
-
-      toggle?.addEventListener('click', open);
-      closeBtn?.addEventListener('click', close);
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
-      input?.addEventListener('input', (e) => performSearch(e.target.value.trim(), results));
-    }
-
-    function performSearch(query, resultsEl) {
-      if (!resultsEl) return;
-      resultsEl.innerHTML = '';
-      if (!query) return;
-
-      const items = [];
-      const q = query.toLowerCase();
-      if (q.includes('นก') || q.includes('bird')) items.push({ label: 'Bird Counters', action: () => scrollToId('birds-in') });
-      if (q.includes('security') || q.includes('ผู้บุกรุก') || q.includes('intruder')) items.push({ label: 'Intruders', action: () => scrollToId('intruders-detected') });
-      if (q.includes('สถิติ') || q.includes('stats') || q.includes('chart')) items.push({ label: 'Realtime Chart', action: () => scrollToId('realtime-chart') });
-
-      items.forEach(it => {
-        const row = document.createElement('div');
-        row.className = 'p-2 rounded hover:bg-white/10 cursor-pointer';
-        row.textContent = it.label;
-        row.onclick = () => { it.action(); document.getElementById('search-overlay')?.classList.add('hidden'); };
-        resultsEl.appendChild(row);
-      });
-    }
-
-    function scrollToId(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-
-    function toggleChat(forceOpen = false) {
-      const body = document.getElementById('chat-body');
-      if (!body) return;
-      if (forceOpen) body.classList.remove('hidden'); else body.classList.toggle('hidden');
-    }
-
-    function updateTime() {
-      const now = new Date();
-      const t = now.toLocaleTimeString('th-TH');
-      const el = document.getElementById('current-time'); if (el) el.textContent = t;
-      const st = document.getElementById('stream-time'); if (st) st.textContent = t;
-    }
-
-    // Charts
-    function initCharts() {
-      const rtCtx = document.getElementById('realtime-chart')?.getContext('2d');
-      const hrCtx = document.getElementById('hourly-chart')?.getContext('2d');
-      if (rtCtx) {
-        realtimeChart = new Chart(rtCtx, {
-          type: 'line',
-          data: { datasets: [{ label: 'Detections', data: [], borderColor: '#00D4FF', backgroundColor: 'rgba(0,212,255,.12)', fill: true, tension: .35 }] },
-          options: {
-            responsive: true, parsing: false,
-            scales: {
-              x: { type: 'time', time: { unit: 'minute' }, grid: { color: 'rgba(255,255,255,.1)' }, ticks: { color: 'rgba(255,255,255,.8)' } },
-              y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,.08)' }, ticks: { color: 'rgba(255,255,255,.8)', precision: 0 } }
-            },
-            plugins: { legend: { labels: { color: 'rgba(255,255,255,.85)' } } }
-          }
-        });
-      }
-      if (hrCtx) {
-        hourlyChart = new Chart(hrCtx, {
-          type: 'bar',
-          data: { labels: Array.from({ length: 24 }, (_, i) => `${i}:00`), datasets: [{ label: 'Per Hour', data: new Array(24).fill(0), backgroundColor: 'rgba(139,92,246,.5)' }] },
-          options: {
-            responsive: true,
-            scales: {
-              x: { grid: { color: 'rgba(255,255,255,.06)' }, ticks: { color: 'rgba(255,255,255,.8)' } },
-              y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,.08)' }, ticks: { color: 'rgba(255,255,255,.8)', precision: 0 } }
-            },
-            plugins: { legend: { labels: { color: 'rgba(255,255,255,.85)' } } }
-          }
-        });
-      }
-    }
-
-    function updateRealtimeChartPoint(y) {
-      if (!realtimeChart) return;
-      const ds = realtimeChart.data.datasets[0];
-      ds.data.push({ x: new Date(), y });
-      const cutoff = Date.now() - 60 * 60 * 1000; // 1h
-      ds.data = ds.data.filter(p => new Date(p.x).getTime() >= cutoff);
-      realtimeChart.update('none');
-    }
-
-    function updateHourlyChartData(arr) { if (!hourlyChart || !Array.isArray(arr)) return; hourlyChart.data.datasets[0].data = arr.slice(0, 24); hourlyChart.update(); }
-
-    // Data loaders
-    function loadInitialData() { updateRealTimeData(); loadNotifications(); loadAnomalyData(); loadDatabaseStats(); }
-
-    function updateRealTimeData() {
-      fetch('/api/stats').then(r => r.json()).then(data => {
-        if (data) {
-          setText('birds-in', data.birds_in ?? 0);
-          setText('birds-out', data.birds_out ?? 0);
-          setText('birds-remaining', data.birds_remaining ?? 0);
-          setText('intruders-detected', data.intruders ?? 0);
-          setText('processing-speed', data.fps ? `${data.fps} FPS` : '-');
-          setText('accuracy-rate', data.accuracy ? `${data.accuracy}%` : '-');
-          setText('memory-usage', data.memory ? `${data.memory}%` : '-');
-          if (typeof data.current_detection === 'number') updateRealtimeChartPoint(data.current_detection);
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('th-TH');
+            setText('current-time', timeString);
+            setText('stream-time', timeString);
         }
-      }).catch(console.error);
 
-      fetch('/api/statistics').then(r => r.json()).then(data => { if (data?.hourly) updateHourlyChartData(data.hourly); }).catch(console.error);
-    }
+        // ===== THEME MANAGEMENT =====
+        function setupUI() {
+            const html = document.documentElement;
+            const body = document.body;
+            const themeBtn = document.getElementById('theme-toggle');
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            isDark = savedTheme === 'dark';
+            
+            // Apply theme
+            applyTheme();
+            
+            // Update theme button
+            const updateThemeIcon = () => {
+                if (themeBtn) {
+                    themeBtn.innerHTML = `<i class="fas ${isDark ? 'fa-sun text-yellow-400' : 'fa-moon text-blue-400'} text-lg"></i>`;
+                    themeBtn.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+                }
+            };
+            updateThemeIcon();
+            
+            themeBtn?.addEventListener('click', () => {
+                isDark = !isDark;
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                applyTheme();
+                updateThemeIcon();
+                
+                // Update charts
+                if (realtimeChart) updateChartTheme();
+                if (hourlyChart) updateChartTheme();
+            });
+        }
 
-    function loadNotifications() {
-      fetch('/api/notifications').then(r => r.json()).then(list => {
-        const box = document.getElementById('notifications'); if (!box) return; box.innerHTML = '';
-        (list || []).slice(0, 20).forEach(n => {
-          const row = document.createElement('div');
-          row.className = 'p-3 rounded border border-white/10 bg-white/5 flex items-start gap-2';
-          row.innerHTML = `<div class=\"w-2 h-2 rounded-full mt-1 ${n.level === 'error' ? 'bg-red-500' : n.level === 'warning' ? 'bg-orange-500' : 'bg-cyan-400'}\"></div>
-                           <div><div class=\"text-sm\">${escapeHtml(n.title || 'Notification')}</div>
-                           <div class=\"text-xs text-gray-300\">${escapeHtml(n.message || '')}</div></div>`;
-          box.appendChild(row);
+        function applyTheme() {
+            const html = document.documentElement;
+            const body = document.body;
+            
+            if (isDark) {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                html.setAttribute('data-theme', 'dark');
+                body.className = body.className.replace('light', 'dark');
+            } else {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                html.setAttribute('data-theme', 'light');
+                body.className = body.className.replace('dark', 'light');
+            }
+        }
+
+        function updateChartTheme() {
+            // Update existing charts with new theme colors
+            const colors = getChartColors();
+            
+            if (realtimeChart) {
+                realtimeChart.options.scales.x.grid.color = colors.grid;
+                realtimeChart.options.scales.x.ticks.color = colors.ticks;
+                realtimeChart.options.scales.y.grid.color = colors.grid;
+                realtimeChart.options.scales.y.ticks.color = colors.ticks;
+                realtimeChart.options.plugins.legend.labels.color = colors.legend;
+                realtimeChart.update();
+            }
+            
+            if (hourlyChart) {
+                hourlyChart.options.scales.x.grid.color = colors.grid;
+                hourlyChart.options.scales.x.ticks.color = colors.ticks;
+                hourlyChart.options.scales.y.grid.color = colors.grid;
+                hourlyChart.options.scales.y.ticks.color = colors.ticks;
+                hourlyChart.options.plugins.legend.labels.color = colors.legend;
+                hourlyChart.update();
+            }
+        }
+
+        // ===== CHART MANAGEMENT =====
+        function getChartColors() {
+            return {
+                primary: '#00D4FF',
+                secondary: '#8B5CF6',
+                background: isDark ? 'rgba(0, 212, 255, 0.1)' : 'rgba(0, 212, 255, 0.2)',
+                barBackground: isDark ? 'rgba(139, 92, 246, 0.3)' : 'rgba(139, 92, 246, 0.4)',
+                grid: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                ticks: isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+                legend: isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.9)'
+            };
+        }
+
+        function initCharts() {
+            const rtCtx = document.getElementById('realtime-chart')?.getContext('2d');
+            const hrCtx = document.getElementById('hourly-chart')?.getContext('2d');
+            
+            if (rtCtx) {
+                const colors = getChartColors();
+                realtimeChart = new Chart(rtCtx, {
+                    type: 'line',
+                    data: { 
+                        datasets: [{ 
+                            label: 'Real-time Detections', 
+                            data: [], 
+                            borderColor: colors.primary,
+                            backgroundColor: colors.background,
+                            fill: true, 
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            borderWidth: 3
+                        }] 
+                    },
+                    options: {
+                        responsive: true, 
+                        maintainAspectRatio: false,
+                        parsing: false,
+                        plugins: {
+                            legend: { 
+                                labels: { 
+                                    color: colors.legend,
+                                    font: { family: 'Poppins', size: 12 }
+                                } 
+                            },
+                            tooltip: {
+                                backgroundColor: isDark ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.95)',
+                                titleColor: isDark ? '#FFFFFF' : '#000000',
+                                bodyColor: isDark ? '#FFFFFF' : '#000000',
+                                borderColor: colors.primary,
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            x: { 
+                                type: 'time', 
+                                time: { unit: 'minute' }, 
+                                grid: { color: colors.grid }, 
+                                ticks: { color: colors.ticks, font: { family: 'Poppins' } } 
+                            },
+                            y: { 
+                                beginAtZero: true, 
+                                grid: { color: colors.grid }, 
+                                ticks: { color: colors.ticks, precision: 0, font: { family: 'Poppins' } } 
+                            }
+                        },
+                        animation: {
+                            duration: 750,
+                            easing: 'easeInOutQuart'
+                        }
+                    }
+                });
+            }
+            
+            if (hrCtx) {
+                const colors = getChartColors();
+                hourlyChart = new Chart(hrCtx, {
+                    type: 'bar',
+                    data: { 
+                        labels: Array.from({ length: 24 }, (_, i) => `${i}:00`), 
+                        datasets: [{ 
+                            label: 'Detections per Hour', 
+                            data: new Array(24).fill(0), 
+                            backgroundColor: colors.barBackground,
+                            borderColor: colors.secondary,
+                            borderWidth: 2,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        }] 
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { 
+                                labels: { 
+                                    color: colors.legend,
+                                    font: { family: 'Poppins', size: 12 }
+                                } 
+                            },
+                            tooltip: {
+                                backgroundColor: isDark ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.95)',
+                                titleColor: isDark ? '#FFFFFF' : '#000000',
+                                bodyColor: isDark ? '#FFFFFF' : '#000000',
+                                borderColor: colors.secondary,
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            x: { 
+                                grid: { color: colors.grid }, 
+                                ticks: { color: colors.ticks, font: { family: 'Poppins' } } 
+                            },
+                            y: { 
+                                beginAtZero: true, 
+                                grid: { color: colors.grid }, 
+                                ticks: { color: colors.ticks, precision: 0, font: { family: 'Poppins' } } 
+                            }
+                        },
+                        animation: {
+                            duration: 750,
+                            easing: 'easeInOutQuart'
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateChartTheme() {
+            const colors = getChartColors();
+            
+            if (realtimeChart) {
+                realtimeChart.data.datasets[0].borderColor = colors.primary;
+                realtimeChart.data.datasets[0].backgroundColor = colors.background;
+                realtimeChart.options.scales.x.grid.color = colors.grid;
+                realtimeChart.options.scales.x.ticks.color = colors.ticks;
+                realtimeChart.options.scales.y.grid.color = colors.grid;
+                realtimeChart.options.scales.y.ticks.color = colors.ticks;
+                realtimeChart.options.plugins.legend.labels.color = colors.legend;
+                realtimeChart.update('none');
+            }
+
+            if (hourlyChart) {
+                hourlyChart.data.datasets[0].backgroundColor = colors.barBackground;
+                hourlyChart.data.datasets[0].borderColor = colors.secondary;
+                hourlyChart.options.scales.x.grid.color = colors.grid;
+                hourlyChart.options.scales.x.ticks.color = colors.ticks;
+                hourlyChart.options.scales.y.grid.color = colors.grid;
+                hourlyChart.options.scales.y.ticks.color = colors.ticks;
+                hourlyChart.options.plugins.legend.labels.color = colors.legend;
+                hourlyChart.update('none');
+            }
+        }
+
+        function updateRealtimeChartPoint(y) {
+            if (!realtimeChart) return;
+            const ds = realtimeChart.data.datasets[0];
+            ds.data.push({ x: new Date(), y });
+            const cutoff = Date.now() - 60 * 60 * 1000; // 1 hour
+            ds.data = ds.data.filter(p => new Date(p.x).getTime() >= cutoff);
+            realtimeChart.update('none');
+        }
+
+        function updateHourlyChartData(arr) { 
+            if (!hourlyChart || !Array.isArray(arr)) return; 
+            hourlyChart.data.datasets[0].data = arr.slice(0, 24); 
+            hourlyChart.update(); 
+        }
+
+        // ===== DATA MANAGEMENT =====
+        function loadInitialData() { 
+            updateRealTimeData(); 
+        }
+
+        function updateRealTimeData() {
+            fetch('/api/stats').then(r => r.json()).then(data => {
+                if (data) {
+                    setText('birds-detected', data.birds_detected ?? 0);
+                    setText('birds-in-nest', data.birds_in_nest ?? 0);
+                    setText('birds-out', data.birds_out ?? 0);
+                    setText('intruders-detected', data.intruders_detected ?? 0);
+                    setText('processing-speed', data.fps ? `${data.fps} FPS` : '--');
+                    setText('accuracy-rate', data.accuracy ? `${data.accuracy}%` : '--');
+                    setText('memory-usage', data.memory ? `${data.memory}%` : '--');
+                    
+                    if (typeof data.current_detection === 'number') updateRealtimeChartPoint(data.current_detection);
+                    
+                    // Auto-refresh video stream every 30 seconds
+                    refreshVideoStream();
+                }
+            }).catch(console.error);
+
+            fetch('/api/statistics').then(r => r.json()).then(data => { 
+                if (data?.hourly) updateHourlyChartData(data.hourly); 
+            }).catch(console.error);
+        }
+
+        // Video stream management function
+        function refreshVideoStream() {
+            const videoElement = document.getElementById('video-stream');
+            if (videoElement) {
+                const timestamp = new Date().getTime();
+                videoElement.src = `/video_feed?t=${timestamp}`;
+            }
+        }
+
+        // ===== FLOATING PARTICLES =====
+        function createFloatingParticles() {
+            const container = document.querySelector('.floating-particles');
+            if (!container) return;
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // ===== CONTROL FUNCTIONS =====
+        function toggleDetection() {
+            fetch('/api/toggle-detection', { method: 'POST' })
+                .then(r => r.json())
+                .then(data => {
+                    console.log('Detection toggled:', data);
+                    updateRealTimeData();
+                })
+                .catch(console.error);
+        }
+
+        function toggleRecording() {
+            fetch('/api/toggle-recording', { method: 'POST' })
+                .then(r => r.json())
+                .then(data => {
+                    console.log('Recording toggled:', data);
+                })
+                .catch(console.error);
+        }
+
+        function resetStats() {
+            if (confirm('คุณต้องการรีเซ็ตสถิติทั้งหมดหรือไม่?')) {
+                fetch('/api/reset-stats', { method: 'POST' })
+                    .then(r => r.json())
+                    .then(data => {
+                        console.log('Stats reset:', data);
+                        updateRealTimeData();
+                    })
+                    .catch(console.error);
+            }
+        }
+
+        // ===== CHATBOT FUNCTIONS =====
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addChatMessage(message, 'user');
+            input.value = '';
+            
+            // Send to backend
+            fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message })
+            })
+            .then(r => r.json())
+            .then(data => {
+                // Add bot response
+                setTimeout(() => {
+                    addChatMessage(data.response, 'bot');
+                }, 500);
+            })
+            .catch(err => {
+                console.error('Chat error:', err);
+                addChatMessage('ขออภัย เกิดข้อผิดพลาดในการตอบสนอง', 'bot');
+            });
+        }
+
+        function quickChat(message) {
+            document.getElementById('chat-input').value = message;
+            sendMessage();
+        }
+
+        function addChatMessage(message, type) {
+            const container = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            const now = new Date().toLocaleTimeString('th-TH');
+            
+            if (type === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="flex items-start space-x-3 justify-end">
+                        <div class="bg-blue-600/30 rounded-lg px-3 py-2 max-w-xs">
+                            <div class="text-sm text-blue-200">${message}</div>
+                            <div class="text-xs text-gray-400 mt-1">${now}</div>
+                        </div>
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-user text-white text-sm"></i>
+                        </div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-robot text-white text-sm"></i>
+                        </div>
+                        <div class="bg-green-600/20 rounded-lg px-3 py-2 max-w-xs">
+                            <div class="text-sm text-green-300">${message}</div>
+                            <div class="text-xs text-gray-400 mt-1">${now}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // ===== ALERTS MANAGEMENT =====
+        function addAlert(type, title, message, timestamp = null) {
+            const container = document.getElementById('alerts-container');
+            const alertDiv = document.createElement('div');
+            const time = timestamp || new Date().toLocaleTimeString('th-TH');
+            
+            const colors = {
+                'danger': { bg: 'red-900/30', border: 'red-500/30', icon: 'red-600', text: 'red-300', iconClass: 'fas fa-exclamation-triangle' },
+                'warning': { bg: 'yellow-900/30', border: 'yellow-500/30', icon: 'yellow-600', text: 'yellow-300', iconClass: 'fas fa-warning' },
+                'info': { bg: 'blue-900/30', border: 'blue-500/30', icon: 'blue-600', text: 'blue-300', iconClass: 'fas fa-info-circle' },
+                'success': { bg: 'green-900/30', border: 'green-500/30', icon: 'green-600', text: 'green-300', iconClass: 'fas fa-check-circle' }
+            };
+            
+            const color = colors[type] || colors['info'];
+            
+            alertDiv.className = `flex items-center p-3 bg-${color.bg} border border-${color.border} rounded-lg alert-item`;
+            alertDiv.innerHTML = `
+                <div class="flex-shrink-0 w-12 h-12 bg-${color.icon} rounded-full flex items-center justify-center mr-4">
+                    <i class="${color.iconClass} text-white"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="text-sm font-semibold text-${color.text}">${title}</div>
+                    <div class="text-xs text-gray-400">${message}</div>
+                    <div class="text-xs text-${color.text} mt-1">${time}</div>
+                </div>
+                <button class="p-2 text-${color.text} hover:text-${color.text.replace('-300', '-200')} transition-colors" onclick="removeAlert(this)">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.insertBefore(alertDiv, container.firstChild);
+            
+            // Auto remove after 10 seconds for non-critical alerts
+            if (type !== 'danger') {
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        removeAlert(alertDiv.querySelector('button'));
+                    }
+                }, 10000);
+            }
+        }
+
+        function removeAlert(button) {
+            const alertItem = button.closest('.alert-item');
+            if (alertItem) {
+                alertItem.style.transform = 'translateX(100%)';
+                alertItem.style.opacity = '0';
+                setTimeout(() => {
+                    alertItem.remove();
+                    checkNoAlerts();
+                }, 300);
+            }
+        }
+
+        function checkNoAlerts() {
+            const container = document.getElementById('alerts-container');
+            const noAlertsMsg = document.getElementById('no-alerts');
+            if (container.children.length === 0) {
+                noAlertsMsg.classList.remove('hidden');
+            } else {
+                noAlertsMsg.classList.add('hidden');
+            }
+        }
+
+        // ===== SYSTEM MONITORING =====
+        function updateSystemInfo() {
+            fetch('/api/system-info')
+                .then(r => r.json())
+                .then(data => {
+                    setText('system-status', data.status || 'ปกติ');
+                    setText('system-uptime', data.uptime || '00:00:00');
+                    setText('cpu-temp', data.temperature || '45°C');
+                    setText('network-status', data.network || 'เชื่อมต่อ');
+                })
+                .catch(console.error);
+        }
+
+        // ===== ENHANCED ANOMALY DETECTION =====
+        function fetchAnomalyData() {
+            Promise.all([
+                fetch('/api/anomaly-alerts').then(r => r.json()),
+                fetch('/api/live-detections').then(r => r.json())
+            ])
+            .then(([anomalyData, liveData]) => {
+                updateAnomalyAlerts(anomalyData);
+                updateLiveDetections(liveData);
+            })
+            .catch(err => {
+                console.error('Error fetching anomaly data:', err);
+                addAlert('warning', 'ข้อมูลสิ่งแปลกปลอม', 'ไม่สามารถโหลดข้อมูลล่าสุดได้');
+            });
+        }
+
+        function updateAnomalyAlerts(data) {
+            if (!data || !data.alerts) return;
+            
+            // Update comprehensive anomaly statistics
+            setText('total-anomalies', data.total_anomalies || 0);
+            setText('today-anomalies', data.today_anomalies || 0);
+            setText('critical-alerts', data.critical_alerts || 0);
+            setText('total-alerts', data.total_alerts || 0);
+            
+            // Update system status indicator
+            const systemStatus = data.system_status || {};
+            updateSystemStatus(systemStatus);
+            
+            // Process new alerts for notifications
+            if (data.recent_alerts && data.recent_alerts.length > 0) {
+                data.recent_alerts.forEach(alert => {
+                    if (alert.is_new) {
+                        const alertType = alert.severity === 'HIGH' ? 'danger' : 
+                                        alert.severity === 'MEDIUM' ? 'warning' : 'info';
+                        
+                        const title = getAlertTitle(alert.alert_type, alert.object_detected);
+                        const message = `${alert.description} | ตำแหน่ง: ${alert.location} | ความมั่นใจ: ${(alert.confidence * 100).toFixed(1)}%`;
+                        
+                        addAlert(alertType, title, message, alert.timestamp);
+                        
+                        // เพิ่มเสียงแจ้งเตือนสำหรับการตรวจจับที่สำคัญ
+                        if (alert.severity === 'HIGH') {
+                            playAlertSound();
+                        }
+                    }
+                });
+            }
+        }
+
+        function getAlertTitle(alertType, objectDetected) {
+            const titles = {
+                'PERSON_DETECTED': `🚨 ตรวจพบบุคคล!`,
+                'VEHICLE_DETECTED': `🚗 ตรวจพบยานพาหนะ`,
+                'BIRD_ACTIVITY': `🦅 กิจกรรมนก`,
+                'SYSTEM_PERFORMANCE': `⚠️ ประสิทธิภาพระบบ`,
+                'NORMAL_DETECTION': `📱 การตรวจจับทั่วไป`
+            };
+            
+            return titles[alertType] || `🔍 ตรวจพบ ${objectDetected}`;
+        }
+
+        function updateSystemStatus(systemStatus) {
+            const statusElement = document.getElementById('ai-connection-status');
+            if (statusElement) {
+                const isConnected = systemStatus.ai_connected && systemStatus.database_connected;
+                statusElement.textContent = isConnected ? 'เชื่อมต่อ' : 'ตัดการเชื่อมต่อ';
+                statusElement.className = isConnected ? 'text-green-400' : 'text-red-400';
+            }
+            
+            // Update alert level indicator
+            const alertLevelElement = document.getElementById('alert-level');
+            if (alertLevelElement) {
+                const level = systemStatus.alert_level || 'LOW';
+                alertLevelElement.textContent = level;
+                alertLevelElement.className = level === 'HIGH' ? 'text-red-400' : 
+                                             level === 'MEDIUM' ? 'text-yellow-400' : 'text-green-400';
+            }
+        }
+
+        function updateLiveDetections(data) {
+            if (!data || !data.detections) return;
+            
+            // Update detection overlay on video
+            updateVideoOverlay(data.detections);
+            
+            // Update comprehensive detection statistics
+            setText('active-detections', data.detections.length);
+            setText('detection-confidence', data.avg_confidence ? `${(data.avg_confidence * 100).toFixed(1)}%` : '--');
+            
+            // Update AI status information
+            if (data.ai_status) {
+                updateAIStatus(data.ai_status);
+            }
+            
+            // Update detection breakdown by type
+            updateDetectionBreakdown(data.detections);
+        }
+
+        function updateDetectionBreakdown(detections) {
+            const breakdown = {
+                person: 0,
+                vehicle: 0,
+                animal: 0,
+                object: 0
+            };
+            
+            detections.forEach(detection => {
+                const type = detection.detection_type || 'object';
+                if (breakdown.hasOwnProperty(type)) {
+                    breakdown[type]++;
+                } else {
+                    breakdown.object++;
+                }
+            });
+            
+            // Update breakdown display
+            setText('person-count', breakdown.person);
+            setText('vehicle-count', breakdown.vehicle);
+            setText('animal-count', breakdown.animal);
+            setText('object-count', breakdown.object);
+        }
+
+        function updateAIStatus(aiStatus) {
+            // Update AI connection status
+            const connectionElement = document.getElementById('ai-connection');
+            if (connectionElement) {
+                connectionElement.textContent = aiStatus.connected ? 'เชื่อมต่อ' : 'ตัดการเชื่อมต่อ';
+                connectionElement.className = aiStatus.connected ? 'text-green-400' : 'text-red-400';
+            }
+            
+            // Update processing status
+            const processingElement = document.getElementById('ai-processing');
+            if (processingElement) {
+                processingElement.textContent = aiStatus.processing ? 'กำลังประมวลผล' : 'รอข้อมูล';
+                processingElement.className = aiStatus.processing ? 'text-blue-400' : 'text-gray-400';
+            }
+            
+            // Update FPS display
+            if (aiStatus.fps) {
+                setText('ai-fps', `${aiStatus.fps.toFixed(1)} FPS`);
+            }
+        }
+
+        function updateVideoOverlay(detections) {
+            // Remove existing overlay
+            const existingOverlay = document.querySelector('.detection-overlay');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
+            
+            if (!detections || detections.length === 0) return;
+            
+            // Create new overlay
+            const videoContainer = document.querySelector('.video-container');
+            if (!videoContainer) return;
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'detection-overlay absolute inset-0 pointer-events-none';
+            overlay.style.zIndex = '10';
+            
+            detections.forEach((detection, index) => {
+                // Create detection box
+                const bbox = document.createElement('div');
+                const detectionType = detection.detection_type || 'object';
+                
+                // Set colors based on detection type
+                let borderColor = '#fbbf24'; // default yellow
+                let bgColor = 'rgba(251, 191, 36, 0.2)';
+                let labelBg = '#fbbf24';
+                
+                if (detectionType === 'person') {
+                    borderColor = '#ef4444'; // red for person
+                    bgColor = 'rgba(239, 68, 68, 0.2)';
+                    labelBg = '#ef4444';
+                } else if (detectionType === 'vehicle') {
+                    borderColor = '#f59e0b'; // orange for vehicle
+                    bgColor = 'rgba(245, 158, 11, 0.2)';
+                    labelBg = '#f59e0b';
+                } else if (detectionType === 'animal') {
+                    borderColor = '#10b981'; // green for animal
+                    bgColor = 'rgba(16, 185, 129, 0.2)';
+                    labelBg = '#10b981';
+                }
+                
+                bbox.className = 'detection-box absolute';
+                bbox.style.border = `3px solid ${borderColor}`;
+                bbox.style.backgroundColor = bgColor;
+                bbox.style.borderRadius = '6px';
+                bbox.style.boxShadow = `0 0 15px ${borderColor}50`;
+                
+                // Convert coordinates (ensure they're within bounds)
+                const x = Math.max(0, Math.min(95, detection.x || 0));
+                const y = Math.max(0, Math.min(95, detection.y || 0)); 
+                const width = Math.max(5, Math.min(50, detection.width || 10));
+                const height = Math.max(5, Math.min(50, detection.height || 10));
+                
+                bbox.style.left = `${x}%`;
+                bbox.style.top = `${y}%`;
+                bbox.style.width = `${width}%`;
+                bbox.style.height = `${height}%`;
+                
+                // Add comprehensive label with object info
+                const label = document.createElement('div');
+                label.className = 'detection-label absolute -top-8 left-0 px-3 py-1 text-xs font-bold text-white rounded-md shadow-lg';
+                label.style.backgroundColor = labelBg;
+                label.style.minWidth = '80px';
+                label.style.whiteSpace = 'nowrap';
+                
+                const confidence = Math.round((detection.confidence || 0) * 100);
+                const objectName = detection.object_type || detectionType;
+                const threatLevel = detection.threat_score || 0;
+                
+                // Create detailed label text
+                let labelText = `${objectName} ${confidence}%`;
+                if (threatLevel > 5) {
+                    labelText += ` ⚠️`;
+                }
+                if (detection.tracking_id) {
+                    labelText += ` #${detection.tracking_id.slice(-3)}`;
+                }
+                
+                label.textContent = labelText;
+                
+                // Add threat level indicator
+                if (threatLevel >= 8) {
+                    const threatIndicator = document.createElement('div');
+                    threatIndicator.className = 'absolute -top-2 -right-2 w-4 h-4 bg-red-500 rounded-full border-2 border-white';
+                    threatIndicator.style.animation = 'pulse 2s infinite';
+                    bbox.appendChild(threatIndicator);
+                }
+                
+                // Add detection info panel (appears on hover)
+                const infoPanel = document.createElement('div');
+                infoPanel.className = 'detection-info absolute top-full left-0 mt-1 bg-black bg-opacity-80 text-white text-xs p-2 rounded hidden';
+                infoPanel.style.minWidth = '150px';
+                infoPanel.innerHTML = `
+                    <div>ประเภท: ${objectName}</div>
+                    <div>ความมั่นใจ: ${confidence}%</div>
+                    <div>ระดับภัย: ${threatLevel}/10</div>
+                    <div>เวลา: ${new Date(detection.timestamp).toLocaleTimeString('th-TH')}</div>
+                    ${detection.location_desc ? `<div>ตำแหน่ง: ${detection.location_desc}</div>` : ''}
+                `;
+                
+                // Show info on hover
+                bbox.addEventListener('mouseenter', () => {
+                    infoPanel.classList.remove('hidden');
+                });
+                bbox.addEventListener('mouseleave', () => {
+                    infoPanel.classList.add('hidden');
+                });
+                
+                bbox.appendChild(label);
+                bbox.appendChild(infoPanel);
+                overlay.appendChild(bbox);
+                
+                // Add pulsing animation for high-threat detections
+                if (threatLevel >= 8) {
+                    bbox.style.animation = 'detectPulse 1s ease-in-out infinite alternate';
+                }
+            });
+            
+            videoContainer.appendChild(overlay);
+            
+            // Auto-remove overlay after 8 seconds if no new detections
+            setTimeout(() => {
+                if (overlay.parentNode && detections.length === 0) {
+                    overlay.remove();
+                }
+            }, 8000);
+        }
+
+        // Add sound alert function
+        function playAlertSound() {
+            try {
+                // Create audio context for alert sound
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(600, audioContext.currentTime + 0.1);
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime + 0.2);
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (error) {
+                console.log('Audio alert not available:', error);
+            }
+        }
+
+        // ===== ENHANCED ALERTS MANAGEMENT =====
+        function fetchEnhancedAlerts() {
+            fetch('/api/enhanced-security-alerts')
+                .then(r => r.json())
+                .then(data => {
+                    if (!data || !data.alerts) return;
+                    
+                    // Update alert statistics
+                    setText('total-alerts', data.total_alerts || 0);
+                    setText('critical-alerts', data.critical_alerts || 0);
+                    
+                    // Process new enhanced alerts
+                    data.alerts.forEach(alert => {
+                        if (alert.is_new) {
+                            const alertType = alert.severity === 'critical' ? 'danger' : 
+                                            alert.severity === 'high' ? 'warning' : 'info';
+                            
+                            addAlert(alertType, alert.title, alert.description, alert.timestamp);
+                        }
+                    });
+                })
+                .catch(err => {
+                    console.error('Error fetching enhanced alerts:', err);
+                });
+        }
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            setupUI();
+            initCharts();
+            loadInitialData();
+            updateTime();
+            createFloatingParticles();
+            checkNoAlerts();
+            
+            // Set intervals for data updates
+            setInterval(updateTime, 1000);
+            setInterval(updateRealTimeData, 5000);
+            setInterval(updateSystemInfo, 10000);
+            setInterval(fetchAnomalyData, 3000);      // Enhanced anomaly detection every 3 seconds
+            setInterval(fetchEnhancedAlerts, 7000);   // Enhanced alerts every 7 seconds
+            
+            // Demo alerts (remove in production)
+            setTimeout(() => addAlert('info', 'ระบบเริ่มต้น', 'ระบบ AI เริ่มต้นเรียบร้อยแล้ว'), 2000);
+            setTimeout(() => addAlert('success', 'เชื่อมต่อกล้อง', 'เชื่อมต่อกล้องสำเร็จ'), 3000);
         });
-      }).catch(console.error);
-    }
 
-    function loadAnomalyData() {
-      fetch('/api/anomaly-images').then(r => r.json()).then(list => {
-        const grid = document.getElementById('anomaly-gallery'); if (!grid) return; grid.innerHTML = '';
-        (list || []).slice(0, 24).forEach(src => {
-          const img = document.createElement('img'); img.src = src; img.alt = 'Anomaly'; img.className = 'w-full h-28 object-cover rounded'; grid.appendChild(img);
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 't') {
+                e.preventDefault();
+                document.getElementById('theme-toggle')?.click();
+            }
         });
-      }).catch(console.error);
-    }
-
-    function loadDatabaseStats() { fetch('/api/database-stats').then(r => r.json()).then(data => setText('oldest-data', data?.oldest_date || '-')).catch(console.error); }
-
-    // Actions
-    function deleteOldData() {
-      const days = parseInt(document.getElementById('retention-period').value || '7', 10);
-      const ok = confirm(currentLang === 'th' ? `ลบข้อมูลย้อนหลัง ${days} วันหรือไม่?` : `Delete data older than ${days} days?`);
-      if (!ok) return;
-      fetch('/api/delete-data', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ days }) })
-        .then(r => r.json()).then(() => loadDatabaseStats()).catch(() => alert('Failed'));
-    }
-
-    function exportData() { const ok = confirm(currentLang === 'th' ? 'ต้องการส่งออกข้อมูลทั้งหมดหรือไม่?' : 'Export all data?'); if (ok) window.open('/api/export-data', '_blank'); }
-
-    // Chat
-    function sendMessage() {
-      const input = document.getElementById('chat-input'); const msg = (input?.value || '').trim(); if (!msg) return;
-      addChatMessage(msg, 'user'); input.value = ''; addTyping();
-      fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg, lang: currentLang }) })
-        .then(r => r.json()).then(d => { removeTyping(); addChatMessage(d?.response || 'No response', 'bot'); })
-        .catch(() => { removeTyping(); addChatMessage('Connection error', 'bot'); });
-    }
-
-    function addChatMessage(text, who) {
-      const box = document.getElementById('chat-messages'); if (!box) return;
-      const row = document.createElement('div'); row.className = `flex ${who === 'user' ? 'justify-end' : 'justify-start'}`;
-      row.innerHTML = `<div class=\"max-w-[80%] p-2 rounded ${who === 'user' ? 'bg-neon-blue/80 text-black' : 'bg-white/10 border border-white/10'}\">${escapeHtml(text)}</div>`;
-      box.appendChild(row); box.scrollTop = box.scrollHeight;
-    }
-
-    function addTyping() { addChatMessage('...', 'bot'); }
-    function removeTyping() { /* simplified */ }
-
-    <!-- ===== EXTERNAL JAVASCRIPT ===== -->
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    </script>
 </body>
 </html>

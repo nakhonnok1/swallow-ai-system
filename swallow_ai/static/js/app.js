@@ -1037,10 +1037,7 @@ window.exportAlerts = () => window.open('/api/export-alerts', '_blank');
 
 window.refreshAnomalyGallery = () => {
     showNotification('Gallery refreshed', 'success');
-window.refreshAnomalyGallery = () => {
-    showNotification('Gallery refreshed', 'success');
 };
 
 // ===== GLOBAL INITIALIZATION COMPLETE =====
 console.log('✨ Ultimate AI Bird Intelligence System V3.0 - Ready! ✨');
-
